@@ -1,8 +1,14 @@
 import './button.scss'
 
-export const Button = ({text}: { text: string }) => {
+interface buttonProps {
+    text: string;
+    onClick: () => void;
+
+}
+
+export const Button = ({text, onClick}: buttonProps) => {
     return (
-        <button className='button'>
+        <button className='button' onClick={onClick}>
             {text}
         </button>
     )

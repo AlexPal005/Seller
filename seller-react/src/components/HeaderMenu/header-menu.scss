@@ -1,18 +1,16 @@
 @import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
 
 .main-menu__list {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include reset-list;
+  @include flex-horizontal-center-space;
   color: white;
   position: relative;
 }
 
 .main-menu__item:not(:last-child) {
+  @include flex-horizontal-center;
   padding: 0 20px;
-  display: flex;
-  align-items: center;
   cursor: pointer;
 }
 

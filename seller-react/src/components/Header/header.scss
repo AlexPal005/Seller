@@ -1,10 +1,9 @@
 @import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
 
 .header {
-  padding: 0 120px;
+  @include padding-container;
+  @include flex-horizontal-center-space;
   background-color: $dark-grey;
   height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }

@@ -4,8 +4,13 @@ import {FiMessageSquare} from "react-icons/fi";
 import {FaRegHeart} from "react-icons/fa";
 import {RiAccountCircleLine} from "react-icons/ri";
 import {IoIosArrowDown} from "react-icons/io";
+import {useNavigate} from "react-router-dom";
 
 export const HeaderMenu = () => {
+    const navigate = useNavigate();
+    const redirectCreatePost = (): void => {
+        navigate('/create-post');
+    }
     return (
         <div className='main-menu'>
             <ul className='main-menu__list'>
@@ -22,7 +27,7 @@ export const HeaderMenu = () => {
                     <IoIosArrowDown className='main-menu__icon main-menu__icon-arrow'/>
                 </li>
                 <li className='main-menu__item'>
-                    <Button text={'Додати оголошення'}/>
+                    <Button text={'Додати оголошення'} onClick={redirectCreatePost}/>
                 </li>
             </ul>
         </div>

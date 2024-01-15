@@ -1,5 +1,7 @@
 @import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
 
 .logo {
+  @include reset-link;
   color: white;
 }

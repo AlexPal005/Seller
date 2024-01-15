@@ -1,7 +1,37 @@
 @import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+
+.link-footer-basic {
+  @include reset-link;
+  color: white;
+}
+
+.link-footer-basic:hover {
+  color: $grey;
+}
 
 .footer {
+  @include padding-container;
   background-color: $dark-grey;
-  height: 120px;
-  padding: 0 120px;
+  height: 150px;
+  padding-top: 20px;
+}
+
+.footer__creator-link {
+  @include horizontal-absolute-center;
+  @extend .link-footer-basic;
+  font-size: 16px;
+  bottom: 10px;
+}
+
+.footer__list-menu {
+  @include reset-list;
+}
+
+.footer__list-link {
+  @extend .link-footer-basic;
+}
+
+.footer__list-menu-item {
+  padding: 2px 0;
 }

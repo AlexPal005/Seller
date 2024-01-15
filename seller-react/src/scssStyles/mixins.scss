@@ -1,0 +1,35 @@
+@mixin padding-container {
+  padding: 0 120px;
+}
+
+@mixin reset-list {
+  list-style-type: none;
+}
+
+@mixin reset-link {
+  text-decoration: none;
+}
+
+@mixin horizontal-absolute-center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+@mixin flex-horizontal-center-space {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-horizontal-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin button-basic($color) {
+  background-color: $color;
+  cursor: pointer;
+  transition: background-color 500ms;
+  border-radius: 7px;
+}

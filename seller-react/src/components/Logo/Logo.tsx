@@ -1,4 +1,5 @@
 import './logo.scss'
+import {Link} from "react-router-dom";
 
 interface logoProps {
     logoSize: number;
@@ -12,7 +13,7 @@ export const Logo = ({logoSize}: logoProps) => {
 
     return (
         <>
-            <span style={logoStyleSize} className='logo'>Seller</span>
+            <Link style={logoStyleSize} className='logo' to='/'>Seller</Link>
         </>
     )
 }
