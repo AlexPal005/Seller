@@ -1,0 +1,10 @@
+@import "../../scssStyles/variables";
+
+.header {
+  padding: 0 120px;
+  background-color: $dark-grey;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

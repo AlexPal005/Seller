@@ -1,0 +1,38 @@
+@import "../../scssStyles/variables";
+
+.main-menu__list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+.main-menu__item:not(:last-child) {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.main-menu__item:last-child {
+  padding-left: 20px;
+}
+
+.main-menu__item:hover {
+  color: $grey;
+}
+
+.main-menu__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.main-menu__icon_margin_r {
+  margin-right: 10px;
+}
+
+.main-menu__icon-arrow {
+  margin-left: 10px;
+}
