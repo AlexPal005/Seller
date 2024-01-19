@@ -27,7 +27,7 @@ export const HeaderMenu = () => {
                     <IoIosArrowDown className='main-menu__icon main-menu__icon-arrow'/>
                 </li>
                 <li className='main-menu__item'>
-                    <Button text={'Додати оголошення'} onClick={redirectCreatePost}/>
+                    <Button text={'Додати оголошення'} onClick={redirectCreatePost} className='main-menu__button'/>
                 </li>
             </ul>
         </div>

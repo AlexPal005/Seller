@@ -1,3 +1,5 @@
+@import './variables';
+
 @mixin padding-container {
   padding: 0 120px;
 }
@@ -27,9 +29,14 @@
   align-items: center;
 }
 
-@mixin button-basic($color) {
-  background-color: $color;
-  cursor: pointer;
-  transition: background-color 500ms;
-  border-radius: 7px;
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin input-basic() {
+  border: none;
+  background-color: $light-blue;
+  border-radius: 6px;
 }

@@ -1,0 +1,54 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+
+.auth-container {
+  @include padding-container;
+  @include flex-center;
+}
+
+.auth-form {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 30px;
+}
+
+.auth-form__menu {
+  width: 250px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.auth-form__input {
+  @include input-basic;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 15px;
+}
+
+.auth-form__input:focus {
+  outline: none;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 2px solid black;
+}
+
+.auth-form__menu-item {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.auth-form__underline {
+  margin: 10px 0 25px;
+}
+
+.auth-form__description {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.auth-form__button {
+  padding: 10px 15px;
+  background-color: $grey;
+  width: 100%;
+  margin-top: 20px;
+}

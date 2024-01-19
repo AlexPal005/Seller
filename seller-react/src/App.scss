@@ -1,0 +1,6 @@
+@import "./scssStyles/variables";
+
+.content {
+  min-height: calc(100vh - 210px);
+  background-color: $light-grey;
+}
