@@ -12,10 +12,10 @@ export const Auth = () => {
                 <hr className='auth-form__underline'/>
 
                 <label htmlFor='email' className='auth-form__description'>Електронна пошта чи телефон</label>
-                <input id='email' className='auth-form__input'/>
+                <input id='email' className='auth-form__input' type='text'/>
 
                 <label htmlFor='password' className='auth-form__description'>Пароль</label>
-                <input id='password' className='auth-form__input'/>
+                <input id='password' className='auth-form__input' type = 'password'/>
 
                 <p>Забули пароль?</p>
 

@@ -37,6 +37,5 @@
 
 @mixin input-basic() {
   border: none;
-  background-color: $light-blue;
-  border-radius: 6px;
+  outline: none;
 }

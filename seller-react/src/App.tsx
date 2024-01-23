@@ -5,6 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import {CreatePost} from "./pages/CreatePost/CreatePost.tsx";
 import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
+import {Main} from "./pages/Main/Main.tsx";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Header/>
             <div className='content'>
                 <Routes>
+                    <Route path="/" element={<Main/>}/>
                     <Route path="/create-post" element={<CreatePost/>}/>
                     <Route path="/auth" element={<Auth/>}/>
                     <Route path="/confirm-auth" element={<ConfirmAuth/>}/>

@@ -1,0 +1,39 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+
+.search {
+  display: grid;
+  grid-template-columns: 60fr 25fr 15fr;
+  height: 50px;
+  position: relative;
+}
+
+.search_input {
+  padding: 0 30px;
+  font-size: 20px;
+}
+
+.search__text {
+  @extend .search_input;
+  @include input-basic;
+  border-right: 2px solid $grey;
+}
+
+.search__region {
+  @extend .search_input;
+  @include input-basic;
+}
+
+.search__button {
+  background-color: $dark-grey;
+  color: white;
+  font-size: 25px;
+}
+
+.search__icon-search {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 25px;
+  height: 25px;
+}
