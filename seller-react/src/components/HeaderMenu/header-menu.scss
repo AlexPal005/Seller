@@ -34,8 +34,13 @@
 .main-menu__icon-arrow {
   margin-left: 10px;
 }
-.main-menu__button{
+
+.main-menu__button {
   padding: 10px 15px;
   background-color: $grey;
   border-radius: 7px;
+}
+
+.main-menu__button:hover {
+  background-color: $light-grey;
 }

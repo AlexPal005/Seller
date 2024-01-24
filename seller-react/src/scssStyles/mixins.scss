@@ -35,6 +35,11 @@
   justify-content: center;
 }
 
+@mixin flex-vertical-center {
+  display: flex;
+  justify-content: center;
+}
+
 @mixin input-basic() {
   border: none;
   outline: none;
