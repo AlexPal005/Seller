@@ -1,24 +1,25 @@
 @import "../../scssStyles/variables";
 @import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
 
 .categories {
-  padding: 50px 120px;
-  background-color: white;
-  margin-top: 50px;
-  @include flex-horizontal-center;
-  flex-direction: column;
+  padding: 50px 120px 90px;
+  @extend .white-block-main;
+  margin-top: 100px;
 }
 
 .categories__menu {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-gap: 30px;
+  grid-column-gap: 30px;
+  grid-row-gap: 60px;
   margin-top: 30px;
 }
 
 .categories__item-menu {
-  text-align: center;
+  cursor: pointer;
+  position: relative;
 }
 
 .categories__photo-circle {
@@ -41,12 +42,19 @@
   font-size: 16px;
   margin-top: 10px;
   font-weight: 600;
+  width: 100%;
+  text-align: center;
+  position: absolute;
 }
 
-.categories__item-menu {
-  cursor: pointer;
+.categories__photo-circle, .categories__photo-description {
+  transition: 0.4s;
 }
 
 .categories__item-menu:hover .categories__photo-circle {
   background-color: $light-grey;
+}
+
+.categories__item-menu:hover .categories__photo-description {
+  font-size: 17px;
 }

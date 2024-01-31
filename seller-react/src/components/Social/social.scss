@@ -1,0 +1,51 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
+
+.social-main {
+  @extend .white-block-main;
+  margin-top: 30px;
+  padding: 30px 120px 50px;
+}
+
+.social-main__title {
+  margin-bottom: 20px;
+}
+
+.social-main__text {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 17px;
+  padding: 0 20%;
+}
+
+.social-main__social-title {
+  margin-top: 30px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.social-networks {
+  margin-top: 10px;
+  width: 15%;
+  @include flex-horizontal-center-space;
+  position: relative;
+}
+
+.social-networks__link {
+  @include reset-link;
+}
+
+.social-networks__icon {
+  width: 30px;
+  height: 30px;
+  color: $dark-grey;
+  transition: 400ms;
+  position: absolute;
+}
+
+.social-networks__icon:hover {
+  width: 35px;
+  height: 35px;
+}

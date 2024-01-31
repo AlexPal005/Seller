@@ -1,0 +1,8 @@
+@import "./variables";
+@import "./mixins";
+
+.white-block-main {
+  background-color: white;
+  @include flex-horizontal-center;
+  flex-direction: column;
+}
