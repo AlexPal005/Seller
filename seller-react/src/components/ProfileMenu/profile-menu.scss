@@ -1,0 +1,110 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+
+.profile-menu {
+  width: 220px;
+  height: 330px;
+  background-color: white;
+  box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.64);
+  z-index: 100;
+  border-radius: 7px;
+  animation: size-change-start 0.25s ease-in-out;
+  padding: 10px 0;
+}
+
+.padding-profile {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.profile-menu_position {
+  position: absolute;
+  top: 35px;
+}
+
+.profile-menu__user-block {
+  @include flex-horizontal-center;
+  margin-bottom: 13px;
+  @extend .padding-profile;
+}
+
+.profile-menu__user-photo {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profile-menu__user-name {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.profile-menu__category-item {
+  color: $blue;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  @extend .padding-profile;
+}
+
+.profile-menu__list {
+  @include reset-list;
+}
+
+.profile-menu__item-link {
+  @include reset-link;
+  color: $dark-grey;
+  font-size: 18px;
+}
+
+.profile-menu__item {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  @extend .padding-profile;
+}
+
+.profile-menu__item:hover {
+  background-color: $dark-grey;
+}
+
+.profile-menu__item:hover .profile-menu__item-link {
+  color: white;
+}
+
+.profile-menu__close-button {
+  @include reset-link;
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+  margin-top: 10px;
+  display: block;
+  @extend .padding-profile;
+}
+
+.profile-menu__item_position {
+  position: relative;
+}
+
+.counter {
+  background-color: $grey;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  @include vertical-absolute-center;
+  right: 10px;
+}
+
+.counter__text {
+  @include horizontal-absolute-center;
+}
+
+@keyframes size-change-start {
+  from {
+    height: 0;
+  }
+  to {
+    height: 330px;
+  }
+}

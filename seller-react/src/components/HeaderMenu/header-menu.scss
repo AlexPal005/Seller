@@ -4,22 +4,16 @@
 .main-menu__list {
   @include reset-list;
   @include flex-horizontal-center-space;
-  color: white;
   position: relative;
 }
 
 .main-menu__item:not(:last-child) {
   @include flex-horizontal-center;
   padding: 0 20px;
-  cursor: pointer;
 }
 
 .main-menu__item:last-child {
   padding-left: 20px;
-}
-
-.main-menu__item:hover {
-  color: $grey;
 }
 
 .main-menu__icon {
@@ -27,7 +21,20 @@
   height: 20px;
 }
 
-.main-menu__icon_margin_r {
+.main-menu__item_color {
+  color: white;
+  cursor: pointer;
+}
+
+.main-menu__item_color:hover {
+  color: $grey;
+}
+
+.main-menu__profile {
+  @include flex-horizontal-center;
+}
+
+.main-menu__icon_margin-r {
   margin-right: 10px;
 }
 
