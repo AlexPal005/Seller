@@ -67,6 +67,7 @@
 
 .profile-menu__item:hover {
   background-color: $dark-grey;
+  cursor: pointer;
 }
 
 .profile-menu__item:hover .profile-menu__item-link {

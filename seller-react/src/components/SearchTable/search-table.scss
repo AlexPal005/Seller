@@ -1,0 +1,33 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+
+.search-table {
+  background-color: white;
+  z-index: 100;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+  position: absolute;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.search-table__title {
+  margin-bottom: 5px;
+}
+
+.search-item {
+  padding: 10px;
+}
+
+.search-item__text {
+  font-size: 18px;
+}
+
+.search-item__filters-text {
+  color: $blue;
+  font-size: 15px;
+}
+
+.search-item:hover {
+  background-color: $grey-hover;
+  cursor: pointer;
+}

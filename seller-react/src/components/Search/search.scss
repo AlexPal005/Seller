@@ -1,6 +1,10 @@
 @import "../../scssStyles/variables";
 @import "../../scssStyles/mixins";
 
+.focused {
+  border-bottom: 2px solid black;
+}
+
 .search {
   display: grid;
   grid-template-columns: 60fr 25fr 15fr;
@@ -24,9 +28,18 @@
   border-radius: 7px 0 0 7px;
 }
 
+.search__text:focus {
+  border-radius: 7px 0 0 0;
+  @extend .focused;
+}
+
 .search__region {
   @extend .search_input;
   @include input-basic;
+}
+
+.search__region:focus {
+  @extend .focused;
 }
 
 .search__button {
