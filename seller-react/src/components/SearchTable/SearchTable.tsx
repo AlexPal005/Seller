@@ -5,13 +5,13 @@ export const SearchTable = () => {
         <div className='search-table'>
             <p className='search-table__title'>Нещодавний пошук</p>
             <hr/>
-            <SerchItem/>
-            <SerchItem/>
+            <SearchItem/>
+            <SearchItem/>
         </div>
     )
 }
 
-const SerchItem = () => {
+const SearchItem = () => {
     return (
         <div className='search-item'>
             <p className='search-item__text'>Автомобільна фарба</p>
