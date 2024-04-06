@@ -3,6 +3,7 @@
 
 .all-categories {
   border: 1px solid $grey;
+  padding: 20px;
 }
 
 .all-categories_2-position {
@@ -10,5 +11,24 @@
 }
 
 .all-categories_4-position {
-  grid-area: 4 / 1 /auto / 9;
+  grid-area: 3 / 1 /auto / 9;
+}
+
+.all-categories__title-block {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.all-categories__sub-category {
+  display: flex;
+}
+
+.all-categories__sub-categories {
+  margin-top: 20px;
+  display: grid;
+  grid-row-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.all-categories__title{
+  font-weight: bold;
 }

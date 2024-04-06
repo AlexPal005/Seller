@@ -1,37 +1,13 @@
 import './categories.scss'
-import {useState} from "react";
-import {AllCategories} from "../AllCategories/AllCategories.tsx";
+import {useState} from "react"
+import {Category} from "./Category.tsx"
 
-interface categoryProps {
-    img: string;
-    text: string;
-    index: number;
-}
 
-const Category = ({img, text, index}: categoryProps) => {
+export const Categories = () => {
     const [isClickedCategory, setIsClickedCategory] = useState(false);
 
-    const showAllCategories = () => {
-        setIsClickedCategory(prev => !prev);
-    }
-
-    return (
-        <>
-            <div className='categories__item-menu' onClick={showAllCategories}>
-                <figure>
-                    <div className='categories__photo-circle'>
-                        <img src={img} alt='text' className='categories__image'/>
-                    </div>
-                    <figcaption className='categories__photo-description'>{text}</figcaption>
-                </figure>
-            </div>
-            {isClickedCategory && <AllCategories index={index}/>}
-        </>
-    )
-}
-export const Categories = () => {
-
-    const [categories, setCaregories] = useState([
+    const [indexClicked, setIndexClicked] = useState(-1)
+    const [categories] = useState([
             {
                 img: 'src/assets/detskiy-mir-36-1x.png',
                 text: 'Дитячий світ'
@@ -89,7 +65,16 @@ export const Categories = () => {
                 {
                     categories.map((category, index) => {
                         return (
-                            <Category img={category.img} text={category.text} index={index}/>
+                            <Category
+                                key={index}
+                                img={category.img}
+                                text={category.text}
+                                index={index}
+                                indexClicked={indexClicked}
+                                setIndexClicked={setIndexClicked}
+                                isClickedCategory={isClickedCategory}
+                                setIsClickedCategory={setIsClickedCategory}
+                            />
                         )
                     })
                 }
