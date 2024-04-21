@@ -1,0 +1,13 @@
+@import "create-post";
+
+.create-post-description {
+  margin-top: 20px;
+}
+
+.create-post-description__text {
+  @extend .create-post-container__input;
+  min-width: 820px;
+  min-height: 250px;
+  resize:none;
+  margin-top: 20px;
+}

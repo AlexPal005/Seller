@@ -1,0 +1,19 @@
+@import "../../scssStyles/variables";
+
+.create-post-photo {
+  margin-top: 20px;
+}
+
+.grey-text-16 {
+  font-size: 16px;
+  color: $dark-grey-light;
+  margin-top: 20px;
+}
+
+.create-post-photo__photo-list {
+  margin-top: 10px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-rows: repeat(2, 150px);
+  grid-template-columns: repeat(4, 200px);
+}
