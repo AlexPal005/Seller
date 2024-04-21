@@ -1,5 +1,6 @@
 @import "../../scssStyles/variables";
 @import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
 
 .auth-container {
   @include padding-container;
@@ -20,8 +21,7 @@
 
 .auth-form__input {
   @include input-basic;
-  background-color: $light-blue;
-  border-radius: 6px;
+  @extend .input_blue;
   width: 100%;
   height: 30px;
   margin-bottom: 15px;

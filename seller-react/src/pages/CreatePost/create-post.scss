@@ -1,0 +1,55 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
+
+.create-post-container {
+  @include padding-container;
+  padding-top: 40px;
+}
+
+.create-post-container__input {
+  @include input-basic;
+  @extend .input_blue;
+  height: 50px;
+  padding: 15px;
+}
+
+.create-post-details__name {
+  @extend .create-post-container__input;
+  width: 50%;
+}
+
+.create-post-details__category-button {
+  @extend .input_blue;
+  width: 25%;
+  padding: 15px;
+  height: 50px;
+  border: none;
+  font-size: 16px;
+  color: $dark-grey-light;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.create-post-container__title {
+  margin-bottom: 20px;
+}
+
+.create-post-container__input::placeholder {
+  font-size: 16px;
+}
+
+.icon-arrow {
+  width: 20px;
+  height: 20px;
+}
+
+.blue-text-16 {
+  font-size: 16px;
+  color: $blue;
+  margin-bottom: 10px;
+}
+
+.create-post-container__wrapper {
+  margin-top: 20px;
+}
