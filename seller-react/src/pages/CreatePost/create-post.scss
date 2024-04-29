@@ -5,6 +5,7 @@
 .create-post-container {
   @include padding-container;
   padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .create-post-container__input {
@@ -51,5 +52,9 @@
 }
 
 .create-post-container__wrapper {
+  margin-top: 20px;
+}
+
+.white-block-mt20 {
   margin-top: 20px;
 }

@@ -1,0 +1,6 @@
+@import './create-post';
+
+.create-post-contact-input {
+  @extend .create-post-container__input;
+  width: 25%;
+}

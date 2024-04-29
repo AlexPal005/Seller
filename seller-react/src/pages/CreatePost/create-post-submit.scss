@@ -1,0 +1,36 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
+
+.create-post-submit {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.button-underline {
+  background: none;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  height: 23px;
+}
+
+.button-underline:hover {
+  color: $blue;
+  border-bottom: 2px solid $blue;
+}
+
+.button-dark {
+  color: white;
+  background-color: $dark-grey;
+  padding: 15px;
+  border-radius: 7px;
+}
+
+.button-dark:hover {
+  background-color: $dark-grey-light;
+}
+
+.button-submit-margin {
+  margin-right: 30px;
+}

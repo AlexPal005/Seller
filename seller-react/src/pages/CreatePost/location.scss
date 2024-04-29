@@ -1,0 +1,10 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
+@import './create-post';
+
+.create-post-city {
+  @extend .create-post-container__input;
+  width: 25%;
+  margin-top: 20px;
+}

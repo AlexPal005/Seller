@@ -64,6 +64,7 @@ export const InputPhoto = ({indexPhoto, htmlPhotos, setHtmlPhotos}: inputPhotoPr
                             id="select-photo"
                             className="input-select-photo"
                             onChange={onChangePhoto}
+                            multiple
                         />
                     </>
             }
