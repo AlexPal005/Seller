@@ -1,0 +1,31 @@
+@import "../../../scssStyles/variables";
+@import "../../../scssStyles/mixins";
+@import "../../../scssStyles/basic";
+
+.account-main-menu {
+  margin-top: 60px;
+}
+
+.account__main-menu__list {
+  @include reset-list;
+  display: flex;
+}
+
+.account-main-menu__list-item:not(:last-child) {
+  margin-right: 30px;
+}
+
+.account-main-menu__link {
+  @include reset-link;
+  color: $dark-grey-light;
+  font-size: 17px;
+}
+
+.account-main-menu__list-item {
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+}
+
+.account-main-menu__link:hover {
+  color: black;
+}

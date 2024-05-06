@@ -1,0 +1,18 @@
+@import "../../scssStyles/variables";
+@import "../../scssStyles/mixins";
+@import "../../scssStyles/basic";
+@import "./ProductCard/product-card";
+
+.account {
+  padding-bottom: 40px;
+}
+
+.account__main-menu {
+  @include padding-container;
+  padding-top: 40px;
+  background-color: white;
+}
+
+.account__main {
+  @include padding-container;
+}

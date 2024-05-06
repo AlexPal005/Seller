@@ -1,0 +1,47 @@
+@import "./../../../scssStyles/mixins";
+@import "./../../../scssStyles/variables";
+
+.my-posts-search {
+  padding: 35px 0 35px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  position: relative;
+}
+
+.my-posts-search-item {
+  height: 40px;
+  @include input-basic;
+  border-radius: 7px;
+}
+
+.my-posts-search-item:nth-child(1) {
+  background-color: $light-grey;
+  border: 2px solid $dark-grey;
+}
+
+.my-posts-search-item:nth-child(1):hover {
+  background-color: $light-grey;
+}
+
+.my-posts-search-item:not(:first-child) {
+  padding: 10px;
+}
+
+.my-posts-search-item:not(:first-child)::placeholder {
+  font-size: 17px;
+}
+
+.my-posts-search-item:focus {
+  border-bottom: 2px solid black;
+}
+
+.select-option {
+  font-size: 17px;
+  color: $dark-grey-light;
+}
+
+.my-posts-search-count {
+  position: absolute;
+  bottom: 10px;
+}

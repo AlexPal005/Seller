@@ -19,7 +19,8 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
             </div>
             <p className='profile-menu__category-item'>Ваш профіль</p>
             <ul className='profile-menu__list'>
-                <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Оголошення</Link>
+                <li className='profile-menu__item'><Link to='/account'
+                                                         className='profile-menu__item-link'>Оголошення</Link>
                 </li>
                 <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Повідомлення</Link>
                 </li>
