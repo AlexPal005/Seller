@@ -6,9 +6,9 @@ export const ProductCard = () => {
             <input type='checkbox' className='checkbox'/>
             <div className='account-product-card__info'>
                 <div className='account-product-card__content'>
-                    <img alt='Фото' src='Rectangle53.png' className='account-product-card__image'/>
+                    <img alt='Фото' src='./Rectangle53.png' className='account-product-card__image'/>
                     <div className='account-product-card__text'>
-                        <h3>Shimano stradic 19 2000s</h3>
+                        <h3>Shimano stradic 19 2000s</h3>s
                         <p>
                             Хобі, відпочинок і спорт
                             Спорт / відпочинок
