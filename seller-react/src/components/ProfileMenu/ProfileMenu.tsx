@@ -14,14 +14,16 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
              onMouseOut={hideProfileMenu}
         >
             <div className='profile-menu__user-block'>
-                <img src='src/assets/detskiy-mir-36-1x.png' alt={'user'} className='profile-menu__user-photo'/>
+                <img src='src/assets/detskiy-mir-36-1x.png' alt='user' className='profile-menu__user-photo'/>
                 <p className='profile-menu__user-name'>Олександр</p>
             </div>
             <p className='profile-menu__category-item'>Ваш профіль</p>
             <ul className='profile-menu__list'>
-                <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Оголошення</Link>
+                <li className='profile-menu__item'><Link to='/account/posts'
+                                                         className='profile-menu__item-link'>Оголошення</Link>
                 </li>
-                <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Повідомлення</Link>
+                <li className='profile-menu__item'><Link to='/account/messages'
+                                                         className='profile-menu__item-link'>Повідомлення</Link>
                 </li>
                 <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Налаштування</Link>
                 </li>
