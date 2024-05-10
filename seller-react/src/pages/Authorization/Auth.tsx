@@ -1,7 +1,16 @@
 import './auth.scss'
 import {Button} from "../../components/Button/Button.tsx";
+import axios from 'axios';
+import {useEffect} from "react";
 
 export const Auth = () => {
+
+    useEffect(() => {
+        axios.get(`http://localhost:8081/api/product/readAll`)
+            .then(res => {
+                console.log(res)
+            })
+    })
     return (
         <div className='auth-container content'>
             <form className='auth-form'>
@@ -15,7 +24,7 @@ export const Auth = () => {
                 <input id='email' className='auth-form__input' type='text'/>
 
                 <label htmlFor='password' className='auth-form__description'>Пароль</label>
-                <input id='password' className='auth-form__input' type = 'password'/>
+                <input id='password' className='auth-form__input' type='password'/>
 
                 <p>Забули пароль?</p>
 

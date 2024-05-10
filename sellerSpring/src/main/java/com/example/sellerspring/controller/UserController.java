@@ -15,21 +15,17 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
-
-    @PostMapping("/registration")
-    public ResponseEntity<User> create(@RequestBody UserDTO dto) {
-        try {
-            return new ResponseEntity<>(userService.create(dto), HttpStatus.OK);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
 
     @GetMapping("/getByEmail/{email}")
     public ResponseEntity<User> getByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userService.getByEmail(email), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 }

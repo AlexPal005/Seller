@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
-        Optional<User> userOptional = userRepository.getUserByEmail(email);
+        Optional<User> userOptional = userRepository.findUserByEmail(email);
         User user;
         if (userOptional.isPresent()) {
             user = userOptional.get();
@@ -38,6 +39,10 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return user;
+    }
+
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
 }
