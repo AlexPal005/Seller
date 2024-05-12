@@ -6,6 +6,7 @@ import {MyPostsSearch} from "./MyPostsSearch/MyPostsSearch.tsx";
 import {ProductCard} from "./ProductCard/ProductCard.tsx";
 import {Route, Routes} from "react-router-dom";
 import {Messages} from "./Messages/Messages.tsx";
+import {Settings} from "./Settings/Settings.tsx";
 
 const Posts = () => {
     return (
@@ -37,6 +38,7 @@ export const Account = () => {
             <Routes>
                 <Route path="/posts" element={<Posts/>}/>
                 <Route path="/messages" element={<Messages/>}/>
+                <Route path="/settings" element={<Settings/>}/>
                 <Route
                     path="*"
                     element={<Posts/>}

@@ -1,0 +1,36 @@
+@import './../../../../scssStyles/variables';
+
+.chat-item {
+  background-color: $light-green;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-item__image-block {
+  margin-right: 10px;
+}
+
+.chat-item__image {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.chat-item__username {
+  font-size: 14px;
+  color: $dark-grey-light;
+}
+
+.chat-item__product {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.chat-item__last-message {
+  font-size: 15px;
+  color: $dark-grey;
+}

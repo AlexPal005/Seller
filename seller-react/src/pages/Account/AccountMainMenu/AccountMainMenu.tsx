@@ -12,7 +12,7 @@ export const AccountMainMenu = () => {
                     <NavLink to='/account/messages' className='account-main-menu__link'>Повідомлення</NavLink>
                 </li>
                 <li className='account-main-menu__list-item'>
-                    <NavLink to='/' className='account-main-menu__link'>Налаштування</NavLink>
+                    <NavLink to='/account/settings' className='account-main-menu__link'>Налаштування</NavLink>
                 </li>
             </ul>
         </div>

@@ -30,6 +30,10 @@
   color: $grey;
 }
 
+.main-menu__item_color:hover .main-menu__link {
+  color: $grey;
+}
+
 .main-menu__profile {
   @include flex-horizontal-center;
 }
@@ -50,4 +54,9 @@
 
 .main-menu__button:hover {
   background-color: $light-grey;
+}
+
+.main-menu__link {
+  @include reset-link;
+  color: white;
 }

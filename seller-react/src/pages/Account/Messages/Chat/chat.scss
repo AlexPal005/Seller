@@ -1,0 +1,36 @@
+@import 'src/scssStyles/variables';
+@import 'src/scssStyles/mixins';
+
+.account-chat {
+  background-color: white;
+  width: 70%;
+  padding: 15px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.account-chat__message {
+  display: inline-block;
+  background-color: $grey;
+  padding: 5px;
+  border-radius: 7px;
+}
+
+.account-chat__time {
+  font-size: 14px;
+}
+
+.account-chats__input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  @include input-basic;
+  padding: 10px;
+  background-color: $light-blue;
+}
+
+.account-chats__input::placeholder {
+  font-size: 17px;
+}

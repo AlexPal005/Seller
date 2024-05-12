@@ -1,4 +1,5 @@
 import './product-card.scss'
+import image from './Rectangle53.png'
 
 export const ProductCard = () => {
     return (
@@ -6,9 +7,9 @@ export const ProductCard = () => {
             <input type='checkbox' className='checkbox'/>
             <div className='account-product-card__info'>
                 <div className='account-product-card__content'>
-                    <img alt='Фото' src='./Rectangle53.png' className='account-product-card__image'/>
+                    <img alt='Фото' src={image} className='account-product-card__image'/>
                     <div className='account-product-card__text'>
-                        <h3>Shimano stradic 19 2000s</h3>s
+                        <h3>Shimano stradic 19 2000s</h3>
                         <p>
                             Хобі, відпочинок і спорт
                             Спорт / відпочинок

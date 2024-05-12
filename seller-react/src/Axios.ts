@@ -10,12 +10,12 @@ const Axios = a.create({
 })
 
 Axios.interceptors.request.use(config => {
-        if (config.url !== '/user/login' && config.url !== '/user/register') {
+        if (config.url !== '/auth/login' && config.url !== '/auth/register') {
             const accessToken = localStorage.getItem("accessToken")
-            if (accessToken)
-                config.headers["Authorization"] = `Bearer ${accessToken}`;
+            if (accessToken) {
+                config.headers["Authorization"] = `Bearer ${accessToken}`
+            }
         }
-
         return config
     }
 )

@@ -1,0 +1,50 @@
+@import './../../../../scssStyles/mixins';
+@import 'src/components/Button/button';
+
+.account-chats {
+  width: 30%;
+  margin-right: 30px;
+  background-color: white;
+  padding-top: 15px;
+  overflow-y: scroll;
+}
+
+.account-chats__basket-block {
+  display: flex;
+  justify-content: end;
+  padding: 0 15px 15px;
+}
+
+.account-chats__basket-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.account-chats__basket-link {
+  @include reset-link;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.account-chats__buttons {
+  background-color: $grey;
+  padding: 15px;
+}
+
+.account-chats__list-title {
+  padding: 10px 15px;
+}
+
+.account-chats__list-item {
+  padding: 10px 0;
+}
+
+.account-chats__button {
+  @extend .button;
+  background: none;
+}
+
+.account-chats__button:first-child {
+  margin-right: 10px;
+}

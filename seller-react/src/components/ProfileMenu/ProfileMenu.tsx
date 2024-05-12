@@ -1,5 +1,7 @@
 import './profile-menu.scss'
 import {Link} from "react-router-dom";
+import {useContext} from "react";
+import {UserContext} from "../../App.tsx";
 
 interface profileMenuProps {
     showProfileMenu: () => void;
@@ -8,6 +10,12 @@ interface profileMenuProps {
 }
 
 export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps) => {
+
+    const {logOut} = useContext(UserContext)
+    const onClickLogOut = (e: { preventDefault: () => void; }) => {
+        e.preventDefault()
+        logOut()
+    }
     return (
         <div className='profile-menu profile-menu_position'
              onMouseOver={showProfileMenu}
@@ -25,7 +33,8 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
                 <li className='profile-menu__item'><Link to='/account/messages'
                                                          className='profile-menu__item-link'>Повідомлення</Link>
                 </li>
-                <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Налаштування</Link>
+                <li className='profile-menu__item'><Link to='/account/settings'
+                                                         className='profile-menu__item-link'>Налаштування</Link>
                 </li>
                 <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Платежі та
                     рахунок</Link></li>
@@ -46,7 +55,7 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
                 </li>
             </ul>
             <hr/>
-            <a className='profile-menu__close-button' href='/'>Вийти</a>
+            <a className='profile-menu__close-button' href='/' onClick={onClickLogOut}>Вийти</a>
         </div>
     )
 }

@@ -11,12 +11,11 @@
   background-color: #ffffff;
   border-radius: 6px;
   padding: 30px;
+  width: 300px;
 }
 
 .auth-form__menu {
-  width: 250px;
   display: flex;
-  justify-content: space-around;
 }
 
 .auth-form__input {
@@ -37,10 +36,19 @@
 .auth-form__menu-item {
   font-size: 15px;
   cursor: pointer;
+  @include reset-link;
+  color: black;
+  width: 50%;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.auth-form__menu-item.active {
+  border-bottom: 2px solid black;
 }
 
 .auth-form__underline {
-  margin: 10px 0 25px;
+  margin-bottom: 25px;
 }
 
 .auth-form__description {
@@ -55,4 +63,15 @@
   width: 100%;
   margin-top: 20px;
   border-radius: 7px;
+}
+
+.register-text-info {
+  font-size: 13px;
+}
+
+.error-auth {
+
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }

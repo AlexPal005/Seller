@@ -2,7 +2,7 @@ import './button.scss'
 
 interface buttonProps {
     text: string;
-    onClick: () => void;
+    onClick: (e: { preventDefault: () => void; }) => void;
     className: string
 }
 

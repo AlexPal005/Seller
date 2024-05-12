@@ -7,19 +7,76 @@ import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
 import {Main} from "./pages/Main/Main.tsx";
 import {Account} from "./pages/Account/Account.tsx";
+import {AuthFunctions, useAuth} from "./Hooks/User.tsx";
+import {createContext, useEffect} from "react";
+
+
+const defaultUserContext: AuthFunctions = {
+    getUser: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    signIn: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    signUp: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    getUserByEmail: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    logOut: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    getUsersByFullName: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    getListProductsByUserId: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    getListProducts: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    updateUser: async () => console.log("attempting to use AuthContext outside of a valid provider"),
+    User: {}
+}
+export const UserContext = createContext(defaultUserContext);
 
 function App() {
 
+    const {
+        getUser,
+        signIn,
+        signUp,
+        User,
+        getUserByEmail,
+        logOut,
+        getUsersByFullName,
+        getListProductsByUserId,
+        getListProducts,
+        updateUser
+    } = useAuth()
+
+
+    useEffect(() => {
+        if (!User.email) {
+            getUser().catch(console.log)
+        }
+    }, [User, getUser])
+
+    useEffect(() => {
+        console.log(User?.email)
+    }, [User])
+
     return (
-        <>
+        <UserContext.Provider value={{
+            getUser,
+            signIn,
+            signUp,
+            User,
+            getUserByEmail,
+            logOut,
+            getUsersByFullName,
+            getListProductsByUserId,
+            getListProducts,
+            updateUser
+        }}>
             <Header/>
             <div className='content'>
                 <Routes>
                     <Route path="/" element={<Main/>}/>
                     <Route path="/create-post" element={<CreatePost/>}/>
-                    <Route path="/auth" element={<Auth/>}/>
                     <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
-                    <Route path="/account/*" element={<Account/>}/>
+                    {
+                        !User?.email ?
+                            <Route path="/auth/*" element={<Auth/>}/>
+                            :
+                            <Route path="/account/*" element={<Account/>}/>
+
+                    }
                     <Route
                         path="*"
                         element={<Main/>}
@@ -27,7 +84,7 @@ function App() {
                 </Routes>
             </div>
             <Footer/>
-        </>
+        </UserContext.Provider>
     )
 }
 
