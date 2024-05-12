@@ -38,7 +38,10 @@ export function useAuth(): AuthFunctions {
             localStorage.setItem('accessToken', resp.data.accessToken)
             const decode: JwtPayload = jwtDecode(resp.data.accessToken)
             getUser(decode.sub)
-        }).catch(console.log)
+        }).catch(error => {
+            console.log(error)
+            throw new Error(error)
+        })
     }
 
     const getUser = async (email?: string): Promise<void> => {
@@ -75,8 +78,9 @@ export function useAuth(): AuthFunctions {
         try {
             await Axios.post('/auth/register', {email: email, password: password});
             await signIn(email, password);
-        } catch (data) {
-            return console.log(data);
+        } catch (error) {
+            console.error(error)
+            throw error
         }
     }
 

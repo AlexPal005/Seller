@@ -27,6 +27,7 @@ export const Auth = () => {
 
 
     const onChangeEmail = (e: { target: { value: string; }; }) => {
+        setError("")
         const newEmail = e.target.value;
         setEmail(newEmail);
         if (!validateEmail(newEmail)) {
@@ -37,6 +38,7 @@ export const Auth = () => {
     }
 
     const onChangePassword = (e: { target: { value: string } }) => {
+        setError("")
         const newPassword = e.target.value;
         setPassword(newPassword);
         if (!validatePassword(newPassword)) {
@@ -49,9 +51,10 @@ export const Auth = () => {
     const onClickLogin = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         if (validateEmail(email) && validatePassword(password)) {
+
             signIn(email, password).then(() => {
-                navigate('/')
-            }).catch(err => console.log(err));
+                navigate('/account/posts')
+            }).catch(() => setError("Невірний email чи пароль!"))
         }
     }
 
@@ -60,6 +63,11 @@ export const Auth = () => {
         if (validateEmail(email) && validatePassword(password)) {
             signUp(email, password).then(res => {
                 console.log(res)
+            }).catch(error => {
+                console.log(error)
+                const message = (error.response.data === "Email is taken!")
+                    ? "Користувач з таким email вже існує!" : ""
+                setError(message)
             })
         }
 
@@ -81,7 +89,7 @@ export const Auth = () => {
                 <label htmlFor='password' className='auth-form__description'>Пароль</label>
                 <input id='password' className='auth-form__input' type='password' onChange={onChangePassword}/>
                 {passwordError && <p className='error error-auth'>{passwordError}</p>}
-
+                {error && <p className='error error-auth'>{error}</p>}
                 <Routes>
                     <Route path='/login' element={
                         <>
