@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class ProductDTO {
@@ -14,7 +15,10 @@ public class ProductDTO {
     private String description;
     private double price;
     private Date createdAt;
-    private byte[] image;
     private int categoryId;
     private int userId;
+
+    private List<String> images;
+
+
 }

@@ -2,10 +2,12 @@ package com.example.sellerspring.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -34,9 +36,6 @@ public class Product {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name = "image")
-    private byte[] image;
-
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -46,6 +45,10 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImages;
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package com.example.sellerspring.security;
 
-import com.example.sellerspring.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -29,16 +29,15 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
     private final JwtAuthEntryPoint authEntryPoint;
-    private final CustomUserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfig(JwtAuthEntryPoint authEntryPoint, CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthEntryPoint authEntryPoint) {
         this.authEntryPoint = authEntryPoint;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> {
@@ -52,16 +51,19 @@ public class SecurityConfig {
                 })
                 .exceptionHandling((exception) ->
                         exception.authenticationEntryPoint(authEntryPoint)
-                                .accessDeniedPage("/error/accedd-denied"))
+                                .accessDeniedPage("/error"))
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry -> {
-                    registry.anyRequest().permitAll();
-//                    registry.requestMatchers("/api/product/**").permitAll();
-//                    registry.requestMatchers("/api/user/registration").permitAll();
-//                    registry.requestMatchers("/api/admin/**").hasRole("ADMIN");
-//                    registry.requestMatchers("/api/user/**").hasRole("USER");
-//                    registry.anyRequest().authenticated();
+                    registry.requestMatchers("/api/auth/register").permitAll();
+                    registry.requestMatchers("/api/auth/login").permitAll();
+                    registry.requestMatchers("/api/product/**").permitAll();
+                    registry.requestMatchers("/api/user/**").authenticated();
+                    registry.anyRequest().authenticated();
                 })
+                .logout((logout) -> logout
+                        .logoutUrl("/api/auth/logout")
+                        .deleteCookies("JSESSIONID")
+                )
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

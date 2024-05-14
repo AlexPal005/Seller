@@ -8,7 +8,7 @@ import com.example.sellerspring.entity.Role;
 import com.example.sellerspring.repository.RoleRepository;
 import com.example.sellerspring.repository.UserRepository;
 import com.example.sellerspring.security.JWTGenerator;
-import lombok.AllArgsConstructor;
+import com.example.sellerspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +53,9 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
         return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
@@ -65,7 +67,9 @@ public class AuthController {
             return new ResponseEntity<>("Email is taken!", HttpStatus.BAD_REQUEST);
         }
 
-        User user = User.builder().firstName(userDTO.getFirstName()).lastName(userDTO.getLastName()).email(userDTO.getEmail()).phoneNumber(userDTO.getPhoneNumber()).password(passwordEncoder.encode((userDTO.getPassword()))).build();
+        User user = User.builder()
+                .email(userDTO.getEmail())
+                .password(passwordEncoder.encode((userDTO.getPassword()))).build();
 
         Optional<Role> roleOptional = roleRepository.findByRole("USER");
         Role role;
