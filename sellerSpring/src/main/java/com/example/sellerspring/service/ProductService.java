@@ -14,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -52,25 +49,32 @@ public class ProductService {
 
         newProduct = productRepository.save(newProduct);
 
+        if (!dto.getImages().isEmpty()) {
 
-        List<ProductImage> productImages = new ArrayList<>();
-        Product finalNewProduct = newProduct;
+            List<ProductImage> productImages = new ArrayList<>();
+            Product finalNewProduct = newProduct;
 
-        dto.getImages().forEach(image -> {
-            ProductImage productImage = ProductImage.builder()
-                    .image(Base64.getMimeDecoder().decode(image))
-                    .product(finalNewProduct)
-                    .build();
-            productImageRepository.save(productImage);
-            productImages.add(productImage);
-        });
+            dto.getImages().forEach(image -> {
+                ProductImage productImage = ProductImage.builder()
+                        .image(Base64.getMimeDecoder().decode(image))
+                        .product(finalNewProduct)
+                        .build();
+                productImageRepository.save(productImage);
+                productImages.add(productImage);
+            });
 
-        newProduct.setProductImages(productImages);
+            newProduct.setProductImages(productImages);
 
+        }
         return newProduct;
+
     }
 
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    public List<Map<String, Object>> getProductsStartsWith(String name) {
+        return productRepository.findProductByNameStartingWith(name);
     }
 }

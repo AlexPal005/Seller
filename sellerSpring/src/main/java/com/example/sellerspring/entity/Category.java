@@ -20,16 +20,19 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
+
     @Column(name = "category_name")
     private String name;
+
     @Column(name = "parent_id")
     private Long parentId;
+
+    @Lob
+    @Column(name = "category_image", columnDefinition = "LONGBLOB")
+    private byte[] image;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 
-    public void addProduct(Product product) {
-        products.add(product);
-        product.setCategory(this);
-    }
 }

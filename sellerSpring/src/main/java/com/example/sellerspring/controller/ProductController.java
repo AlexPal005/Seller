@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -28,8 +29,13 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/readAll")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Product>> readAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/searchProductStartsWith/{name}")
+    public ResponseEntity<List<Map<String, Object>>> searchProductStartWith(@PathVariable String name) {
+        return new ResponseEntity<>(productService.getProductsStartsWith(name), HttpStatus.OK);
     }
 }

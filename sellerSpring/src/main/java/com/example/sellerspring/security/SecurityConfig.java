@@ -57,6 +57,7 @@ public class SecurityConfig {
                     registry.requestMatchers("/api/auth/register").permitAll();
                     registry.requestMatchers("/api/auth/login").permitAll();
                     registry.requestMatchers("/api/product/**").permitAll();
+                    registry.requestMatchers("/api/category/**").permitAll();
                     registry.requestMatchers("/api/user/**").authenticated();
                     registry.anyRequest().authenticated();
                 })

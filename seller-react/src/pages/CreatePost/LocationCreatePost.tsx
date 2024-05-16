@@ -1,15 +1,12 @@
 import './location.scss'
+import {SearchRegion} from "../../components/SearchRegion/SearchRegion.tsx";
 
 export const LocationCreatePost = () => {
     return (
-        <div className='white-block-mt20 white-block'>
+        <div className='white-block-mt20 white-block search-region-create-post-block'>
             <h4>Місцезнаходження</h4>
-            <form>
-                <input type='text'
-                       className='create-post-city'
-                       placeholder='Назва міста й індекс'
-                />
-            </form>
+            <SearchRegion classForBlock={'search-region-create-post'} classForInput={'create-post-city'}
+                          classForIcon={'search-icon-add-post'}/>
         </div>
     )
 }
