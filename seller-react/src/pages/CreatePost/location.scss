@@ -5,6 +5,13 @@
 
 .create-post-city {
   @extend .create-post-container__input;
-  width: 25%;
   margin-top: 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+
+.search-region-create-post {
+  position: relative;
+  width: 25%;
 }

@@ -1,3 +1,23 @@
 @import "./../SearchTable/search-table";
 @import "../../scssStyles/variables";
 @import "../../scssStyles/mixins";
+
+.region-search-item {
+  width: 100%;
+  border-bottom: 1px solid $grey;
+  cursor: pointer;
+  padding: 10px 10px;
+}
+
+.region-search-item__city {
+  font-size: 14px;
+}
+
+.region-search-item__region {
+  font-size: 17px;
+  color: $dark-grey-light;
+}
+
+.region-search-item:hover {
+  background-color: $grey-hover;
+}

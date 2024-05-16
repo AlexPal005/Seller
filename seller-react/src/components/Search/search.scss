@@ -1,5 +1,6 @@
 @import "../../scssStyles/variables";
 @import "../../scssStyles/mixins";
+@import './../../pages/CreatePost/location';
 
 .focused {
   border-bottom: 2px solid black;
@@ -55,6 +56,10 @@
   top: 50%;
   transform: translate(0, -50%);
   left: 10px;
+}
+
+.search-icon-add-post {
+  display: none;
 }
 
 .search__block {

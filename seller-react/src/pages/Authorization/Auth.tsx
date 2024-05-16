@@ -63,6 +63,7 @@ export const Auth = () => {
         if (validateEmail(email) && validatePassword(password)) {
             signUp(email, password).then(res => {
                 console.log(res)
+                navigate('/account/posts')
             }).catch(error => {
                 console.log(error)
                 const message = (error.response.data === "Email is taken!")

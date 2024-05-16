@@ -1,13 +1,45 @@
 import './photo.scss'
 import {InputPhoto} from "../../components/InputPhoto/InputPhoto.tsx";
-import {useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
+import {PostContext} from "./CreatePost.tsx";
 
 export const Photo = () => {
     const [htmlPhotos, setHtmlPhotos] = useState<string[]>([])
+    const {setImages} = useContext(PostContext)
+
+    // convert blob to base64
+    const convertBlobToBase64 = useCallback((blob: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                resolve(reader.result as string);
+            };
+            reader.onerror = reject;
+        });
+    }, [])
+
+    // get blob from url and convert it to base64
+    const convertBlobUrlToBase64 = useCallback(async (url: string): Promise<string> => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return convertBlobToBase64(blob);
+    }, [convertBlobToBase64]);
 
     useEffect(() => {
-        console.log(htmlPhotos)
-    }, [htmlPhotos])
+        const convertPhotos = () => {
+            return Promise.all(htmlPhotos.map(url => convertBlobUrlToBase64(url)));
+        };
+
+        if (htmlPhotos.length > 0) {
+            convertPhotos().then(base64Array => {
+                const newArray = base64Array.map(base64 => {
+                    return base64.split(',')[1];
+                })
+                setImages(newArray);
+            }).catch(err => console.error(err));
+        }
+    }, [htmlPhotos, setImages, convertBlobUrlToBase64]);
 
     return (
         <div className='create-post-photo white-block'>
