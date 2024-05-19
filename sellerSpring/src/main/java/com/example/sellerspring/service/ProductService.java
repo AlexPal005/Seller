@@ -1,14 +1,8 @@
 package com.example.sellerspring.service;
 
 import com.example.sellerspring.dto.ProductDTO;
-import com.example.sellerspring.entity.Category;
-import com.example.sellerspring.entity.Product;
-import com.example.sellerspring.entity.ProductImage;
-import com.example.sellerspring.entity.User;
-import com.example.sellerspring.repository.CategoryRepository;
-import com.example.sellerspring.repository.ProductImageRepository;
-import com.example.sellerspring.repository.ProductRepository;
-import com.example.sellerspring.repository.UserRepository;
+import com.example.sellerspring.entity.*;
+import com.example.sellerspring.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +18,9 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ProductImageRepository productImageRepository;
+    private final CityRepository cityRepository;
+    private final RegionRepository regionRepository;
+    private final RegionService regionService;
 
     public Product create(ProductDTO dto) {
         Optional<Category> categoryOptional = categoryRepository.findById((long) dto.getCategoryId());
@@ -37,6 +34,30 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        Optional<City> citiesOptional = cityRepository
+                .getCityByCityNameAndRegionName(dto.getCityName(), dto.getRegionName());
+
+        City city;
+        if (citiesOptional.isPresent()) {
+            city = citiesOptional.get();
+        } else {
+            Region region;
+            if (regionRepository.existsRegionByRegionName(dto.getRegionName())) {
+                region = regionService.getRegionByName(dto.getRegionName());
+            } else {
+                Region newRegion = Region.builder()
+                        .regionName(dto.getRegionName())
+                        .build();
+                region = regionRepository.save(newRegion);
+            }
+
+
+            City newCity = City.builder()
+                    .cityName(dto.getCityName())
+                    .region(region)
+                    .build();
+            city = cityRepository.save(newCity);
+        }
 
         Product newProduct = Product.builder()
                 .name(dto.getName())
@@ -45,6 +66,7 @@ public class ProductService {
                 .createdAt(dto.getCreatedAt())
                 .category(category)
                 .user(user)
+                .city(city)
                 .build();
 
         newProduct = productRepository.save(newProduct);
@@ -76,5 +98,18 @@ public class ProductService {
 
     public List<Map<String, Object>> getProductsStartsWith(String name) {
         return productRepository.findProductByNameStartingWith(name);
+    }
+
+    public List<Map<String, Object>> getProductsStartsWithAndCityName(
+            String productName, String cityName, String regionName) {
+        return productRepository.getProductsStartsWithAndCityName(productName, cityName, regionName);
+    }
+
+    public List<Map<String, Object>> getAllProducts() {
+        return productRepository.getAllProducts();
+    }
+
+    public List<Map<String, Object>> getProductsByUserId(Long userId) {
+        return productRepository.getProductsByUserId(userId);
     }
 }

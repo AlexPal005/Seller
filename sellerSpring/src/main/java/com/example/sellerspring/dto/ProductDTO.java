@@ -17,6 +17,8 @@ public class ProductDTO {
     private Date createdAt;
     private int categoryId;
     private int userId;
+    private String cityName;
+    private String regionName;
 
     private List<String> images;
 
