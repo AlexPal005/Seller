@@ -1,27 +1,30 @@
 import './product-card.scss'
-import image from './Rectangle53.png'
+import {ProductMainType} from "../../../Hooks/Product.tsx";
 
-export const ProductCard = () => {
+interface ProductCardProps {
+    product: ProductMainType;
+}
+
+export const ProductCard = ({product}: ProductCardProps) => {
     return (
         <div className='account-product-card'>
             <input type='checkbox' className='checkbox'/>
             <div className='account-product-card__info'>
                 <div className='account-product-card__content'>
-                    <img alt='Фото' src={image} className='account-product-card__image'/>
+                    <img alt='Фото' src={`data:image/jpeg;base64,${product.mainImage}`}
+                         className='account-product-card__image'/>
                     <div className='account-product-card__text'>
-                        <h3>Shimano stradic 19 2000s</h3>
+                        <h3>{product.productName}</h3>
                         <p>
-                            Хобі, відпочинок і спорт
-                            Спорт / відпочинок
-                            Полювання / риболовля
+                            {product.categoryName}
                         </p>
                         <p>
-                            Черняхів, Житомирська область
+                            {product.cityName}, {product.regionName}
                         </p>
                         <p>
-                            06.01.2024-06.01.2024
+                            {new Date(product.createdAt).toLocaleDateString()}
                         </p>
-                        <h3 className='account-product-card__price'>4000грн</h3>
+                        <h3 className='account-product-card__price'>{product.price} грн</h3>
                         <hr/>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import {Search} from "../../../components/Search/Search.tsx";
 import {Categories} from "../../../components/Categories/Categories.tsx";
 import {Social} from "../../../components/Social/Social.tsx";
 import React, {createContext, useEffect, useState} from "react";
-import {useProduct} from "../../../Hooks/Product.tsx";
+import {ProductMainType, ProductStartsWith, useProduct} from "../../../Hooks/Product.tsx";
 import {Route, Routes, useNavigate} from 'react-router-dom';
 import {SearchPage} from "../SearchPage/SearchPage.tsx";
 
@@ -12,6 +12,7 @@ type MainContextType = {
     search: (e: { preventDefault: () => void }) => void,
     setCityName: React.Dispatch<React.SetStateAction<string>>,
     setRegionName: React.Dispatch<React.SetStateAction<string>>,
+    products: ProductMainType[]
 }
 const defaultMainContext = {
     setSearchProductName: () => {
@@ -24,33 +25,37 @@ const defaultMainContext = {
     setRegionName: () => {
 
     },
+    products: []
 }
 export const MainPageContext = createContext<MainContextType>(defaultMainContext)
 
 export const Main = () => {
     const [searchProductName, setSearchProductName] = useState<string>('')
-    const {searchProductsByNameAndCity, productsByNameAndCity} = useProduct()
+    const {searchProductsByNameAndCity, products, getAllProducts} = useProduct()
     const [cityName, setCityName] = useState('')
     const [regionName, setRegionName] = useState('')
     const navigate = useNavigate()
     const search = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        searchProductsByNameAndCity(searchProductName, cityName, regionName)
+        if (!searchProductName.length || (!cityName && !regionName)) {
+            getAllProducts()
+        } else {
+            searchProductsByNameAndCity(searchProductName, cityName, regionName)
+        }
         navigate('/search')
-
     }
 
     useEffect(() => {
-        console.log(productsByNameAndCity)
-    }, [productsByNameAndCity])
+        console.log(products)
+    }, [products])
 
     return (
         <MainPageContext.Provider value={{
             setSearchProductName,
             search,
             setCityName,
-            setRegionName
-
+            setRegionName,
+            products
         }}>
             <div className='main'>
                 <Search/>

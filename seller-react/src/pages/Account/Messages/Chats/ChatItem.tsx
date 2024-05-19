@@ -1,5 +1,4 @@
 import './chat-item.scss'
-import image from './../../ProductCard/Rectangle53.png'
 
 export const ChatItem = () => {
     return (
