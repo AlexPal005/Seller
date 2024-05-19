@@ -1,0 +1,5 @@
+@import 'src/scssStyles/mixins';
+
+.search-page {
+  @include padding-container;
+}

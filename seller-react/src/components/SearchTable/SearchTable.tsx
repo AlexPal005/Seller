@@ -1,21 +1,33 @@
 import './search-table.scss'
+import {ProductStartsWith} from "../../Hooks/Product.tsx";
 
-export const SearchTable = () => {
+
+interface SearchTableProps {
+    products: ProductStartsWith[]
+}
+
+interface SearchItemProps {
+    product: ProductStartsWith
+}
+
+export const SearchTable = ({products}: SearchTableProps) => {
     return (
         <div className='search-table'>
-            <p className='search-table__title'>Нещодавний пошук</p>
             <hr/>
-            <SearchItem/>
-            <SearchItem/>
+            {
+                products.map(product => {
+                    return <SearchItem product={product}/>
+                })
+            }
         </div>
     )
 }
 
-const SearchItem = () => {
+const SearchItem = ({product}: SearchItemProps) => {
     return (
         <div className='search-item'>
-            <p className='search-item__text'>Автомобільна фарба</p>
-            <span className='search-item__filters-text'>Пошукові фільтри [<span>4</span>]</span>
+            <p className='search-item__product'>{product.productName}</p>
+            <p className='search-item__category'>{product.categoryName}</p>
         </div>
     )
 }

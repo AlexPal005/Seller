@@ -1,6 +1,6 @@
 import {IoIosArrowDown} from "react-icons/io";
 import React, {useContext, useEffect, useState} from "react";
-import {Category, useCategory} from "../../../Hooks/Category.tsx";
+import {useCategory} from "../../../Hooks/Category.tsx";
 import {CategoriesPopUp} from "./CategoriesPopUp.tsx";
 import {PostContext} from "../CreatePost.tsx";
 
@@ -10,18 +10,10 @@ type DetailsCreatePostProps = {
 export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
     const [errorName, setErrorName] = useState("")
     const [isClickedCategories, setIsClickedCategories] = useState(false)
-    const {getAllCategories, categories} = useCategory()
+    const {categories} = useCategory()
     const {setProductName} = useContext(PostContext)
     const [currentCategory, setCurrentCategory]
         = useState({id: -1, name: ""})
-
-    useEffect(() => {
-        try {
-            getAllCategories()
-        } catch (err) {
-            console.log(err)
-        }
-    }, [getAllCategories])
 
     useEffect(() => {
         if (categoryId !== -1) {

@@ -3,6 +3,7 @@ import {Region, SearchTableRegion} from "../SearchTableRegion/SearchTableRegion.
 import {createContext, useContext, useState} from "react";
 import {PostContext} from "../../pages/CreatePost/CreatePost.tsx";
 import axios from "axios";
+import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 
 const defaultRegionContext = {
     setRegionValueFunc: (city: Region) => {
@@ -23,11 +24,14 @@ export const SearchRegion = ({classForBlock, classForInput, classForIcon}: Searc
     const [cities, setCities] = useState([])
     const [isClickedSearchRegion, setIsClickedSearchRegion] = useState(false)
     const {setCity, setRegion} = useContext(PostContext)
+    const {setCityName, setRegionName} = useContext(MainPageContext)
 
     const setRegionValueFunc = (city: Region) => {
         setRegionInputValue(city.Description + ', ' + city.AreaDescription)
         setCity(city.Description)
         setRegion(city.AreaDescription)
+        setCityName(city.Description)
+        setRegionName(city.AreaDescription)
         setIsClickedSearchRegion(false);
     }
 

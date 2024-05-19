@@ -1,63 +1,15 @@
 import './categories.scss'
 import {useState} from "react"
 import {Category} from "./Category.tsx"
+import {useCategory} from "../../Hooks/Category.tsx";
 
 
 export const Categories = () => {
     const [isClickedCategory, setIsClickedCategory] = useState(false);
 
     const [indexClicked, setIndexClicked] = useState(-1)
-    const [categories] = useState([
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-            {
-                img: 'src/assets/detskiy-mir-36-1x.png',
-                text: 'Дитячий світ'
-            },
-        ]
-    )
+    const {categories} = useCategory()
+
     return (
         <div className='categories'>
             <h1>Категорії</h1>
@@ -67,8 +19,8 @@ export const Categories = () => {
                         return (
                             <Category
                                 key={index}
-                                img={category.img}
-                                text={category.text}
+                                img={`data:image/jpeg;base64,${category.image}`}
+                                text={category.name}
                                 index={index}
                                 indexClicked={indexClicked}
                                 setIndexClicked={setIndexClicked}

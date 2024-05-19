@@ -17,15 +17,16 @@
 
 .search-item {
   padding: 10px;
+  border-bottom: 1px solid $grey;
 }
 
-.search-item__text {
-  font-size: 18px;
+.search-item__product {
+  font-size: 16px;
 }
 
-.search-item__filters-text {
-  color: $blue;
-  font-size: 15px;
+.search-item__category {
+  font-size: 14px;
+  color: $dark-grey-light;
 }
 
 .search-item:hover {

@@ -1,0 +1,14 @@
+@import 'src/components/Button/button';
+
+.search-page-add-favorites {
+  padding: 15px 0;
+  display: flex;
+  justify-content: end;
+}
+
+.search-page-add-favorites__button {
+  @extend .button;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 7px;
+}

@@ -5,7 +5,7 @@ import {Route, Routes} from "react-router-dom";
 import {CreatePost} from "./pages/CreatePost/CreatePost.tsx";
 import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
-import {Main} from "./pages/Main/Main.tsx";
+import {Main} from "./pages/Main/Main/Main.tsx";
 import {Account} from "./pages/Account/Account.tsx";
 import {AuthFunctions, useAuth} from "./Hooks/User.tsx";
 import {createContext, useEffect} from "react";

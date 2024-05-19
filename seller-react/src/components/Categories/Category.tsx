@@ -12,14 +12,14 @@ interface categoryProps {
 }
 
 export const Category = ({
-                      img,
-                      text,
-                      index,
-                      indexClicked,
-                      setIndexClicked,
-                      isClickedCategory,
-                      setIsClickedCategory
-                  }: categoryProps) => {
+                             img,
+                             text,
+                             index,
+                             indexClicked,
+                             setIndexClicked,
+                             isClickedCategory,
+                             setIsClickedCategory
+                         }: categoryProps) => {
 
     const showAllCategories = () => {
         setIndexClicked(index)

@@ -1,0 +1,41 @@
+@import "src/scssStyles/basic";
+@import "src/scssStyles/mixins";
+
+.search-page-filters__category-block {
+  margin: 20px 0;
+  display: flex;
+}
+
+.search-page-filters__category {
+  margin-right: 20px;
+}
+
+.search-page-filters__input {
+  @include input-basic;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 5px;
+  height: 50px;
+}
+
+.search-page-filters__input::placeholder {
+  font-size: 17px;
+}
+
+.search-page-filters__input-category, .search-page-filters__input-sort {
+  width: 300px;
+}
+
+.search-page-filters__input-price {
+  width: 120px;
+}
+
+.search-page-filters__input-price:nth-child(2) {
+  margin-right: 20px;
+}
+
+.search-page-filters__sorting {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+}

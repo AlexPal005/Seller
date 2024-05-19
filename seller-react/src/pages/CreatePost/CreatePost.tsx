@@ -78,8 +78,10 @@ export const CreatePost = () => {
             price: price,
             createdAt: new Date(),
             categoryId: categoryId,
-            userId: User.userId,
-            images: images
+            userId: 1,
+            images: images,
+            cityName: city,
+            regionName: region
 
 
         }).then(res => {

@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: 60fr 25fr 15fr;
   height: 50px;
-  padding: 0 170px;
+  @include padding-container;
 }
 
 .search_input {
