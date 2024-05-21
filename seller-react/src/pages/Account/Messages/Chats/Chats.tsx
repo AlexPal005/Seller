@@ -2,8 +2,21 @@ import './chats.scss'
 import {Link} from "react-router-dom";
 import {MdOutlineDeleteOutline} from "react-icons/md";
 import {ChatItem} from "./ChatItem.tsx";
+import {useChat} from "../../../../Hooks/Chat.tsx";
+import {useContext, useEffect} from "react";
+import {UserContext} from "../../../../App.tsx";
 
 export const Chats = () => {
+    const {chats, getChatsByUserId} = useChat()
+    const {User} = useContext(UserContext)
+
+    useEffect(() => {
+        if (User.userId) {
+            getChatsByUserId(User.userId)
+        }
+
+    }, [User.userId, getChatsByUserId]);
+
     return (
         <div className='account-chats'>
             <div className='account-chats__basket-block'>
@@ -20,14 +33,13 @@ export const Chats = () => {
                 <h3 className='account-chats__list-title'>Непрочитані</h3>
                 <hr/>
                 <div className='account-chats__list-item'>
-                    <ChatItem/>
-                    <ChatItem/>
-                </div>
-                <h3 className='account-chats__list-title'>Прочитані</h3>
-                <hr/>
-                <div className='account-chats__list-item'>
-                    <ChatItem/>
-                    <ChatItem/>
+                    {
+                        chats.map(chat => {
+                            return (
+                                <ChatItem chat={chat} key={chat.id}/>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>

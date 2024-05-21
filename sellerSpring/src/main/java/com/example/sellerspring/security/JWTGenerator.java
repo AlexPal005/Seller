@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Component
 public class JWTGenerator {
@@ -16,9 +18,15 @@ public class JWTGenerator {
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
 
+
+        long now = System.currentTimeMillis();
+        long expirationTime = now + 86400000; // 1 day in milliseconds
+
         return Jwts.builder()
                 .subject(username)
                 .signWith(key)
+                .issuedAt(new Date(now))
+                .expiration(new Date(expirationTime))
                 .compact();
     }
 
@@ -36,7 +44,7 @@ public class JWTGenerator {
             Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
             return true;
         } catch (Exception ex) {
-            throw new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect", ex.fillInStackTrace());
+            throw new AuthenticationCredentialsNotFoundException("JWT was expired or incorrect", ex.fillInStackTrace());
         }
     }
 

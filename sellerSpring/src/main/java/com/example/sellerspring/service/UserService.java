@@ -41,6 +41,17 @@ public class UserService {
         return user;
     }
 
+    public User getUserById(Long id) {
+        Optional<User> userOptional = userRepository.findUserByUserId(id);
+        User user;
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return user;
+    }
+
     public List<User> getAll() {
         return userRepository.findAll();
     }

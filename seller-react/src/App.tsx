@@ -67,7 +67,7 @@ function App() {
             <Header/>
             <div className='content'>
                 <Routes>
-                    <Route path="/" element={<Main/>}/>
+                    <Route path="/*" element={<Main/>}/>
                     <Route path="/create-post" element={<CreatePost/>}/>
                     <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
                     {

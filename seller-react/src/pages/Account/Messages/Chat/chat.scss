@@ -4,9 +4,55 @@
 .account-chat {
   background-color: white;
   width: 70%;
-  padding: 15px;
-  overflow-y: scroll;
   position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-chat__messages-block {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 50px;
+  padding: 15px;
+}
+
+
+.message-right {
+  display: flex;
+  justify-content: end;
+  margin-top: 10px;
+}
+
+.message-left {
+  display: flex;
+  justify-content: start;
+  margin-top: 10px;
+}
+
+.message__content-right {
+  text-align: right;
+}
+
+.account-chat__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0;
+  position: relative;
+}
+
+.account-chat__date-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: $grey;
+}
+
+.account-chat__date-value {
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+  font-weight: bold;
 }
 
 .account-chat__message {
@@ -18,6 +64,7 @@
 
 .account-chat__time {
   font-size: 14px;
+  margin-top: 5px;
 }
 
 .account-chats__input {
@@ -33,4 +80,19 @@
 
 .account-chats__input::placeholder {
   font-size: 17px;
+}
+
+.account-chat__send {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.account-chat__info {
+  @include absolute-center;
+  text-align: center;
+  color: $blue;
 }

@@ -1,7 +1,7 @@
 import {AccountSubMenu} from "../AccountSubMenu/AccountSubMenu.tsx";
 import {MyPostsSearch} from "../MyPostsSearch/MyPostsSearch.tsx";
 import {ProductCard} from "../ProductCard/ProductCard.tsx";
-import {useContext, useEffect} from "react";
+import { useEffect} from "react";
 import {useProduct} from "../../../Hooks/Product.tsx";
 
 

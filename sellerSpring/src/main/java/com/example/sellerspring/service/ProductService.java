@@ -92,9 +92,6 @@ public class ProductService {
 
     }
 
-    public List<Product> getAll() {
-        return productRepository.findAll();
-    }
 
     public List<Map<String, Object>> getProductsStartsWith(String name) {
         return productRepository.findProductByNameStartingWith(name);
