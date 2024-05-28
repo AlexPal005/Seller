@@ -1,10 +1,15 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {MainPageContext} from "../Main/Main.tsx";
 import {ProductMainType} from "../../../Hooks/Product.tsx";
 import './search-page-products.scss'
+import {Link} from "react-router-dom";
 
 export const SearchPageProducts = () => {
-    const {products} = useContext(MainPageContext)
+    const {products, search} = useContext(MainPageContext)
+
+    useEffect(() => {
+        search()
+    }, []);
     return (
         <div className='search-page-products'>
             <h2 className='search-product-card__count'>Знайдено {`${products.length}`} оголошень</h2>
@@ -22,8 +27,9 @@ interface SearchProductCardProps {
 }
 
 const SearchProductCard = ({product}: SearchProductCardProps) => {
+
     return (
-        <div className='search-product-card'>
+        <Link to={`/post/${product.productId}`} className='search-product-card'>
             <img alt={product.productName}
                  src={`data:image/jpeg;base64,${product.mainImage}`}
                  className='search-product-card__image'
@@ -33,6 +39,6 @@ const SearchProductCard = ({product}: SearchProductCardProps) => {
                 <p className='search-product-card__price'>{product.price} грн</p>
                 <p>{product.cityName} - {new Date(product.createdAt).toLocaleDateString()}</p>
             </div>
-        </div>
+        </Link>
     )
 }

@@ -1,7 +1,7 @@
 import './auth.scss'
 import {Button} from "../../components/Button/Button.tsx";
 import {useState} from "react";
-import {useAuth} from "../../Hooks/User.tsx";
+import {useAuth} from "../../Hooks/Auth.tsx";
 import {Navigate, NavLink, Route, Routes, useNavigate} from "react-router-dom";
 
 

@@ -1,0 +1,60 @@
+@import 'src/scssStyles/mixins';
+@import 'src/scssStyles/variables';
+@import "src/components/Button/button";
+
+.product-page-info__date {
+  font-size: 14px;
+  color: $dark-grey-light;
+}
+
+.product-page-info__product-name {
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.product-page-info__price {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.product-page-info__write-message {
+  @extend .button;
+  border-radius: 7px;
+  width: 100%;
+  padding: 20px;
+  margin-top: 30px;
+  background-color: $dark-grey;
+  color: white;
+}
+
+.product-page-info__write-message:hover {
+  background-color: $dark-grey-light;
+}
+
+.product-page-info__block {
+  margin-top: 20px;
+}
+
+.product-page-info__region {
+  font-size: 21px;
+  margin-top: 10px;
+}
+
+.product-page-info__region-icon {
+  width: 25px;
+  height: 25px;
+  color: $dark-grey;
+}
+
+.product-page-info__region-text-block {
+  @include flex-horizontal-center;
+}
+
+.product-page-info__username {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.product-page-info__title {
+  color: $blue;
+}

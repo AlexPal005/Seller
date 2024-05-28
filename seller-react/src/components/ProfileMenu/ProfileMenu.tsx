@@ -2,6 +2,7 @@ import './profile-menu.scss'
 import {Link} from "react-router-dom";
 import {useContext} from "react";
 import {UserContext} from "../../App.tsx";
+import {FaRegUserCircle} from "react-icons/fa";
 
 interface profileMenuProps {
     showProfileMenu: () => void;
@@ -11,7 +12,7 @@ interface profileMenuProps {
 
 export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps) => {
 
-    const {logOut} = useContext(UserContext)
+    const {logOut, User} = useContext(UserContext)
     const onClickLogOut = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
         logOut()
@@ -22,8 +23,8 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
              onMouseOut={hideProfileMenu}
         >
             <div className='profile-menu__user-block'>
-                <img src='src/assets/detskiy-mir-36-1x.png' alt='user' className='profile-menu__user-photo'/>
-                <p className='profile-menu__user-name'>Олександр</p>
+                <FaRegUserCircle className='profile-menu__user-photo'/>
+                <p className='profile-menu__user-name'>{User.firstName ? User.firstName : User.email}</p>
             </div>
             <p className='profile-menu__category-item'>Ваш профіль</p>
             <ul className='profile-menu__list'>
@@ -36,8 +37,6 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
                 <li className='profile-menu__item'><Link to='/account/settings'
                                                          className='profile-menu__item-link'>Налаштування</Link>
                 </li>
-                <li className='profile-menu__item'><Link to='/' className='profile-menu__item-link'>Платежі та
-                    рахунок</Link></li>
             </ul>
             <p className='profile-menu__category-item'>Обрані</p>
             <ul className='profile-menu__list'>

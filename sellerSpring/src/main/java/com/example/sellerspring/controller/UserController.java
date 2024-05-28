@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -24,8 +25,8 @@ public class UserController {
         return new ResponseEntity<>(userService.getByEmail(email), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllUsers")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    @GetMapping("/getUserByProductId/{productId}")
+    public ResponseEntity<List<Map<String, Object>>> getUserByProductId(@PathVariable Long productId) {
+        return new ResponseEntity<>(userService.getUseByProductId(productId), HttpStatus.OK);
     }
 }

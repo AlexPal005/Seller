@@ -1,9 +1,10 @@
 package com.example.sellerspring.service;
 
+import com.example.sellerspring.dto.ChatDTO;
 import com.example.sellerspring.entity.Chat;
+import com.example.sellerspring.entity.Product;
 import com.example.sellerspring.entity.User;
 import com.example.sellerspring.repository.ChatRepository;
-import com.example.sellerspring.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class ChatService {
 
     private final ChatRepository chatRepository;
     private final UserService userService;
+    private final ProductService productService;
 
     public List<Chat> getChatsByUserId(Long userId) {
         User user = userService.getUserById(userId);
@@ -33,5 +35,16 @@ public class ChatService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return chat;
+    }
+
+    public Chat create(ChatDTO dto) {
+        User user1 = userService.getUserById(dto.getUser1Id());
+        User user2 = userService.getUserById(dto.getUser2Id());
+        Product product = productService.getProductById(dto.getProductId());
+        Chat chat = Chat.builder()
+                .user1(user1)
+                .user2(user2)
+                .product(product)
+                .build();
     }
 }

@@ -7,7 +7,7 @@ import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
 import {Main} from "./pages/Main/Main/Main.tsx";
 import {Account} from "./pages/Account/Account.tsx";
-import {AuthFunctions, useAuth} from "./Hooks/User.tsx";
+import {AuthFunctions, useAuth} from "./Hooks/Auth.tsx";
 import {createContext, useEffect} from "react";
 
 
@@ -17,10 +17,6 @@ const defaultUserContext: AuthFunctions = {
     signUp: async () => console.log("attempting to use AuthContext outside of a valid provider"),
     getUserByEmail: async () => console.log("attempting to use AuthContext outside of a valid provider"),
     logOut: async () => console.log("attempting to use AuthContext outside of a valid provider"),
-    getUsersByFullName: async () => console.log("attempting to use AuthContext outside of a valid provider"),
-    getListProductsByUserId: async () => console.log("attempting to use AuthContext outside of a valid provider"),
-    getListProducts: async () => console.log("attempting to use AuthContext outside of a valid provider"),
-    updateUser: async () => console.log("attempting to use AuthContext outside of a valid provider"),
     User: {}
 }
 export const UserContext = createContext(defaultUserContext);
@@ -33,11 +29,7 @@ function App() {
         signUp,
         User,
         getUserByEmail,
-        logOut,
-        getUsersByFullName,
-        getListProductsByUserId,
-        getListProducts,
-        updateUser
+        logOut
     } = useAuth()
 
 
@@ -58,11 +50,7 @@ function App() {
             signUp,
             User,
             getUserByEmail,
-            logOut,
-            getUsersByFullName,
-            getListProductsByUserId,
-            getListProducts,
-            updateUser
+            logOut
         }}>
             <Header/>
             <div className='content'>

@@ -1,11 +1,10 @@
 package com.example.sellerspring.controller;
 
 import com.example.sellerspring.dto.ProductDTO;
-import com.example.sellerspring.entity.Category;
 import com.example.sellerspring.entity.Product;
+import com.example.sellerspring.service.ProductImageService;
 import com.example.sellerspring.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,13 @@ import java.util.Map;
 @RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
+    private final ProductImageService productImageService;
 
     @PostMapping("/create")
     public ResponseEntity<Product> create(@RequestBody ProductDTO dto) {
         try {
-            return new ResponseEntity<>(productService.create(dto), HttpStatus.OK);
+            return new ResponseEntity<>(productService.create(dto),
+                    HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -51,5 +52,15 @@ public class ProductController {
     @GetMapping("/getProductsByUserId/{userId}")
     public ResponseEntity<List<Map<String, Object>>> getProductsByUserId(@PathVariable Long userId) {
         return new ResponseEntity<>(productService.getProductsByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getProductById/{productId}")
+    public ResponseEntity<List<Map<String, Object>>> getProductById(@PathVariable Long productId) {
+        return new ResponseEntity<>(productService.getProductJsonById(productId), HttpStatus.OK);
+    }
+
+    @GetMapping("/getImagesByProductId/{productId}")
+    public ResponseEntity<List<Map<String, Object>>> getImagesByProductId(@PathVariable Long productId) {
+        return new ResponseEntity<>(productImageService.getImagesByProductId(productId), HttpStatus.OK);
     }
 }

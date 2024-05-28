@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
 import Axios from "../Axios.ts";
-import {User} from "./User.tsx";
+import {User} from "./Auth.tsx";
 import {ProductMainType} from "./Product.tsx";
 
 export interface Chat {

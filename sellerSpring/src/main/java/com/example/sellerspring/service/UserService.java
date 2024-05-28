@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -56,4 +57,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<Map<String, Object>> getUseByProductId (Long productId) {
+        return userRepository.getUserByProductId(productId);
+    }
 }

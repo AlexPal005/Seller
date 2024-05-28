@@ -11,12 +11,14 @@ import java.util.Map;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query(value = "SELECT p.product_name as productName, c.category_name as categoryName " +
+    @Query(value = "SELECT p.product_name as productName, " +
+            "c.category_name as categoryName " +
             "FROM product p " +
             "INNER JOIN category c ON p.category_id = c.category_id " +
             "WHERE p.product_name like CONCAT(:string, '%')",
             nativeQuery = true)
-    List<Map<String, Object>> findProductByNameStartingWith(@Param("string") String string);
+    List<Map<String, Object>> findProductByNameStartingWith(
+            @Param("string") String string);
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "       product.price        as price, " +
@@ -75,5 +77,24 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE product.user_id = :userId",
             nativeQuery = true)
     List<Map<String, Object>> getProductsByUserId(@Param("userId") Long userID);
+
+
+    @Query(value = "SELECT product.product_name as productName, " +
+            "       product.price        as price, " +
+            "       c.city_name          as cityName, " +
+            "       r.region_name        as regionName, " +
+            "       product.created_at   as createdAt, " +
+            "       product.product_id   as productId, " +
+            "       cat.category_name    as categoryName, " +
+            "       product.description  as description " +
+            "FROM product " +
+            "INNER JOIN city c on product.city_id = c.city_id " +
+            "INNER JOIN region r on c.region_id = r.region_id " +
+            "INNER JOIN category cat on product.category_id = cat.category_id " +
+            "WHERE product_id = :productId",
+            nativeQuery = true)
+    List<Map<String, Object>> getProductJsonById(@Param("productId") Long productId);
+
+    Product findProductById(Long productId);
 
 }

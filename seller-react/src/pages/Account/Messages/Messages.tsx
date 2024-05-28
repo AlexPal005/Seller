@@ -13,9 +13,11 @@ const defaultMessageContext = {
     currentChatId: -1
 }
 
-export const MessagesContext = createContext<MessagesContextType>(defaultMessageContext)
+export const MessagesContext =
+    createContext<MessagesContextType>(defaultMessageContext)
 export const Messages = () => {
-    const [currentChatId, setCurrentChatId] = useState<number>(-1)
+    const [currentChatId, setCurrentChatId] =
+        useState<number>(-1)
     return (
         <MessagesContext.Provider value={{
             setCurrentChatId,

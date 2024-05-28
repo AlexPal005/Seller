@@ -8,6 +8,7 @@ export type ProductStartsWith = {
 }
 
 export type ProductMainType = {
+    name: string,
     productId: number,
     productName: string,
     price: number,
@@ -15,7 +16,12 @@ export type ProductMainType = {
     regionName: string,
     mainImage?: string,
     createdAt: string,
-    categoryName?: string
+    categoryName?: string,
+    description: string
+}
+
+export type ProductImage = {
+    image: string
 }
 export const useProduct = () => {
     const [productsStartsWith, setProductsStartsWith]
@@ -23,6 +29,8 @@ export const useProduct = () => {
 
     const [products, setProducts]
         = useState<ProductMainType[]>([])
+
+    const [images, setImages] = useState<ProductImage[]>([])
     const searchProductStartsWith = (name: string) => {
         Axios.get(`/product/searchProductStartsWith/${name}`).then(res => {
             setProductsStartsWith(res.data)
@@ -57,6 +65,22 @@ export const useProduct = () => {
         })
     }
 
+    const getProductById = (productId: number) => {
+        Axios.get(`/product/getProductById/${productId}`).then(res => {
+            setProducts(res.data)
+        }).catch(err => {
+            throw err
+        })
+    }
+
+    const getImagesByProductId = (productId: number) => {
+        Axios.get(`/product/getImagesByProductId/${productId}`).then(res => {
+            setImages(res.data)
+        }).catch(err => {
+            throw err
+        })
+    }
+
 
     return {
         searchProductStartsWith,
@@ -64,7 +88,10 @@ export const useProduct = () => {
         searchProductsByNameAndCity,
         products,
         getAllProducts,
-        getProductsByUserId
+        getProductsByUserId,
+        getProductById,
+        getImagesByProductId,
+        images,
 
     }
 }

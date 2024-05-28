@@ -17,6 +17,10 @@ export const Chats = () => {
 
     }, [User.userId, getChatsByUserId]);
 
+    useEffect(() => {
+        console.log(chats)
+    }, [chats]);
+
     return (
         <div className='account-chats'>
             <div className='account-chats__basket-block'>

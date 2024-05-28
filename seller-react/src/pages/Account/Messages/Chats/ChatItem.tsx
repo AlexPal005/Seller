@@ -3,6 +3,7 @@ import image from './../../../../assets/detskiy-mir-36-1x.png'
 import {Chat} from "../../../../Hooks/Chat.tsx";
 import {useContext} from "react";
 import {MessagesContext} from "../Messages.tsx";
+import {FaRegUserCircle} from "react-icons/fa";
 
 interface ChatItemProps {
     chat: Chat;
@@ -15,12 +16,12 @@ export const ChatItem = ({chat}: ChatItemProps) => {
             setCurrentChatId(chat.id)
         }}>
             <div className='chat-item__image-block'>
-                <img src={image} alt='Фото' className='chat-item__image'/>
+                <FaRegUserCircle className='chat-item__image'/>
             </div>
             <div>
                 <p className='chat-item__username'>{chat.user2?.firstName}</p>
                 <p className='chat-item__product'>{chat.product.name}</p>
-                <p className='chat-item__last-message'>Доброго вечора, у якого саме майстра проводилося ТО?</p>
+                <p className='chat-item__last-message'>Ок</p>
             </div>
         </div>
     )

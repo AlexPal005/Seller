@@ -1,3 +1,5 @@
+@import "src/scssStyles/mixins";
+
 .search-product-card {
   display: flex;
   padding: 10px;
@@ -6,6 +8,8 @@
   cursor: pointer;
   background-color: white;
   border-radius: 7px;
+  @include reset-link;
+  color: black;
 }
 
 .search-product-card:first-child {

@@ -1,0 +1,63 @@
+@import 'src/scssStyles/variables';
+
+.mini-chat {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 7px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  &__body {
+    flex: 1;
+  }
+
+  &__body textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow-y: auto;
+
+  }
+
+  &__footer {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    background: #f5f5f5;
+    border-top: 1px solid #ddd;
+  }
+
+  &__send {
+    padding: 8px 16px;
+    background: $dark-grey;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}

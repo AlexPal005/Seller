@@ -58,7 +58,6 @@ export const SearchRegion = ({classForBlock, classForInput, classForIcon}: Searc
         } else {
             setCities([])
         }
-
     }
     return (
         <RegionContext.Provider value={{

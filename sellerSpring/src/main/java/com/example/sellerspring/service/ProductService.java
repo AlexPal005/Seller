@@ -109,4 +109,12 @@ public class ProductService {
     public List<Map<String, Object>> getProductsByUserId(Long userId) {
         return productRepository.getProductsByUserId(userId);
     }
+
+    public List<Map<String, Object>> getProductJsonById(Long productId) {
+        return productRepository.getProductJsonById(productId);
+    }
+
+    public Product getProductById(Long productId) {
+        return productRepository.findProductById(productId);
+    }
 }
