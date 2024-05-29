@@ -1,23 +1,43 @@
-import React, { useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './mini-chat.scss';
 import {User} from "../../../Hooks/Auth.tsx";
+import {useChat} from "../../../Hooks/Chat.tsx";
+import {ProductMainType} from "../../../Hooks/Product.tsx";
+import {UserContext} from "../../../App.tsx";
+import {useMessage} from "../../../Hooks/Message.tsx";
 
 type MiniChatProps = {
     user: User;
+    product: ProductMainType;
     onClose: () => void;
 };
 
-export const MiniChat: React.FC<MiniChatProps> = ({ user, onClose }) => {
+export const MiniChat: React.FC<MiniChatProps> = ({user, onClose, product}) => {
     const [message, setMessage] = useState('');
-    const handleSendMessage = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-        if(message.length > 2){
-
-            console.log('Message sent:', message);
-            setMessage('');
+    const {createChat} = useChat()
+    const {User} = useContext(UserContext)
+    const {createMessage} = useMessage()
+    const handleSendMessage = () => {
+        if (message.length > 2) {
+            try {
+                if (User.userId && user.userId) {
+                    createChat(User.userId, user.userId, product.productId)
+                        .then((res) => {
+                            if (User.userId) {
+                                createMessage(message, res.data.id, User.userId).then(() => {
+                                    console.log('Message sent:', message);
+                                    setMessage('');
+                                })
+                            }
+                        })
+                }
+            } catch (err) {
+                console.log(err)
+            }
             onClose();
         }
     };
+
 
     return (
         <div className='mini-chat'>
@@ -35,7 +55,8 @@ export const MiniChat: React.FC<MiniChatProps> = ({ user, onClose }) => {
             <div className='mini-chat__footer'>
                 <button className='mini-chat__send'
                         onClick={handleSendMessage}
-                >Відправити</button>
+                >Відправити
+                </button>
             </div>
         </div>
     );

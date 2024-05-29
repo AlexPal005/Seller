@@ -9,6 +9,7 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import Axios from "../../Axios.ts";
 import {UserContext} from "../../App.tsx";
 import {CreatePostPrice} from "./CreatePostPrice/CreatePostPrice.tsx";
+import {useAuth} from "../../Hooks/Auth.tsx";
 
 type PostContextType = {
     setProductName: React.Dispatch<React.SetStateAction<string>>,
@@ -71,6 +72,7 @@ export const CreatePost = () => {
         console.log(price)
     }, [price])
 
+
     const createPost = () => {
         Axios.post('product/create', {
             name: productName,
@@ -78,7 +80,7 @@ export const CreatePost = () => {
             price: price,
             createdAt: new Date(),
             categoryId: categoryId,
-            userId: 1,
+            userId: User.userId,
             images: images,
             cityName: city,
             regionName: region

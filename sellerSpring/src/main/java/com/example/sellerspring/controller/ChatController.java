@@ -28,8 +28,7 @@ public class ChatController {
     @PostMapping("/create")
     public ResponseEntity<Chat> create (@RequestBody ChatDTO dto) {
         try {
-            return new ResponseEntity<>(chatService.create(dto),
-                    HttpStatus.OK);
+            return new ResponseEntity<>(chatService.create(dto), HttpStatus.OK);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

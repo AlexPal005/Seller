@@ -32,7 +32,6 @@ export const ProductPage = () => {
         setProduct(products[0])
     }, [products])
 
-
     return (
         <div className='product-page'>
             <ProductPageImages/>

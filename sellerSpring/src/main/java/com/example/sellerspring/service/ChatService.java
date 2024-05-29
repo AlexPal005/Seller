@@ -41,10 +41,19 @@ public class ChatService {
         User user1 = userService.getUserById(dto.getUser1Id());
         User user2 = userService.getUserById(dto.getUser2Id());
         Product product = productService.getProductById(dto.getProductId());
-        Chat chat = Chat.builder()
-                .user1(user1)
-                .user2(user2)
-                .product(product)
-                .build();
+        boolean isExistsChat = chatRepository.existsChatByUser1AndUser2AndProduct(user1, user2, product);
+
+        Chat chat = null;
+        if (!isExistsChat) {
+            chat = Chat.builder()
+                    .user1(user1)
+                    .user2(user2)
+                    .product(product)
+                    .build();
+            chat = chatRepository.save(chat);
+        } else {
+            chat = chatRepository.findChatByUser1AndUser2AndProduct(user1, user2, product);
+        }
+        return chat;
     }
 }

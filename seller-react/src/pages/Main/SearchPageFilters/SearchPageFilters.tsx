@@ -24,7 +24,7 @@ export const SearchPageFilters = () => {
                     <p>Сортувати за</p>
                     <input type='text'
                            className='search-page-filters__input search-page-filters__input-sort'
-                           placeholder='Будь-яка категорія'
+                           placeholder='Рекомендоване'
                     />
                 </div>
             </div>

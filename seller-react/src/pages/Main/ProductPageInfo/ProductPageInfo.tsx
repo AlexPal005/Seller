@@ -15,7 +15,6 @@ export const ProductPageInfo = ({product}: ProductPageInfoProps) => {
 
     const {user, getUserByProductId} = useUser()
     const [isChatOpen, setIsChatOpen] = useState(false);
-
     useEffect(() => {
         if (product?.productId) {
             getUserByProductId(product.productId)
@@ -25,6 +24,7 @@ export const ProductPageInfo = ({product}: ProductPageInfoProps) => {
     useEffect(() => {
         console.log(user)
     }, [user]);
+
 
     return (
         <div className='product-page-info white-block'>
@@ -53,8 +53,9 @@ export const ProductPageInfo = ({product}: ProductPageInfoProps) => {
             </div>
             <button className='product-page-info__write-message'
                     onClick={() => setIsChatOpen(true)}
-            >Написати повідомлення</button>
-            {isChatOpen && <MiniChat user={user} onClose={() => setIsChatOpen(false)} />}
+            >Написати повідомлення
+            </button>
+            {isChatOpen && <MiniChat user={user} onClose={() => setIsChatOpen(false)} product={product}/>}
         </div>
     )
 

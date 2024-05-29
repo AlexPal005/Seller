@@ -23,6 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsUserByEmail(String email);
 
     @Query(value = "SELECT " +
+            "    p.user_id as userId, " +
             "    first_name as firstName, " +
             "    email as email, " +
             "    phone_number as phoneNumber " +

@@ -12,7 +12,7 @@ export const MyPostsSearch = () => {
                 <option value="2" className='select-option'>Заголовок Я-А</option>
                 <option value="3" className='select-option'>Час публікації</option>
             </select>
-            <p className='my-posts-search-count'>Всього оголошень: <span>15</span></p>
+            <p className='my-posts-search-count'>Всього оголошень: <span>6</span></p>
         </div>
     )
 }

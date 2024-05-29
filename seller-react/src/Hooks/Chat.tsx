@@ -22,12 +22,22 @@ export function useChat() {
 
     }, [])
 
+    const createChat = useCallback((user1Id: number, user2Id: number, productId: number) => {
+       return  Axios.post('/chat/create',
+            {
+                user1Id: user1Id,
+                user2Id: user2Id,
+                productId: productId
+            })
+    }, [])
+
     useEffect(() => {
         console.log(chats)
     }, [chats]);
 
     return {
         getChatsByUserId,
-        chats
+        chats,
+        createChat
     }
 }
