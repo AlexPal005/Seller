@@ -1,0 +1,18 @@
+@import "src/scssStyles/mixins";
+
+.bottom-menu-item {
+  @include reset-link;
+  @include flex-column;
+  align-items: center;
+  color: white;
+}
+
+.bottom-menu-item__icon {
+  width: 25px;
+  height: 25px;
+  margin-bottom: 5px;
+}
+
+.bottom-menu-item__text {
+  font-size: 14px;
+}

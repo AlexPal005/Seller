@@ -33,9 +33,11 @@ export const HeaderMenu = () => {
         <div className='main-menu'>
             <ul className='main-menu__list'>
                 <li className='main-menu__item main-menu__item_color'>
-                    <FiMessageSquare className='main-menu__icon  main-menu__icon_margin-r'/>
                     <Link to='/account/messages'
-                          className='main-menu__link'>Повідомлення</Link>
+                          className='main-menu__link'>
+                        <FiMessageSquare className='main-menu__icon  main-menu__icon_margin-r'/>
+                        <span className='main-menu__link-text'>Повідомлення</span>
+                    </Link>
                 </li>
                 <li className='main-menu__item main-menu__item_color'>
                     <FaRegHeart className='main-menu__icon'/>

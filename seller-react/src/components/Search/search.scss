@@ -76,7 +76,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .search__block-region{
+  .search__block-region {
     display: none;
   }
 
@@ -85,4 +85,20 @@
     height: 50px;
     @include padding-container-mobile;
   }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .search {
+    @include padding-container-small-screen;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+
+  .search {
+    @include padding-container-mobile;
+  }
+
 }

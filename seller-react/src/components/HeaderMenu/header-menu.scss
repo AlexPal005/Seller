@@ -59,4 +59,16 @@
 .main-menu__link {
   @include reset-link;
   color: white;
+  @include flex-horizontal-center;
 }
+
+.main-menu__text-less {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  .main-menu__link-text {
+    display: none;
+  }
+}
+

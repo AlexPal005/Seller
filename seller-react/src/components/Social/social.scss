@@ -51,7 +51,7 @@
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
 
   .social-main {
     padding: 30px 10px 50px;
@@ -63,5 +63,16 @@
 
   .social-networks {
     width: 30%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .social-main {
+    padding: 30px 50px 50px;
+  }
+
+  .social-main__text {
+    padding: 0 5%;
   }
 }

@@ -1,0 +1,24 @@
+@import "src/scssStyles/variables";
+@import "src/scssStyles/mixins";
+
+.bottom-menu {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  background-color: $dark-grey;
+  width: 100%;
+  color: white;
+  height: 70px;
+  display: none;
+  padding: 0 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .bottom-menu {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+  }
+}

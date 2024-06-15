@@ -9,6 +9,7 @@ import {Main} from "./pages/Main/Main/Main.tsx";
 import {Account} from "./pages/Account/Account.tsx";
 import {AuthFunctions, useAuth} from "./Hooks/Auth.tsx";
 import {createContext, useEffect} from "react";
+import {BottomMenu} from "./components/BottomMenu/BottomMenu.tsx";
 
 
 const defaultUserContext: AuthFunctions = {
@@ -71,6 +72,7 @@ function App() {
                     />
                 </Routes>
             </div>
+            <BottomMenu/>
             <Footer/>
         </UserContext.Provider>
     )
