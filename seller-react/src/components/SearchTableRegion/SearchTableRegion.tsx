@@ -15,7 +15,7 @@ export interface SearchTableRegion {
 export const SearchTableRegion = ({cities}: SearchTableRegion) => {
 
     return (
-        <div className='search-table'>
+        <div className='search-table search-table-region'>
             {cities.length && cities.map((city, index) => {
                 return <SearchTableItem city={city} key={index}/>
             })}

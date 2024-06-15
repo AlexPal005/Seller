@@ -49,3 +49,19 @@
   width: 35px;
   height: 35px;
 }
+
+
+@media screen and (max-width: 480px) {
+
+  .social-main {
+    padding: 30px 10px 50px;
+  }
+
+  .social-main__text {
+    padding: 0 10%;
+  }
+
+  .social-networks {
+    width: 30%;
+  }
+}

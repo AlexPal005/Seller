@@ -1,5 +1,6 @@
 import {Dispatch, SetStateAction} from "react";
 import {AllCategories} from "../AllCategories/AllCategories.tsx";
+import './categories.scss'
 
 interface categoryProps {
     img: string;

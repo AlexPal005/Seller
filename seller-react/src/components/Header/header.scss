@@ -7,3 +7,10 @@
   background-color: $dark-grey;
   height: 60px;
 }
+
+
+@media screen and (max-width: 480px) {
+  .header{
+    display: none;
+  }
+}

@@ -74,3 +74,15 @@
 .search__button:hover {
   background-color: $dark-grey-light;
 }
+
+@media screen and (max-width: 480px) {
+  .search__block-region{
+    display: none;
+  }
+
+  .search {
+    grid-template-columns: 80fr 20fr;
+    height: 50px;
+    @include padding-container-mobile;
+  }
+}

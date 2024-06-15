@@ -36,3 +36,9 @@
 .footer__list-menu-item {
   padding: 2px 0;
 }
+
+@media screen and (max-width: 480px) {
+  .footer {
+    display: none;
+  }
+}

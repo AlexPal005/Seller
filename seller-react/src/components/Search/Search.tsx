@@ -53,7 +53,7 @@ export const Search = () => {
                     <SearchTable products={productsStartsWith}/>
                 }
             </div>
-            <SearchRegion classForBlock={'search__block'} classForInput={'search__region'}
+            <SearchRegion classForBlock={'search__block search__block-region'} classForInput={'search__region'}
                           classForIcon={'search__icon'}/>
             <Button text={'Пошук'} onClick={search} className='search__button'/>
         </div>

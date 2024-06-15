@@ -19,7 +19,6 @@
 
 .categories__item-menu {
   cursor: pointer;
-  position: relative;
 }
 
 .categories__photo-circle {
@@ -46,7 +45,6 @@
   font-weight: 600;
   width: 100%;
   text-align: center;
-  position: absolute;
 }
 
 .categories__photo-circle, .categories__photo-description {
@@ -59,4 +57,19 @@
 
 .categories__item-menu:hover .categories__photo-description {
   font-size: 17px;
+}
+
+
+@media screen and (max-width: 480px) {
+
+  .categories {
+    padding: 50px 10px 90px;
+    margin-top: 100px;
+  }
+
+  .categories__menu {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 40px;
+  }
 }
