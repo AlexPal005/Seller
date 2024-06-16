@@ -9,7 +9,7 @@ export const Description = () => {
     }
     return (
         <div className='create-post-description white-block'>
-            <h4>Деталі оголошення</h4>
+            <h4>Опис оголошення</h4>
 
             <textarea
                 className='create-post-description__text'

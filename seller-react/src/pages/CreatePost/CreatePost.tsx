@@ -9,7 +9,6 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import Axios from "../../Axios.ts";
 import {UserContext} from "../../App.tsx";
 import {CreatePostPrice} from "./CreatePostPrice/CreatePostPrice.tsx";
-import {useAuth} from "../../Hooks/Auth.tsx";
 
 type PostContextType = {
     setProductName: React.Dispatch<React.SetStateAction<string>>,

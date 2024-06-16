@@ -2,6 +2,7 @@ import './photo.scss'
 import {InputPhoto} from "../../components/InputPhoto/InputPhoto.tsx";
 import {useCallback, useContext, useEffect, useState} from "react";
 import {PostContext} from "./CreatePost.tsx";
+import {SelectAllImages} from "./SelectAllImages/SelectAllImages.tsx";
 
 export const Photo = () => {
     const [htmlPhotos, setHtmlPhotos] = useState<string[]>([])
@@ -55,6 +56,7 @@ export const Photo = () => {
                 <InputPhoto indexPhoto={6} setHtmlPhotos={setHtmlPhotos} htmlPhotos={htmlPhotos}/>
                 <InputPhoto indexPhoto={7} setHtmlPhotos={setHtmlPhotos} htmlPhotos={htmlPhotos}/>
             </div>
+            <SelectAllImages/>
         </div>
     )
 }

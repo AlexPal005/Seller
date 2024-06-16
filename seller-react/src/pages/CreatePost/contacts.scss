@@ -4,3 +4,9 @@
   @extend .create-post-container__input;
   width: 25%;
 }
+
+@media screen and (max-width: 768px) {
+  .create-post-contact-input {
+    width: 100%;
+  }
+}

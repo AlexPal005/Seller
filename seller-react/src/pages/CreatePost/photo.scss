@@ -17,3 +17,10 @@
   grid-template-rows: repeat(2, 150px);
   grid-template-columns: repeat(4, 200px);
 }
+
+
+@media screen and (max-width: 768px) {
+  .create-post-photo__photo-list {
+    display: none;
+  }
+}

@@ -10,14 +10,12 @@ interface inputPhotoProps {
 }
 
 export const InputPhoto = ({indexPhoto, htmlPhotos, setHtmlPhotos}: inputPhotoProps) => {
-    const [image, setImage] = useState({})
     const [htmlImage, setHtmlImage] = useState('')
 
     const onChangePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         let file: File
         if (e.currentTarget.files && e.currentTarget.files[0]) {
             file = e.currentTarget.files[0]
-            setImage(file)
             const currHtmlImage: string = URL.createObjectURL(file);
             setHtmlImage(currHtmlImage)
             setHtmlPhotos(prev => [...prev, currHtmlImage])
@@ -34,8 +32,6 @@ export const InputPhoto = ({indexPhoto, htmlPhotos, setHtmlPhotos}: inputPhotoPr
             }
             return prev
         })
-
-        setImage({})
     }
 
     useEffect(() => {
@@ -64,6 +60,7 @@ export const InputPhoto = ({indexPhoto, htmlPhotos, setHtmlPhotos}: inputPhotoPr
                             id="select-photo"
                             className="input-select-photo"
                             onChange={onChangePhoto}
+                            accept="image/png, image/jpeg"
                             multiple
                         />
                     </>

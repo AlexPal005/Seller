@@ -2,12 +2,11 @@ import './main.scss'
 import {Search} from "../../../components/Search/Search.tsx";
 import {Categories} from "../../../components/Categories/Categories.tsx";
 import {Social} from "../../../components/Social/Social.tsx";
-import React, {createContext, useEffect, useState} from "react";
+import React, {createContext, useState} from "react";
 import {ProductMainType, useProduct} from "../../../Hooks/Product.tsx";
 import {Route, Routes, useNavigate} from 'react-router-dom';
 import {SearchPage} from "../SearchPage/SearchPage.tsx";
 import {ProductPage} from "../ProductPage/ProductPage.tsx";
-import {useAuth} from "../../../Hooks/Auth.tsx";
 
 type MainContextType = {
     setSearchProductName: React.Dispatch<React.SetStateAction<string>>,

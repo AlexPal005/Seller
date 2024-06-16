@@ -21,10 +21,3 @@
 .region-search-item:hover {
   background-color: $grey-hover;
 }
-
-
-@media screen and (max-width: 480px) {
-  .search-table-region {
-    display: none;
-  }
-}

@@ -11,3 +11,10 @@
   resize:none;
   margin-top: 20px;
 }
+
+
+@media screen and (max-width: 768px) {
+  .create-post-description__text {
+    min-width: 100%;
+  }
+}
