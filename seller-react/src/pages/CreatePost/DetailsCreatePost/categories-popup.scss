@@ -14,7 +14,7 @@
 }
 
 .modal {
-  position: relative;
+  position: absolute;
   background-color: white;
   width: 1000px;
   max-height: 800px;
@@ -61,7 +61,7 @@
 
 .modal-categories__list {
   margin-top: 20px;
-  height: 100%;
+  height: 500px;
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(3, 1fr);
@@ -79,4 +79,37 @@
 .category-item__text {
   font-size: 20px;
   color: $dark-grey-light;
+}
+
+@media screen and (max-width: 480px) {
+  .modal-categories__list {
+    display: flex;
+    flex-direction: column;
+  }
+  .modal {
+    max-height: 70%;
+    overflow-y: auto;
+  }
+  .category-item {
+    height: 50px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  .modal-categories__list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .modal-categories__list {
+    grid-gap: 5px;
+  }
+  .modal {
+    left: 15px;
+    right: 15px;
+    width: auto;
+  }
 }

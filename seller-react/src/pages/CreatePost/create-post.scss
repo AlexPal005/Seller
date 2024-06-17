@@ -63,13 +63,21 @@
 
   .create-post-container {
     @include padding-container-mobile;
+    padding-top: 20px;
     padding-bottom: 100px;
   }
 
-  .create-post-details__name {
+  .create-post-details__name, .create-post-details__category-button {
     width: 100%;
   }
-  .create-post-details__category-button {
-    width: 100%;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1150px) {
+
+  .create-post-container {
+    @include padding-container-small-screen;
+    padding-bottom: 100px;
+    padding-top: 20px;
   }
 }

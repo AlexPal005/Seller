@@ -6,7 +6,7 @@
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
-  position: absolute;
+  position: relative;
   z-index: -1;
 }
 
@@ -28,7 +28,7 @@
   height: 100%;
   cursor: pointer;
   display: block;
-
+  object-fit: cover;
 }
 
 .input-select-photo-block__hover {

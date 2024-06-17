@@ -36,6 +36,36 @@
   justify-content: space-between;
 }
 
+.search-product-card__product-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .search-product-card__count {
   margin-bottom: 20px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .search-product-card__image {
+    width: 140px;
+    height: 100px;
+  }
+  .search-product-card__product-name {
+    font-size: 16px;
+    font-weight: normal;
+  }
+  .search-product-card__price {
+    font-size: 15px;
+  }
+
+  .search-product-card__price {
+    position: static;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .search-page {
+    @include padding-container-small-screen;
+  }
 }

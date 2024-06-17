@@ -35,7 +35,7 @@ const SearchProductCard = ({product}: SearchProductCardProps) => {
                  className='search-product-card__image'
             />
             <div className='search-product-card__info-block'>
-                <h2>{product.productName}</h2>
+                <p className='search-product-card__product-name'>{product.productName}</p>
                 <p className='search-product-card__price'>{product.price} грн</p>
                 <p>{product.cityName} - {new Date(product.createdAt).toLocaleDateString()}</p>
             </div>

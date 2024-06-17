@@ -66,6 +66,5 @@ export const InputPhoto = ({indexPhoto, htmlPhotos, setHtmlPhotos}: inputPhotoPr
                     </>
             }
         </div>
-
     )
 }

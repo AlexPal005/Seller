@@ -38,4 +38,20 @@
   margin-top: 20px;
   display: flex;
   justify-content: end;
+  margin-bottom: 20px;
 }
+
+@media screen and (max-width: 480px) {
+  .search-page-filters__category-block {
+    flex-direction: column;
+  }
+
+  .search-page-filters__category {
+    margin-bottom: 10px;
+  }
+
+  .search-page-filters__sorting {
+    justify-content: start;
+  }
+}
+
