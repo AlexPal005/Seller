@@ -1,8 +1,8 @@
 import './product-card.scss'
-import {ProductMainType} from "../../../Hooks/Product.tsx";
+import {Product} from "../../../Hooks/Product.tsx";
 
 interface ProductCardProps {
-    product: ProductMainType;
+    product: Product;
 }
 
 export const ProductCard = ({product}: ProductCardProps) => {

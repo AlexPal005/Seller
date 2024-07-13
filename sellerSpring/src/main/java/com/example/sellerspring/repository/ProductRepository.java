@@ -11,14 +11,24 @@ import java.util.Map;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    @Query(value = "SELECT p.product_name as productName, " +
-            "c.category_name as categoryName " +
-            "FROM product p " +
-            "INNER JOIN category c ON p.category_id = c.category_id " +
-            "WHERE p.product_name like CONCAT(:string, '%')",
+    @Query(value = "SELECT DISTINCT product.product_name as productName, " +
+            "       product.price        as price, " +
+            "       c.city_name          as cityName, " +
+            "       r.region_name        as regionName, " +
+            "       product.created_at   as createdAt, " +
+            "       product.product_id   as productId,  " +
+            "(SELECT pi.image " +
+            "                 FROM product_image pi " +
+            "                 WHERE pi.product_id = product.product_id " +
+            "                 LIMIT 1)            as mainImage " +
+            "FROM product " +
+            "         INNER JOIN city c on product.city_id = c.city_id " +
+            "         INNER JOIN region r on c.region_id = r.region_id " +
+            "         INNER JOIN product_image pi on product.product_id = pi.product_id " +
+            "WHERE product.product_name like CONCAT(:productName, '%')",
             nativeQuery = true)
     List<Map<String, Object>> findProductByNameStartingWith(
-            @Param("string") String string);
+            @Param("productName") String productName);
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "       product.price        as price, " +

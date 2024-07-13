@@ -40,10 +40,6 @@ function App() {
         }
     }, [User, getUser])
 
-    useEffect(() => {
-        console.log(User?.email)
-    }, [User])
-
     return (
         <UserContext.Provider value={{
             getUser,
@@ -60,11 +56,10 @@ function App() {
                     <Route path="/create-post" element={<CreatePost/>}/>
                     <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
                     {
-                        !User?.email ?
-                            <Route path="/auth/*" element={<Auth/>}/>
-                            :
+                        Object.keys(User).length !== 0 ?
                             <Route path="/account/*" element={<Account/>}/>
-
+                            :
+                            <Route path="/auth/*" element={<Auth/>}/>
                     }
                     <Route
                         path="*"

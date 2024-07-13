@@ -2,12 +2,7 @@ import Axios from "../Axios.ts";
 import {useState} from "react";
 
 
-export type ProductStartsWith = {
-    productName: string,
-    categoryName: string
-}
-
-export type ProductMainType = {
+export type Product = {
     name: string,
     productId: number,
     productName: string,
@@ -25,15 +20,16 @@ export type ProductImage = {
 }
 export const useProduct = () => {
     const [productsStartsWith, setProductsStartsWith]
-        = useState<ProductStartsWith[]>([])
+        = useState<Product[]>([])
 
     const [products, setProducts]
-        = useState<ProductMainType[]>([])
+        = useState<Product[]>([])
 
     const [images, setImages] = useState<ProductImage[]>([])
-    const searchProductStartsWith = (name: string) => {
-        Axios.get(`/product/searchProductStartsWith/${name}`).then(res => {
+    const searchProductStartsWith = (productName: string) => {
+        Axios.get(`/product/searchProductStartsWith/${productName}`).then(res => {
             setProductsStartsWith(res.data)
+            setProducts(res.data)
         }).catch(err => {
             throw err
         })
@@ -44,9 +40,12 @@ export const useProduct = () => {
                 res => {
                     setProducts(res.data)
                 }
-            ).catch(err => {
-            throw err
-        })
+            )
+            .catch(
+                err => {
+                    throw err
+                }
+            )
     }
 
     const getAllProducts = () => {

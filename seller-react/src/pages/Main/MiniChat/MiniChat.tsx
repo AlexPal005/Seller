@@ -2,13 +2,13 @@ import React, {useContext, useEffect, useState} from 'react';
 import './mini-chat.scss';
 import {User} from "../../../Hooks/Auth.tsx";
 import {useChat} from "../../../Hooks/Chat.tsx";
-import {ProductMainType} from "../../../Hooks/Product.tsx";
+import {Product} from "../../../Hooks/Product.tsx";
 import {UserContext} from "../../../App.tsx";
 import {useMessage} from "../../../Hooks/Message.tsx";
 
 type MiniChatProps = {
     user: User;
-    product: ProductMainType;
+    product: Product;
     onClose: () => void;
 };
 

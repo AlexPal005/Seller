@@ -2,7 +2,7 @@ import './search.scss'
 import {Button} from "../Button/Button.tsx";
 import {IoSearchOutline} from "react-icons/io5";
 import {SearchTable} from "../SearchTable/SearchTable.tsx";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {SearchRegion} from "../SearchRegion/SearchRegion.tsx";
 import {useProduct} from "../../Hooks/Product.tsx";
 import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
@@ -10,7 +10,7 @@ import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 
 export const Search = () => {
     const [isClickedSearch, setIsClickedSearch] = useState(false)
-    const {setSearchProductName, search} = useContext(MainPageContext)
+    const {searchProductName, setSearchProductName, search} = useContext(MainPageContext)
 
     const {
         searchProductStartsWith,
@@ -32,11 +32,6 @@ export const Search = () => {
         setSearchProductName(e.target.value)
     }
 
-    useEffect(() => {
-        console.log(productsStartsWith)
-    }, [productsStartsWith]);
-
-
     return (
         <div className='search'>
             <div className="search__block">
@@ -47,6 +42,7 @@ export const Search = () => {
                        onFocus={showSearchTable}
                        onBlur={() => setTimeout(hideSearchTable, 200)}
                        onChange={onChangeProductName}
+                       value={searchProductName}
                 />
                 {
                     isClickedSearch &&

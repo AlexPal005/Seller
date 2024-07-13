@@ -1,6 +1,6 @@
 import {useContext, useEffect} from "react";
 import {MainPageContext} from "../Main/Main.tsx";
-import {ProductMainType} from "../../../Hooks/Product.tsx";
+import {Product} from "../../../Hooks/Product.tsx";
 import './search-page-products.scss'
 import {Link} from "react-router-dom";
 
@@ -23,7 +23,7 @@ export const SearchPageProducts = () => {
 }
 
 interface SearchProductCardProps {
-    product: ProductMainType
+    product: Product
 }
 
 const SearchProductCard = ({product}: SearchProductCardProps) => {

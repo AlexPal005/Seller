@@ -1,5 +1,5 @@
 import './product-page-info.scss'
-import {ProductMainType} from "../../../Hooks/Product.tsx";
+import {Product} from "../../../Hooks/Product.tsx";
 import {format} from "date-fns";
 import {uk} from "date-fns/locale";
 import {FaLocationDot} from "react-icons/fa6";
@@ -9,7 +9,7 @@ import {MiniChat} from "../MiniChat/MiniChat.tsx";
 
 
 type ProductPageInfoProps = {
-    product: ProductMainType
+    product: Product
 }
 export const ProductPageInfo = ({product}: ProductPageInfoProps) => {
 
