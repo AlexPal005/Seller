@@ -22,7 +22,12 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Category>> readAll() {
+    public ResponseEntity<List<Category>> getAll() {
         return new ResponseEntity<>(categoryService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getCategoriesByParentId/{parentId}")
+    public ResponseEntity<List<Category>> getCategoriesByParentId(@PathVariable Long parentId) {
+        return new ResponseEntity<>(categoryService.getCategoriesByParentId(parentId), HttpStatus.OK);
     }
 }

@@ -1,51 +1,29 @@
 import './all-categories.scss'
 import {useEffect, useState} from "react";
 import {IoIosArrowForward} from "react-icons/io";
-
-type subCategoryItemModel = {
-    id: number,
-    subCategory: string
-}
+import {Category, useCategory} from "../../Hooks/Category.tsx";
 
 interface subCategoryItemProps {
-    subCategoryItem: subCategoryItemModel;
+    subCategoryItem: Category;
 }
 
 const SubCategoryItem = ({subCategoryItem}: subCategoryItemProps) => {
     return (
         <div className='all-categories__sub-category'>
             <IoIosArrowForward/>
-            <p>{subCategoryItem.subCategory}</p>
+            <p>{subCategoryItem.name}</p>
         </div>
     )
 }
 
-interface allCategoriesProps {
+interface subCategoriesProps {
     index: number;
+    categoryId: number;
 }
 
-export const AllCategories = ({index}: allCategoriesProps) => {
+export const SubCategories = ({index, categoryId}: subCategoriesProps) => {
     const [currPositionStyle, setCurrPositionStyle] = useState('')
-
-    const [subCategories] = useState([
-        {
-            id: 0,
-            subCategory: "Дитячий одяг"
-        },
-        {
-            id: 0,
-            subCategory: "Дитячі меблі"
-        },
-        {
-            id: 0,
-            subCategory: "Товари для школярів"
-        },
-        {
-            id: 0,
-            subCategory: "Дитяче взуття"
-        },
-
-    ])
+    const {subCategories, getSubCategoriesByCategoryId} = useCategory()
 
     useEffect(() => {
         if (index < 8) {
@@ -54,6 +32,14 @@ export const AllCategories = ({index}: allCategoriesProps) => {
             setCurrPositionStyle('all-categories_4-position')
         }
     }, [index])
+
+    useEffect(() => {
+        getSubCategoriesByCategoryId(categoryId)
+    }, [categoryId, getSubCategoriesByCategoryId]);
+
+    useEffect(() => {
+        console.log(categoryId)
+    }, [categoryId]);
 
     return (
         <div className={'all-categories ' + currPositionStyle}>
@@ -67,7 +53,7 @@ export const AllCategories = ({index}: allCategoriesProps) => {
                     subCategories &&
                     subCategories.map(subCategory => {
                         return (
-                            <SubCategoryItem subCategoryItem={subCategory}/>
+                            <SubCategoryItem subCategoryItem={subCategory} key={subCategory.id}/>
                         )
                     })
                 }

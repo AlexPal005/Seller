@@ -1,5 +1,5 @@
 import Axios from "../Axios.ts"
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 
 
 export interface Category {
@@ -7,28 +7,35 @@ export interface Category {
     name: string;
     image?: [];
     parentId?: number;
-
 }
 
 export function useCategory() {
     const [categories, setCategories] = useState<Category[]>([])
+    const [subCategories, setSubCategories] = useState<Category[]>([])
 
-    const getAllCategories = useCallback(() => {
-        Axios.get('/category/getAll').then(res => {
-            setCategories(res.data)
+    const getSubCategoriesByCategoryId = useCallback((parentId: number) => {
+        Axios.get(`/category/getCategoriesByParentId/${parentId}`).then(res => {
+            setSubCategories(res.data)
         }).catch(err => {
             throw err
         })
 
     }, [])
 
-    useEffect(() => {
-        getAllCategories()
-    }, [getAllCategories]);
+    const getAllCategories = useCallback(() => {
+        Axios.get('/category/getAll').then(res => {
+            setCategories(res.data)
+            console.log(res.data)
+        }).catch(err => {
+            throw err
+        })
 
+    }, [])
 
     return {
         getAllCategories,
-        categories
+        categories,
+        getSubCategoriesByCategoryId,
+        subCategories
     }
 }

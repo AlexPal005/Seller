@@ -10,7 +10,7 @@ type DetailsCreatePostProps = {
 export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
     const [errorName, setErrorName] = useState("")
     const [isClickedCategories, setIsClickedCategories] = useState(false)
-    const {categories} = useCategory()
+    const {categories, getAllCategories} = useCategory()
     const {setProductName} = useContext(PostContext)
     const [currentCategory, setCurrentCategory]
         = useState({id: -1, name: ""})
@@ -25,6 +25,10 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
             })
         }
     }, [categoryId, categories]);
+
+    useEffect(() => {
+        getAllCategories()
+    }, [getAllCategories]);
 
     const onChangeProductName = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         if (e.target.value.length < 16) {

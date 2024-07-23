@@ -15,6 +15,7 @@ interface CategoryItemProps {
 }
 
 export const CategoriesPopUp = ({categories, closeModal}: CategoriesPopUpProps) => {
+
     useEffect(() => {
         console.log(categories)
     }, [categories])
@@ -29,8 +30,10 @@ export const CategoriesPopUp = ({categories, closeModal}: CategoriesPopUpProps) 
                             <>
                                 {
                                     categories.map(category => {
-                                        return <CategoryItem category={category} key={category.id}
-                                                             closeModal={closeModal}/>
+                                        if (!category?.parentId) {
+                                            return <CategoryItem category={category} key={category.id}
+                                                                 closeModal={closeModal}/>
+                                        }
                                     })
                                 }
                             </> :

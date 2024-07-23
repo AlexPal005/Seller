@@ -46,8 +46,8 @@ export const BottomMenu = () => {
     return (
         <div className='bottom-menu'>
             {
-                menuItems.map(menuItem =>
-                    <BottomMenuItem menuItemInfo={menuItem}/>
+                menuItems.map((menuItem, index) =>
+                    <BottomMenuItem menuItemInfo={menuItem} key={index}/>
                 )
             }
         </div>
