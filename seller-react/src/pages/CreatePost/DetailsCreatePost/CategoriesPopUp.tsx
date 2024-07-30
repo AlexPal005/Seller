@@ -1,49 +1,27 @@
-import {Category} from "../../../Hooks/Category.tsx";
 import './categories-popup.scss'
 import {IoClose} from "react-icons/io5";
-import {useContext, useEffect} from "react";
-import {PostContext} from "../CreatePost.tsx";
+import {MainCategoriesList} from "./MainCategoriesList.tsx";
+import {AllCategories} from "./AllCategories/AllCategories.tsx";
+import {useContext} from "react";
+import {DetailsCreatePostContext} from "./DetailsCreatePost.tsx";
 
 interface CategoriesPopUpProps {
-    categories: Category[];
     closeModal: () => void;
 }
 
-interface CategoryItemProps {
-    category: Category;
-    closeModal: () => void;
-}
-
-export const CategoriesPopUp = ({categories, closeModal}: CategoriesPopUpProps) => {
-
-    useEffect(() => {
-        console.log(categories)
-    }, [categories])
+export const CategoriesPopUp = ({closeModal}: CategoriesPopUpProps) => {
+    const {mainCategoryId} = useContext(DetailsCreatePostContext)
 
     return (
         <div className='modal-wrapper'>
             <div className='modal modal-categories'>
                 <h1>Виберіть категорію</h1>
-                <div className='modal-categories__list'>
-                    {
-                        categories.length ?
-                            <>
-                                {
-                                    categories.map(category => {
-                                        if (!category?.parentId) {
-                                            return <CategoryItem category={category} key={category.id}
-                                                                 closeModal={closeModal}/>
-                                        }
-                                    })
-                                }
-                            </> :
-                            <p className='modal_error'>
-                                Нічого не знайдено
-                            </p>
+                {
+                    mainCategoryId === -1 ?
+                        <MainCategoriesList/> :
+                        <AllCategories/>
 
-
-                    }
-                </div>
+                }
                 <IoClose className='modal__close-button' onClick={closeModal}/>
             </div>
             <div className="overlay" onClick={closeModal}></div>
@@ -51,19 +29,3 @@ export const CategoriesPopUp = ({categories, closeModal}: CategoriesPopUpProps) 
     )
 }
 
-const CategoryItem = ({category, closeModal}: CategoryItemProps) => {
-
-    const {setCategoryId} = useContext(PostContext)
-
-    const onClickCategory = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-        setCategoryId(category.id)
-        closeModal()
-    }
-    return (
-        <div className='category-item' onClick={onClickCategory}>
-            <img alt={category.name} src={`data:image/jpeg;base64,${category.image}`} className='category-item__image'/>
-            <p className='category-item__text'>{category.name}</p>
-        </div>
-    )
-}

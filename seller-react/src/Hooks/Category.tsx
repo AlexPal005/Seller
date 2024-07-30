@@ -25,7 +25,6 @@ export function useCategory() {
     const getAllCategories = useCallback(() => {
         Axios.get('/category/getAll').then(res => {
             setCategories(res.data)
-            console.log(res.data)
         }).catch(err => {
             throw err
         })

@@ -21,6 +21,7 @@ type PostContextType = {
     setEmail: React.Dispatch<React.SetStateAction<string>>
     setPhoneNumber: React.Dispatch<React.SetStateAction<string>>
     setPrice: React.Dispatch<React.SetStateAction<number>>,
+    categoryId: number
 }
 
 const PostContextDefault = {
@@ -49,9 +50,8 @@ const PostContextDefault = {
     },
     setPrice: () => {
 
-    }
-
-
+    },
+    categoryId: -1,
 }
 export const PostContext = createContext<PostContextType>(PostContextDefault)
 export const CreatePost = () => {
@@ -68,9 +68,8 @@ export const CreatePost = () => {
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
-        console.log(price)
-    }, [price])
-
+        console.log(categoryId)
+    }, [categoryId])
 
     const createPost = () => {
         Axios.post('product/create', {
@@ -103,7 +102,8 @@ export const CreatePost = () => {
             setUserName,
             setEmail,
             setPhoneNumber,
-            setPrice
+            setPrice,
+            categoryId
         }}>
             <div className='create-post-container'>
                 <h2 className='create-post-container__title'>Створити оголошення</h2>

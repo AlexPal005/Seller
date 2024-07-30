@@ -1,0 +1,31 @@
+@import "src/scssStyles/mixins";
+@import "src/scssStyles/variables";
+
+.create-post-all-categories {
+  display: flex;
+  margin-top: 20px;
+  height: 90%;
+}
+
+.create-post-category-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  overflow-y: hidden;
+  width: 20%;
+}
+
+.create-post-category-list__item {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 10px;
+  border-bottom: 1px solid $grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-post-category-list__item.selected, .create-post-category-list__item:hover {
+  background-color: $light-blue;
+}
