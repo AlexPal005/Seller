@@ -5,7 +5,10 @@ import {CategoriesPopUp} from "./CategoriesPopUp.tsx";
 import {PostContext} from "../CreatePost.tsx";
 
 type DetailsCreatePostProps = {
-    categoryId: number
+    categoryId: number,
+    setErrorProductName: React.Dispatch<React.SetStateAction<string>>,
+    errorProductName: string,
+    errorCategory: string
 }
 type DetailsCreatePostContextType = {
     categories: Category[];
@@ -24,11 +27,17 @@ const DetailsCreatePostContextDefault = {
 }
 export const DetailsCreatePostContext =
     createContext<DetailsCreatePostContextType>(DetailsCreatePostContextDefault)
-export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
-    const [errorName, setErrorName] = useState("")
+export const DetailsCreatePost = ({
+                                      categoryId,
+                                      setErrorProductName,
+                                      errorProductName,
+                                      errorCategory
+                                  }: DetailsCreatePostProps) => {
     const [isClickedCategories, setIsClickedCategories] = useState(false)
     const {categories, getAllCategories} = useCategory()
-    const {setProductName} = useContext(PostContext)
+    const {
+        setProductName
+    } = useContext(PostContext)
     const [currentCategory, setCurrentCategory]
         = useState<Category | undefined>()
     const [mainCategoryId, setMainCategoryId] = useState(-1)
@@ -42,15 +51,11 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
         }
     }, [categoryId, categories]);
 
-    useEffect(() => {
-        getAllCategories()
-    }, [getAllCategories]);
-
     const onChangeProductName = (e: { target: { value: React.SetStateAction<string>; }; }) => {
         if (e.target.value.length < 16) {
-            setErrorName("Заголовок надто короткий. Додайте більше деталей.")
+            setErrorProductName("Заголовок надто короткий. Додайте більше деталей!")
         } else {
-            setErrorName("")
+            setErrorProductName("")
             setProductName(e.target.value)
         }
     }
@@ -63,6 +68,11 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
     const closeModal = () => {
         setIsClickedCategories(false)
     }
+
+    useEffect(() => {
+        getAllCategories()
+    }, [getAllCategories])
+
     return (
         <DetailsCreatePostContext.Provider
             value={{
@@ -72,7 +82,7 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
                 mainCategoryId
             }}
         >
-            <div className='create-post-details white-block'>
+            <div className='create-post-details white-block' id='create-post-details'>
                 <h4>Деталі оголошення</h4>
                 <form>
                     <div className='create-post-container__wrapper'>
@@ -84,7 +94,7 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
                             placeholder='Наприклад, xiaomi redmi note 9 pro'
                             onChange={onChangeProductName}
                         />
-                        {errorName && <p className="error">{errorName}</p>}
+                        {errorProductName && <p className="error">{errorProductName}</p>}
                     </div>
                     <div className='create-post-container__wrapper'>
                         <p className='blue-text-16'>Категорія</p>
@@ -100,6 +110,7 @@ export const DetailsCreatePost = ({categoryId}: DetailsCreatePostProps) => {
                             }
                             <IoIosArrowDown className='icon-arrow'/>
                         </button>
+                        {errorCategory && <p className="error">{errorCategory}</p>}
                     </div>
                 </form>
                 {isClickedCategories &&

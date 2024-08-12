@@ -9,6 +9,7 @@ import React, {createContext, useContext, useEffect, useState} from "react";
 import Axios from "../../Axios.ts";
 import {UserContext} from "../../App.tsx";
 import {CreatePostPrice} from "./CreatePostPrice/CreatePostPrice.tsx";
+import {useNavigate} from "react-router-dom";
 
 type PostContextType = {
     setProductName: React.Dispatch<React.SetStateAction<string>>,
@@ -21,7 +22,7 @@ type PostContextType = {
     setEmail: React.Dispatch<React.SetStateAction<string>>
     setPhoneNumber: React.Dispatch<React.SetStateAction<string>>
     setPrice: React.Dispatch<React.SetStateAction<number>>,
-    categoryId: number
+    categoryId: number,
 }
 
 const PostContextDefault = {
@@ -55,9 +56,12 @@ const PostContextDefault = {
 }
 export const PostContext = createContext<PostContextType>(PostContextDefault)
 export const CreatePost = () => {
+    const navigate = useNavigate()
     const {User} = useContext(UserContext)
     const [productName, setProductName] = useState("")
+    const [errorProductName, setErrorProductName] = useState("")
     const [categoryId, setCategoryId] = useState(-1)
+    const [errorCategory, setErrorCategory] = useState("")
     const [images, setImages] = useState<string[]>([])
     const [description, setDescription] = useState("")
     const [city, setCity] = useState('')
@@ -68,27 +72,52 @@ export const CreatePost = () => {
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
+        if (categoryId !== -1) {
+            setErrorCategory('')
+        }
         console.log(categoryId)
     }, [categoryId])
 
     const createPost = () => {
-        Axios.post('product/create', {
-            name: productName,
-            description: description,
-            price: price,
-            createdAt: new Date(),
-            categoryId: categoryId,
-            userId: User.userId,
-            images: images,
-            cityName: city,
-            regionName: region
+        let linkToNavigateError = ''
+        if (errorProductName || productName.length < 16 || errorCategory || categoryId === -1) {
+            if (productName.length < 16) {
+                setErrorProductName('Заголовок надто короткий. Додайте більше деталей!')
+            }
+            if (categoryId === -1) {
+                setErrorCategory('Оберіть категорію!')
+            }
+            linkToNavigateError = 'create-post-details'
+        } else {
+            linkToNavigateError = ''
+        }
+
+        if (linkToNavigateError) {
+            const element = document.getElementById(linkToNavigateError)
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'})
+                return
+            }
+        } else {
+            Axios.post('product/create', {
+                name: productName,
+                description: description,
+                price: price,
+                createdAt: new Date(),
+                categoryId: categoryId,
+                userId: User.userId,
+                images: images,
+                cityName: city,
+                regionName: region
 
 
-        }).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+            }).then(res => {
+                console.log(res)
+                navigate('/account/posts')
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     return (
@@ -107,7 +136,12 @@ export const CreatePost = () => {
         }}>
             <div className='create-post-container'>
                 <h2 className='create-post-container__title'>Створити оголошення</h2>
-                <DetailsCreatePost categoryId={categoryId}/>
+                <DetailsCreatePost
+                    categoryId={categoryId}
+                    setErrorProductName={setErrorProductName}
+                    errorProductName={errorProductName}
+                    errorCategory={errorCategory}
+                />
                 <Photo/>
                 <Description/>
                 <CreatePostPrice/>
