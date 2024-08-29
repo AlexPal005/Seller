@@ -1,4 +1,5 @@
 @import "create-post";
+@import 'src/scssStyles/basic';
 
 .create-post-description {
   margin-top: 20px;
@@ -8,7 +9,7 @@
   @extend .create-post-container__input;
   min-width: 820px;
   min-height: 250px;
-  resize:none;
+  resize: none;
   margin-top: 20px;
 }
 

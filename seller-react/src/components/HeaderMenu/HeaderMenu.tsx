@@ -16,7 +16,11 @@ export const HeaderMenu = () => {
     const navigate = useNavigate()
     const [isHoverProfile, setIsHoverProfile] = useState(false)
     const redirectCreatePost = (): void => {
-        navigate('/create-post');
+        if (User) {
+            navigate('/create-post');
+        } else {
+            navigate('/auth')
+        }
     }
     const showProfileMenu = () => {
         setIsHoverProfile(true)
@@ -43,9 +47,9 @@ export const HeaderMenu = () => {
                     <FaRegHeart className='main-menu__icon'/>
                 </li>
                 <li className='main-menu__item '
-                    onMouseOver={User.email ? showProfileMenu : () => {
+                    onMouseOver={User ? showProfileMenu : () => {
                     }}
-                    onClick={User.email ? () => {
+                    onClick={User ? () => {
                     } : onClickProfile}
                 >
                     <div className='main-menu__profile main-menu__item_color'>

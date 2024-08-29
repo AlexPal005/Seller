@@ -35,9 +35,10 @@ function App() {
 
 
     useEffect(() => {
-        if (!User.email) {
+        if (!User) {
             getUser().catch(console.log)
         }
+        console.log(User)
     }, [User, getUser])
 
     return (
@@ -53,13 +54,18 @@ function App() {
             <div className='content'>
                 <Routes>
                     <Route path="/*" element={<Main/>}/>
-                    <Route path="/create-post" element={<CreatePost/>}/>
                     <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
                     {
-                        Object.keys(User).length !== 0 ?
-                            <Route path="/account/*" element={<Account/>}/>
+                        User ?
+                            <>
+                                <Route path="/account/*" element={<Account/>}/>
+                                <Route path="/create-post" element={<CreatePost/>}/>
+                            </>
                             :
-                            <Route path="/auth/*" element={<Auth/>}/>
+                            <>
+                                <Route path="/auth/*" element={<Auth/>}/>
+                            </>
+
                     }
                     <Route
                         path="*"

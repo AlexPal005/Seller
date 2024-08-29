@@ -16,7 +16,7 @@ export interface AuthFunctions {
     logOut: () => void;
     getUser: (email?: string) => Promise<void>;
     getUserByEmail: (email: string) => Promise<void>;
-    User: User;
+    User: User | null;
 }
 
 interface JwtPayload {
@@ -26,7 +26,7 @@ interface JwtPayload {
 export function useAuth(): AuthFunctions {
     const navigate = useNavigate();
 
-    const [User, setUser] = useState({})
+    const [User, setUser] = useState<User | null>(null)
 
     const signIn = async (email: string, password: string): Promise<void> => {
         return Axios.post('/auth/login', {email: email, password: password}).then(resp => {
@@ -76,10 +76,9 @@ export function useAuth(): AuthFunctions {
     const logOut = (): void => {
         localStorage.clear()
         console.log("storage cleared");
-        setUser({});
+        setUser(null);
         navigate('/auth/login');
     }
-
 
 
     return {

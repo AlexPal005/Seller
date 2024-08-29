@@ -1,14 +1,24 @@
 import './description.scss'
-import {SetStateAction, useContext} from "react";
+import React, {SetStateAction, useContext} from "react";
 import {PostContext} from "./CreatePost.tsx";
 
-export const Description = () => {
+type DescriptionProps = {
+    errorDescription: string,
+    setErrorDescription: React.Dispatch<React.SetStateAction<string>>
+}
+export const Description = ({errorDescription, setErrorDescription}: DescriptionProps) => {
     const {setDescription} = useContext(PostContext)
-    const onChangeDescription = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setDescription(e.target.value)
+    const onChangeDescription = (e: { target: { value: SetStateAction<string> } }) => {
+        if (e.target.value.length < 40) {
+            setErrorDescription("Опис надто короткий. Додайте більше деталей!")
+        } else {
+            setErrorDescription("")
+            setDescription(e.target.value)
+        }
     }
+
     return (
-        <div className='create-post-description white-block'>
+        <div className='create-post-description white-block' id = "create-post-description">
             <h4>Опис оголошення</h4>
 
             <textarea
@@ -16,6 +26,7 @@ export const Description = () => {
                 placeholder='Подумайте, що б ви хотіли дізнатись з оголошення...'
                 onChange={onChangeDescription}
             />
+            {errorDescription && <p className="error">{errorDescription}</p>}
         </div>
     )
 }
