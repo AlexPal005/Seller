@@ -35,18 +35,22 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/searchProductStartsWith/{name}")
-    public ResponseEntity<List<Map<String, Object>>> searchProductStartWith(@PathVariable String name) {
-        return new ResponseEntity<>(productService.getProductsStartsWith(name), HttpStatus.OK);
-    }
+    @GetMapping("/searchProductsByCriteria")
+    public ResponseEntity<List<Map<String, Object>>> searchProductsByCriteria(
+            @RequestParam String productName,
+            @RequestParam(required = false) String cityName,
+            @RequestParam(required = false) String regionName,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double priceFrom,
+            @RequestParam(required = false) Double priceTo) {
 
-    @GetMapping("/searchProductsStartWithAndCityName/{productName}/{cityName}/{regionName}")
-    public ResponseEntity<List<Map<String, Object>>> searchProductStartWith(
-            @PathVariable String productName,
-            @PathVariable String cityName,
-            @PathVariable String regionName) {
-        return new ResponseEntity<>(productService
-                .getProductsStartsWithAndCityName(productName, cityName, regionName), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductsByCriteria(
+                productName,
+                cityName,
+                regionName,
+                category
+                /*priceFrom,
+                priceTo*/), HttpStatus.OK);
     }
 
     @GetMapping("/getProductsByUserId/{userId}")

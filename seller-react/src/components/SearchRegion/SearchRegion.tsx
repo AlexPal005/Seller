@@ -57,6 +57,8 @@ export const SearchRegion = ({classForBlock, classForInput, classForIcon}: Searc
             })
         } else {
             setCities([])
+            setCityName('')
+            setRegionName('')
         }
     }
     return (

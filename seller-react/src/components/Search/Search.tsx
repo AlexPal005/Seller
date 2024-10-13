@@ -13,7 +13,7 @@ export const Search = () => {
     const {searchProductName, setSearchProductName, search} = useContext(MainPageContext)
 
     const {
-        searchProductStartsWith,
+        searchProductsByCriteria,
         productsStartsWith,
     } = useProduct()
 
@@ -27,7 +27,7 @@ export const Search = () => {
 
     const onChangeProductName = (e: { target: { value: string; }; }) => {
         if (e.target.value.length > 3) {
-            searchProductStartsWith(e.target.value)
+            searchProductsByCriteria(e.target.value)
         }
         setSearchProductName(e.target.value)
     }

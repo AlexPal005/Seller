@@ -93,13 +93,20 @@ public class ProductService {
     }
 
 
-    public List<Map<String, Object>> getProductsStartsWith(String name) {
-        return productRepository.findProductByNameStartingWith(name);
-    }
-
-    public List<Map<String, Object>> getProductsStartsWithAndCityName(
-            String productName, String cityName, String regionName) {
-        return productRepository.getProductsStartsWithAndCityName(productName, cityName, regionName);
+    public List<Map<String, Object>> getProductsByCriteria(String productName,
+                                                           String cityName,
+                                                           String regionName,
+                                                           String category/*,
+                                                           Double priceFrom,
+                                                           Double priceTo*/) {
+        return productRepository.getProductsByCriteria(
+                productName,
+                cityName,
+                regionName,
+                category
+               /* priceFrom,
+                priceTo*/
+        );
     }
 
     public List<Map<String, Object>> getAllProducts() {

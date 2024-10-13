@@ -12,7 +12,8 @@ import java.util.Map;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
-            "       product.price        as price, " +
+            "       product.price" +
+            "        as price, " +
             "       c.city_name          as cityName, " +
             "       r.region_name        as regionName, " +
             "       product.created_at   as createdAt, " +
@@ -25,32 +26,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "         INNER JOIN city c on product.city_id = c.city_id " +
             "         INNER JOIN region r on c.region_id = r.region_id " +
             "         INNER JOIN product_image pi on product.product_id = pi.product_id " +
-            "WHERE product.product_name like CONCAT(:productName, '%')",
-            nativeQuery = true)
-    List<Map<String, Object>> findProductByNameStartingWith(
-            @Param("productName") String productName);
-
-    @Query(value = "SELECT DISTINCT product.product_name as productName, " +
-            "       product.price        as price, " +
-            "       c.city_name          as cityName, " +
-            "       r.region_name        as regionName, " +
-            "       product.created_at   as createdAt, " +
-            "       product.product_id   as productId,  " +
-            "(SELECT pi.image " +
-            "                 FROM product_image pi " +
-            "                 WHERE pi.product_id = product.product_id " +
-            "                 LIMIT 1)            as mainImage " +
-            "FROM product " +
-            "         INNER JOIN city c on product.city_id = c.city_id " +
-            "         INNER JOIN region r on c.region_id = r.region_id " +
-            "         INNER JOIN product_image pi on product.product_id = pi.product_id " +
+            "         INNER JOIN category on product.category_id = category.category_id " +
             "WHERE product.product_name like CONCAT(:productName, '%') " +
-            "  AND c.city_name = :cityName " +
-            "  AND r.region_name = :regionName ",
+            "  AND (:cityName IS NULL OR c.city_name = :cityName) " +
+            "  AND (:regionName IS NULL OR r.region_name = :regionName) " +
+            "  AND (:categoryName IS NULL OR category.category_name = :categoryName)",
             nativeQuery = true)
-    List<Map<String, Object>> getProductsStartsWithAndCityName(@Param("productName") String productName,
-                                                               @Param("cityName") String cityName,
-                                                               @Param("regionName") String regionName);
+    List<Map<String, Object>> getProductsByCriteria(@Param("productName") String productName,
+                                                    @Param("cityName") String cityName,
+                                                    @Param("regionName") String regionName,
+                                                    @Param("categoryName") String category
+                                                  /*  @Param("priceFrom") double priceFrom,
+                                                    @Param("priceTo") double priceTo*/);
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "                product.price        as price, " +

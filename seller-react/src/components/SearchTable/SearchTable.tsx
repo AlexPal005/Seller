@@ -18,7 +18,7 @@ export const SearchTable = ({products}: SearchTableProps) => {
             <hr/>
             {
                 products.map(product => {
-                    return <SearchItem product={product}/>
+                    return <SearchItem product={product} key={product.productId}/>
                 })
             }
         </div>

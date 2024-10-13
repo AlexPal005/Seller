@@ -1,7 +1,7 @@
 import './App.scss'
 import {Header} from "./components/Header/Header.tsx";
 import {Footer} from "./components/Footer/Footer.tsx";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {CreatePost} from "./pages/CreatePost/CreatePost.tsx";
 import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
@@ -23,6 +23,7 @@ const defaultUserContext: AuthFunctions = {
 export const UserContext = createContext(defaultUserContext);
 
 function App() {
+    const navigate = useNavigate()
 
     const {
         getUser,
@@ -34,12 +35,20 @@ function App() {
     } = useAuth()
 
 
+
     useEffect(() => {
         if (!User) {
             getUser().catch(console.log)
         }
-        console.log(User)
     }, [User, getUser])
+
+    // when the page reloads it will stay here
+    useEffect(() => {
+        navigate(JSON.parse(window.sessionStorage.getItem('lastRoute') || '{}'))
+        window.onbeforeunload = () => {
+            window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname))
+        }
+    }, [])
 
     return (
         <UserContext.Provider value={{

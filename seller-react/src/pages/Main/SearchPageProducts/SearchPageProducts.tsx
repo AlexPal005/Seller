@@ -9,7 +9,8 @@ export const SearchPageProducts = () => {
 
     useEffect(() => {
         search()
-    }, []);
+    }, [])
+
     return (
         <div className='search-page-products'>
             <h2 className='search-product-card__count'>Знайдено {`${products.length}`} оголошень</h2>

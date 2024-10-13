@@ -33,42 +33,44 @@ const defaultMainContext = {
 export const MainPageContext = createContext<MainContextType>(defaultMainContext)
 
 export const Main = () => {
-    const [searchProductName, setSearchProductName] = useState<string>('')
+    const [productName, setProductName] = useState<string>('')
     const {
-        searchProductsByNameAndCity,
+        searchProductsByCriteria,
         products,
         getAllProducts,
-        searchProductStartsWith
     } = useProduct()
     const [cityName, setCityName] = useState('')
     const [regionName, setRegionName] = useState('')
     const navigate = useNavigate()
 
     const search = () => {
-        if (!searchProductName.length && (!cityName && !regionName)) {
+        console.log(productName + " " + cityName)
+        if (!productName.length && (!cityName && !regionName)) {
             getAllProducts()
-        } else if (searchProductName.length && (!cityName && !regionName)) {
-            searchProductStartsWith(searchProductName)
         } else {
-            searchProductsByNameAndCity(searchProductName, cityName, regionName)
+            searchProductsByCriteria(productName, cityName, regionName)
         }
         navigate('/search')
     }
 
     useEffect(() => {
-        if (!searchProductName && !cityName && !regionName) {
+        if (!productName && !cityName && !regionName) {
             navigate('/')
         }
     }, [])
 
+    useEffect(() => {
+        console.log(cityName)
+    }, [cityName])
+
     return (
         <MainPageContext.Provider value={{
-            setSearchProductName,
+            setSearchProductName: setProductName,
             search,
             setCityName,
             setRegionName,
             products,
-            searchProductName
+            searchProductName: productName
         }}>
             <div className='main'>
                 <Search/>

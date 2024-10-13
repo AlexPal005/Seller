@@ -26,26 +26,30 @@ export const useProduct = () => {
         = useState<Product[]>([])
 
     const [images, setImages] = useState<ProductImage[]>([])
-    const searchProductStartsWith = (productName: string) => {
-        Axios.get(`/product/searchProductStartsWith/${productName}`).then(res => {
-            setProductsStartsWith(res.data)
-            setProducts(res.data)
-        }).catch(err => {
+
+    const searchProductsByCriteria = (productName: string,
+                                      cityName?: string,
+                                      regionName?: string,
+                                      category?: string,
+                                      priceFrom?: number,
+                                      priceTo?: number) => {
+
+        Axios.get(`/product/searchProductsByCriteria`, {
+            params: {
+                productName: productName,
+                cityName: cityName || null,
+                regionName: regionName || null,
+                category: category || null,
+                priceFrom: priceFrom || null,
+                priceTo: priceTo || null,
+            }
+        })
+            .then(res => {
+                setProductsStartsWith(res.data)
+                setProducts(res.data)
+            }).catch(err => {
             throw err
         })
-    }
-    const searchProductsByNameAndCity = (productName: string, cityName: string, regionName: string) => {
-        Axios.get(`/product/searchProductsStartWithAndCityName/${productName}/${cityName}/${regionName}`)
-            .then(
-                res => {
-                    setProducts(res.data)
-                }
-            )
-            .catch(
-                err => {
-                    throw err
-                }
-            )
     }
 
     const getAllProducts = () => {
@@ -82,9 +86,8 @@ export const useProduct = () => {
 
 
     return {
-        searchProductStartsWith,
+        searchProductsByCriteria,
         productsStartsWith,
-        searchProductsByNameAndCity,
         products,
         getAllProducts,
         getProductsByUserId,
