@@ -96,16 +96,16 @@ public class ProductService {
     public List<Map<String, Object>> getProductsByCriteria(String productName,
                                                            String cityName,
                                                            String regionName,
-                                                           String category/*,
+                                                           String category,
                                                            Double priceFrom,
-                                                           Double priceTo*/) {
+                                                           Double priceTo) {
         return productRepository.getProductsByCriteria(
                 productName,
                 cityName,
                 regionName,
-                category
-               /* priceFrom,
-                priceTo*/
+                category,
+                priceFrom,
+                priceTo
         );
     }
 

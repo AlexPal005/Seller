@@ -26,10 +26,9 @@ export const SearchTable = ({products}: SearchTableProps) => {
 }
 
 const SearchItem = ({product}: SearchItemProps) => {
-    const {setSearchProductName, search} = useContext(MainPageContext)
+    const {setSearchProductName} = useContext(MainPageContext)
     const searchClickedProduct = () => {
         setSearchProductName(product.productName)
-        search()
     }
     return (
         <div className='search-item' onClick={searchClickedProduct}>

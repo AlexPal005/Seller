@@ -27,17 +27,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "         INNER JOIN region r on c.region_id = r.region_id " +
             "         INNER JOIN product_image pi on product.product_id = pi.product_id " +
             "         INNER JOIN category on product.category_id = category.category_id " +
-            "WHERE product.product_name like CONCAT(:productName, '%') " +
+            "WHERE (:productName IS NULL OR product.product_name LIKE CONCAT(:productName, '%')) " +
             "  AND (:cityName IS NULL OR c.city_name = :cityName) " +
             "  AND (:regionName IS NULL OR r.region_name = :regionName) " +
-            "  AND (:categoryName IS NULL OR category.category_name = :categoryName)",
+            "  AND (:categoryName IS NULL OR category.category_name = :categoryName)" +
+            "  AND (:priceFrom IS NULL OR product.price >= :priceFrom) " +
+            "  AND (:priceTo IS NULL OR product.price <= :priceTo)",
             nativeQuery = true)
     List<Map<String, Object>> getProductsByCriteria(@Param("productName") String productName,
                                                     @Param("cityName") String cityName,
                                                     @Param("regionName") String regionName,
-                                                    @Param("categoryName") String category
-                                                  /*  @Param("priceFrom") double priceFrom,
-                                                    @Param("priceTo") double priceTo*/);
+                                                    @Param("categoryName") String category,
+                                                    @Param("priceFrom") Double priceFrom,
+                                                    @Param("priceTo") Double priceTo);
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "                product.price        as price, " +

@@ -10,14 +10,19 @@ export const DropDownCategories = () => {
         useState<Category | null>(null)
     const {setCategory, search} = useContext(MainPageContext)
     const {categories, getAllCategories} = useCategory()
+    const [categoriesLoaded, setCategoriesLoaded] = useState(false)
 
     useEffect(() => {
         getAllCategories()
-    }, [])
+        setCategoriesLoaded(true)
+
+    }, [getAllCategories])
 
     useEffect(() => {
-        search()
-    }, [selectedCategory]);
+        if (categoriesLoaded) {
+            search()
+        }
+    }, [search, selectedCategory])
 
     return (
         <div className='drop-down-categories'>

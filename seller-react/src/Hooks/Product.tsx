@@ -1,5 +1,5 @@
 import Axios from "../Axios.ts";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 
 export type Product = {
@@ -27,38 +27,41 @@ export const useProduct = () => {
 
     const [images, setImages] = useState<ProductImage[]>([])
 
-    const searchProductsByCriteria = (productName: string,
-                                      cityName?: string,
-                                      regionName?: string,
-                                      category?: string,
-                                      priceFrom?: number,
-                                      priceTo?: number) => {
 
-        Axios.get(`/product/searchProductsByCriteria`, {
-            params: {
-                productName: productName,
-                cityName: cityName || null,
-                regionName: regionName || null,
-                category: category || null,
-                priceFrom: priceFrom || null,
-                priceTo: priceTo || null,
-            }
-        })
-            .then(res => {
-                setProductsStartsWith(res.data)
-                setProducts(res.data)
-            }).catch(err => {
-            throw err
-        })
-    }
+    const searchProductsByCriteria = useCallback((productName: string,
+                                                  cityName?: string,
+                                                  regionName?: string,
+                                                  category?: string,
+                                                  priceFrom?: number,
+                                                  priceTo?: number) => {
 
-    const getAllProducts = () => {
+            Axios.get(`/product/searchProductsByCriteria`, {
+                params: {
+                    productName: productName || null,
+                    cityName: cityName || null,
+                    regionName: regionName || null,
+                    category: category || null,
+                    priceFrom: priceFrom === -1 ? null : priceFrom,
+                    priceTo: priceTo === -1 ? null : priceTo,
+                }
+            })
+                .then(res => {
+                    setProductsStartsWith(res.data)
+                    setProducts(res.data)
+                }).catch(err => {
+                throw err
+            })
+
+        }, []
+    )
+
+    const getAllProducts = useCallback(() => {
         Axios.get('/product/getAll').then(res => {
             setProducts(res.data)
         }).catch(err => {
             throw err
         })
-    }
+    }, [])
 
     const getProductsByUserId = (userId: number) => {
         Axios.get(`/product/getProductsByUserId/${userId}`).then(res => {

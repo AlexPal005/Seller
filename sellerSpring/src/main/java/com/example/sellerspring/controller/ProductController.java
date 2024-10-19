@@ -37,20 +37,18 @@ public class ProductController {
 
     @GetMapping("/searchProductsByCriteria")
     public ResponseEntity<List<Map<String, Object>>> searchProductsByCriteria(
-            @RequestParam String productName,
+            @RequestParam(required = false) String productName,
             @RequestParam(required = false) String cityName,
             @RequestParam(required = false) String regionName,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) Double priceFrom,
-            @RequestParam(required = false) Double priceTo) {
-
-        return new ResponseEntity<>(productService.getProductsByCriteria(
+            @RequestParam(required = false) Double priceTo) {return new ResponseEntity<>(productService.getProductsByCriteria(
                 productName,
                 cityName,
                 regionName,
-                category
-                /*priceFrom,
-                priceTo*/), HttpStatus.OK);
+                category,
+                priceFrom,
+                priceTo), HttpStatus.OK);
     }
 
     @GetMapping("/getProductsByUserId/{userId}")

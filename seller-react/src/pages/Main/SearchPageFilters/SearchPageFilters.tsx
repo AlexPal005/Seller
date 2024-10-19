@@ -1,7 +1,32 @@
 import './serach-page-filters.scss'
 import {DropDownCategories} from "../../../components/DropDownCategories/DropDownCaregories.tsx";
+import {useContext} from "react";
+import {MainPageContext} from "../Main/Main.tsx";
 
 export const SearchPageFilters = () => {
+    const {
+        setPriceFrom,
+        setPriceTo
+    } = useContext(MainPageContext)
+
+    const onChangePriceFrom = (e: { target: { value: string; }; }) => {
+        if (!e.target.value) {
+            setPriceFrom(-1)
+        } else {
+            setPriceFrom(Number(e.target.value))
+        }
+
+    }
+
+    const onChangePriceTo = (e: { target: { value: string; }; }) => {
+        if (!e.target.value) {
+            setPriceTo(-1)
+        } else {
+            setPriceTo(Number(e.target.value))
+        }
+
+    }
+
     return (
         <div className='search-page-filters'>
             <h2>Фільтри</h2>
@@ -13,9 +38,13 @@ export const SearchPageFilters = () => {
                 <div>
                     <p>Ціна</p>
                     <input type='number' placeholder='Від'
-                           className='search-page-filters__input search-page-filters__input-price'/>
+                           className='search-page-filters__input search-page-filters__input-price'
+                           onChange={onChangePriceFrom}
+                    />
                     <input type='number' placeholder='До'
-                           className='search-page-filters__input search-page-filters__input-price'/>
+                           className='search-page-filters__input search-page-filters__input-price'
+                           onChange={onChangePriceTo}
+                    />
                 </div>
             </div>
             <hr/>
