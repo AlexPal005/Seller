@@ -1,0 +1,26 @@
+@import "src/scssStyles/mixins";
+@import "src/scssStyles/variables";
+
+.drop-down-categories {
+  position: relative;
+}
+
+.table-categories {
+  max-height: 300px;
+}
+
+.drop-down-categories__button {
+  background-color: white;
+  height: 50px;
+  border-radius: 6px;
+  margin-top: 5px;
+  cursor: pointer;
+  width: 300px;
+  @include flex-horizontal-center;
+  padding-left: 15px;
+}
+
+.drop-down-categories__button-text {
+  font-size: 17px;
+  color: $dark-grey-light;
+}

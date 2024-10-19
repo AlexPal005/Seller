@@ -13,6 +13,7 @@ type MainContextType = {
     search: () => void,
     setCityName: React.Dispatch<React.SetStateAction<string>>,
     setRegionName: React.Dispatch<React.SetStateAction<string>>,
+    setCategory: React.Dispatch<React.SetStateAction<string>>,
     products: Product[],
     searchProductName: string
 }
@@ -25,6 +26,9 @@ const defaultMainContext = {
 
     },
     setRegionName: () => {
+
+    },
+    setCategory: () => {
 
     },
     products: [],
@@ -41,14 +45,14 @@ export const Main = () => {
     } = useProduct()
     const [cityName, setCityName] = useState('')
     const [regionName, setRegionName] = useState('')
+    const [category, setCategory] = useState('')
     const navigate = useNavigate()
 
     const search = () => {
-        console.log(productName + " " + cityName)
-        if (!productName.length && (!cityName && !regionName)) {
+        if (!productName.length && (!cityName && !regionName) && !category) {
             getAllProducts()
         } else {
-            searchProductsByCriteria(productName, cityName, regionName)
+            searchProductsByCriteria(productName, cityName, regionName, category)
         }
         navigate('/search')
     }
@@ -59,16 +63,13 @@ export const Main = () => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(cityName)
-    }, [cityName])
-
     return (
         <MainPageContext.Provider value={{
             setSearchProductName: setProductName,
             search,
             setCityName,
             setRegionName,
+            setCategory,
             products,
             searchProductName: productName
         }}>

@@ -1,4 +1,5 @@
 import './serach-page-filters.scss'
+import {DropDownCategories} from "../../../components/DropDownCategories/DropDownCaregories.tsx";
 
 export const SearchPageFilters = () => {
     return (
@@ -7,14 +8,13 @@ export const SearchPageFilters = () => {
             <div className='search-page-filters__category-block'>
                 <div className='search-page-filters__category'>
                     <p>Категорія</p>
-                    <input type='text' className='search-page-filters__input search-page-filters__input-category'
-                           placeholder='Будь-яка категорія'/>
+                    <DropDownCategories/>
                 </div>
                 <div>
                     <p>Ціна</p>
-                    <input type='text' placeholder='Від'
+                    <input type='number' placeholder='Від'
                            className='search-page-filters__input search-page-filters__input-price'/>
-                    <input type='text' placeholder='До'
+                    <input type='number' placeholder='До'
                            className='search-page-filters__input search-page-filters__input-price'/>
                 </div>
             </div>

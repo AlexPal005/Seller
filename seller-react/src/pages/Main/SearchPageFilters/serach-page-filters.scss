@@ -22,12 +22,18 @@
   font-size: 17px;
 }
 
-.search-page-filters__input-category, .search-page-filters__input-sort {
+.search-page-filters__input-sort {
   width: 300px;
 }
 
 .search-page-filters__input-price {
   width: 120px;
+}
+
+.search-page-filters__input-price[type="number"]::-webkit-inner-spin-button,
+.search-page-filters__input-price[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .search-page-filters__input-price:nth-child(2) {
