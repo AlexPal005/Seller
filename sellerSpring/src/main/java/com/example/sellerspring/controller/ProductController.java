@@ -42,6 +42,8 @@ public class ProductController {
             @RequestParam(required = false) String regionName,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) Double priceFrom,
+
+
             @RequestParam(required = false) Double priceTo) {return new ResponseEntity<>(productService.getProductsByCriteria(
                 productName,
                 cityName,

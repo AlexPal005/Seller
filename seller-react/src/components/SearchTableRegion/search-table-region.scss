@@ -7,6 +7,8 @@
   border-bottom: 1px solid $grey;
   cursor: pointer;
   padding: 10px 10px;
+  position: relative;
+  @include flex-horizontal-center-space;
 }
 
 .search-table-item__city {

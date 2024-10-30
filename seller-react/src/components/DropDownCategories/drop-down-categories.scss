@@ -6,7 +6,7 @@
 }
 
 .table-categories {
-  max-height: 300px;
+  overflow: visible;
 }
 
 .drop-down-categories__button {
@@ -16,11 +16,19 @@
   margin-top: 5px;
   cursor: pointer;
   width: 300px;
-  @include flex-horizontal-center;
+  @include flex-horizontal-center-space;
   padding-left: 15px;
+  padding-right: 15px;
 }
 
 .drop-down-categories__button-text {
   font-size: 17px;
   color: $dark-grey-light;
+}
+
+.sub-categories {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  z-index: 1000;
 }

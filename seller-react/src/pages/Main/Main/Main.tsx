@@ -85,10 +85,6 @@ export const Main = () => {
         search()
     }, [productName]);
 
-    useEffect(() => {
-        console.log(products)
-    }, [products])
-
     return (
         <MainPageContext.Provider value={{
             setSearchProductName: setProductName,
