@@ -24,6 +24,7 @@ export const useProduct = () => {
 
     const [products, setProducts]
         = useState<Product[]>([])
+    const [isLoadingProducts, setIsLoadingProducts] = useState(false)
 
     const [images, setImages] = useState<ProductImage[]>([])
 
@@ -34,6 +35,7 @@ export const useProduct = () => {
                                                   category?: string,
                                                   priceFrom?: number,
                                                   priceTo?: number) => {
+            setIsLoadingProducts(true)
 
             Axios.get(`/product/searchProductsByCriteria`, {
                 params: {
@@ -51,16 +53,23 @@ export const useProduct = () => {
                 }).catch(err => {
                 throw err
             })
+                .finally(() => {
+                    setIsLoadingProducts(false)
+                })
 
         }, []
     )
 
     const getAllProducts = useCallback(() => {
+        setIsLoadingProducts(true)
         Axios.get('/product/getAll').then(res => {
             setProducts(res.data)
         }).catch(err => {
             throw err
         })
+            .finally(() => {
+                setIsLoadingProducts(false)
+            })
     }, [])
 
     const getProductsByUserId = (userId: number) => {
@@ -97,6 +106,7 @@ export const useProduct = () => {
         getProductById,
         getImagesByProductId,
         images,
+        isLoadingProducts
 
     }
 }

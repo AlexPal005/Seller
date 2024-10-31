@@ -5,6 +5,7 @@ import React, {createContext, useContext, useEffect, useRef, useState} from "rea
 import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 import {DropDownSubCategories} from "./DropDownSubCategories.tsx";
 import {IoIosArrowDown, IoIosArrowForward} from "react-icons/io";
+import {Preloader} from "../Preloader/Preloader.tsx";
 
 type DropDownCategoriesType = {
     setIsClickedCategories: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,7 @@ const DefaultDropDownCategoriesContext = {
         console.log("SetIsClickedCategories default!")
     },
     setSelectedCategory: () => {
-        console.log("setSelectedCategory default!")
+        console.log("SetSelectedCategory default!")
     }
 }
 export const DropDownCategoriesContext =
@@ -25,7 +26,7 @@ export const DropDownCategories = () => {
     const [selectedCategory, setSelectedCategory] =
         useState<Category | null>(null)
     const {setCategory, search} = useContext(MainPageContext)
-    const {categories, getAllCategories} = useCategory()
+    const {categories, getAllCategories, isCategoriesLoading} = useCategory()
     const [categoriesLoaded, setCategoriesLoaded] = useState(false)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
 
@@ -76,32 +77,38 @@ export const DropDownCategories = () => {
                 {
                     isClickedCategories ?
                         <div className='search-table table-categories'>
-                            <div className='search-table-item' onClick={() => {
-                                setIsClickedCategories(false)
-                                setSelectedCategory(null)
-                                setCategory('')
-                            }}>
-                                Будь-яка категорія
-                            </div>
                             {
-                                categories.map(category => {
-                                    if (!category.parentId) {
-                                        //create a list of subCategories
-                                        const subCategories = categories.filter(subCategory => {
-                                                return subCategory.parentId === category.id
-                                            }
-                                        )
-                                        return (
-                                            <DropDownCategoriesItem
-                                                category={category}
-                                                key={category.id}
-                                                setSelectedCategory={setSelectedCategory}
-                                                subCategories={subCategories}
-                                            />
-                                        )
-                                    }
-                                })
+                                isCategoriesLoading ? <Preloader/> :
+                                    <>
+                                        <div className='search-table-item' onClick={() => {
+                                            setIsClickedCategories(false)
+                                            setSelectedCategory(null)
+                                            setCategory('')
+                                        }}>
+                                            Будь-яка категорія
+                                        </div>
+                                        {
+                                            categories.map(category => {
+                                                if (!category.parentId) {
+                                                    //create a list of subCategories
+                                                    const subCategories = categories.filter(subCategory => {
+                                                            return subCategory.parentId === category.id
+                                                        }
+                                                    )
+                                                    return (
+                                                        <DropDownCategoriesItem
+                                                            category={category}
+                                                            key={category.id}
+                                                            setSelectedCategory={setSelectedCategory}
+                                                            subCategories={subCategories}
+                                                        />
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </>
                             }
+
                         </div> :
                         <></>
                 }

@@ -11,6 +11,7 @@ export interface Category {
 
 export function useCategory() {
     const [categories, setCategories] = useState<Category[]>([])
+    const [isCategoriesLoading, setIsCategoriesLoading] = useState(false)
     const [subCategories, setSubCategories] = useState<Category[]>([])
 
     const getSubCategoriesByCategoryId = useCallback((parentId: number) => {
@@ -23,10 +24,13 @@ export function useCategory() {
     }, [])
 
     const getAllCategories = useCallback(() => {
+        setIsCategoriesLoading(true)
         Axios.get('/category/getAll').then(res => {
             setCategories(res.data)
         }).catch(err => {
             throw err
+        }).finally(() => {
+            setIsCategoriesLoading(false)
         })
 
     }, [])
@@ -35,6 +39,7 @@ export function useCategory() {
         getAllCategories,
         categories,
         getSubCategoriesByCategoryId,
-        subCategories
+        subCategories,
+        isCategoriesLoading
     }
 }

@@ -17,7 +17,8 @@ type MainContextType = {
     setPriceFrom: React.Dispatch<React.SetStateAction<number>>,
     setPriceTo: React.Dispatch<React.SetStateAction<number>>,
     products: Product[],
-    searchProductName: string
+    searchProductName: string,
+    isLoadingProducts: boolean
 }
 const defaultMainContext = {
     setSearchProductName: () => {
@@ -40,7 +41,8 @@ const defaultMainContext = {
 
     },
     products: [],
-    searchProductName: ''
+    searchProductName: '',
+    isLoadingProducts: false
 }
 export const MainPageContext = createContext<MainContextType>(defaultMainContext)
 
@@ -50,6 +52,7 @@ export const Main = () => {
         searchProductsByCriteria,
         products,
         getAllProducts,
+        isLoadingProducts
     } = useProduct()
     const [cityName, setCityName] = useState('')
     const [regionName, setRegionName] = useState('')
@@ -65,7 +68,6 @@ export const Main = () => {
             searchProductsByCriteria(productName, cityName, regionName, category, priceFrom, priceTo)
         }
         navigate('/search')
-
     }, [category, cityName, getAllProducts, navigate, priceFrom, priceTo, productName, regionName, searchProductsByCriteria])
 
 
@@ -95,7 +97,8 @@ export const Main = () => {
             setPriceFrom,
             setPriceTo,
             products,
-            searchProductName: productName
+            searchProductName: productName,
+            isLoadingProducts
         }}>
             <div className='main'>
                 <Search/>

@@ -3,22 +3,29 @@ import {MainPageContext} from "../Main/Main.tsx";
 import {Product} from "../../../Hooks/Product.tsx";
 import './search-page-products.scss'
 import {Link} from "react-router-dom";
+import {Preloader} from "../../../components/Preloader/Preloader.tsx";
 
 export const SearchPageProducts = () => {
-    const {products, search} = useContext(MainPageContext)
+    const {products, search, isLoadingProducts} = useContext(MainPageContext)
 
     useEffect(() => {
         search()
     }, [])
 
+
     return (
         <div className='search-page-products'>
-            <h2 className='search-product-card__count'>Знайдено {`${products.length}`} оголошень</h2>
-            {products.map(product => {
-                return (
-                    <SearchProductCard product={product} key={product.productId}/>
-                )
-            })}
+            {
+                isLoadingProducts ? <Preloader/> :
+                    <>
+                        <h2 className='search-product-card__count'>Знайдено {`${products.length}`} оголошень</h2>
+                        {products.map(product => {
+                            return (
+                                <SearchProductCard product={product} key={product.productId}/>
+                            )
+                        })}
+                    </>
+            }
         </div>
     )
 }
