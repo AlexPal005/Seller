@@ -4,7 +4,7 @@ import {Categories} from "../../../components/Categories/Categories.tsx";
 import {Social} from "../../../components/Social/Social.tsx";
 import React, {createContext, useCallback, useEffect, useState} from "react";
 import {Product, useProduct} from "../../../Hooks/Product.tsx";
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import {SearchPage} from "../SearchPage/SearchPage.tsx";
 import {ProductPage} from "../ProductPage/ProductPage.tsx";
 
@@ -18,7 +18,9 @@ type MainContextType = {
     setPriceTo: React.Dispatch<React.SetStateAction<number>>,
     products: Product[],
     searchProductName: string,
-    isLoadingProducts: boolean
+    isLoadingProducts: boolean,
+    setIsCategorySet: React.Dispatch<React.SetStateAction<boolean>>,
+    isCategorySet: boolean
 }
 const defaultMainContext = {
     setSearchProductName: () => {
@@ -42,7 +44,11 @@ const defaultMainContext = {
     },
     products: [],
     searchProductName: '',
-    isLoadingProducts: false
+    isLoadingProducts: false,
+    setIsCategorySet: () => {
+
+    },
+    isCategorySet: false
 }
 export const MainPageContext = createContext<MainContextType>(defaultMainContext)
 
@@ -60,32 +66,38 @@ export const Main = () => {
     const [priceFrom, setPriceFrom] = useState<number>(-1)
     const [priceTo, setPriceTo] = useState<number>(-1)
     const navigate = useNavigate()
+    const location = useLocation()
+    const [isCategorySet, setIsCategorySet] = useState(false)
 
     const search = useCallback(() => {
-        if (!productName.length && (!cityName && !regionName) && !category && priceFrom === -1 && priceTo === -1) {
-            getAllProducts()
-        } else {
-            searchProductsByCriteria(productName, cityName, regionName, category, priceFrom, priceTo)
+        if (isCategorySet) {
+            if (!productName.length && (!cityName && !regionName) && !category && priceFrom === -1 && priceTo === -1) {
+                getAllProducts()
+            } else {
+                searchProductsByCriteria(productName, cityName, regionName, category, priceFrom, priceTo)
+            }
         }
-        navigate('/search')
-    }, [category, cityName, getAllProducts, navigate, priceFrom, priceTo, productName, regionName, searchProductsByCriteria])
-
+    }, [isCategorySet, category, cityName, getAllProducts, priceFrom, priceTo, productName, regionName, searchProductsByCriteria])
 
     useEffect(() => {
-        if (!productName && !cityName && !regionName) {
-            navigate('/')
+        if (category && location.pathname !== `/search/${category}`) {
+            navigate(`/search/${category}`, {replace: true})
         }
-    }, [cityName, navigate, productName, regionName])
+    }, [category])
 
     useEffect(() => {
-        if (priceFrom !== -1 || priceTo !== -1) {
+        if (productName || priceFrom !== -1 || priceTo !== -1) {
             search()
         }
-    }, [priceFrom, priceTo, search])
+    }, [productName, priceFrom, priceTo, search])
+
 
     useEffect(() => {
-        search()
-    }, [productName]);
+        if (!location.pathname.startsWith('/search')) {
+            setCategory('')
+            setIsCategorySet(false)
+        }
+    }, [location.pathname])
 
     return (
         <MainPageContext.Provider value={{
@@ -98,12 +110,14 @@ export const Main = () => {
             setPriceTo,
             products,
             searchProductName: productName,
-            isLoadingProducts
+            isLoadingProducts,
+            setIsCategorySet,
+            isCategorySet
         }}>
             <div className='main'>
                 <Search/>
                 <Routes>
-                    <Route path='/search' element={<SearchPage/>}/>
+                    <Route path='/search/:category?' element={<SearchPage/>}/>
                     <Route path="/post/:productId" element={<ProductPage/>}/>
                     <Route path='/*' element={
                         <>

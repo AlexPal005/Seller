@@ -43,7 +43,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "                product.price        as price, " +
-            "                c.city_name          as cityName, " +
+            "                c.city_name      " +
+            "    as cityName, " +
             "                r.region_name        as regionName, " +
             "                product.created_at   as createdAt, " +
             "                product.product_id   as productId, " +

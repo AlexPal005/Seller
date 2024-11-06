@@ -6,6 +6,7 @@ import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 import {DropDownSubCategories} from "./DropDownSubCategories.tsx";
 import {IoIosArrowDown, IoIosArrowForward} from "react-icons/io";
 import {Preloader} from "../Preloader/Preloader.tsx";
+import {useParams} from "react-router-dom";
 
 type DropDownCategoriesType = {
     setIsClickedCategories: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,36 +26,56 @@ export const DropDownCategories = () => {
     const [isClickedCategories, setIsClickedCategories] = useState(false)
     const [selectedCategory, setSelectedCategory] =
         useState<Category | null>(null)
-    const {setCategory, search} = useContext(MainPageContext)
-    const {categories, getAllCategories, isCategoriesLoading} = useCategory()
-    const [categoriesLoaded, setCategoriesLoaded] = useState(false)
+    const {
+        setCategory,
+        search,
+        setIsCategorySet,
+        isCategorySet
+    } = useContext(MainPageContext)
+    const {
+        categories,
+        getAllCategories,
+        isCategoriesLoading
+    } = useCategory()
     const dropdownRef = useRef<HTMLDivElement | null>(null)
+    const {category} = useParams()
+
+    useEffect(() => {
+        if (category) {
+            setCategory(category)
+        }
+        setIsCategorySet(true)
+    }, [])
+
+    useEffect(() => {
+        if (isCategorySet && categories.length) {
+            const categoryObj = categories.find(c => c.name === category)
+            setSelectedCategory(categoryObj || null)
+        }
+    }, [isCategorySet, categories])
 
     useEffect(() => {
         getAllCategories()
-        setCategoriesLoaded(true)
-
     }, [getAllCategories])
 
     useEffect(() => {
-        if (categoriesLoaded) {
+        if (isCategorySet) {
             search()
         }
-    }, [search, selectedCategory])
+    }, [search, category, isCategorySet])
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsClickedCategories(false);
             }
-        };
+        }
 
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside)
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [setIsClickedCategories]);
-
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [setIsClickedCategories])
 
     return (
         <DropDownCategoriesContext.Provider value={{
@@ -67,12 +88,18 @@ export const DropDownCategories = () => {
                          setIsClickedCategories(prev => !prev)
                      }}
                 >
-                <span className='drop-down-categories__button-text'>
                     {
-                        selectedCategory ? selectedCategory.name : 'Будь-яка категорія'
+                        !isCategorySet || isCategoriesLoading ?
+                            <Preloader/> :
+                            <>
+                                 <span className='drop-down-categories__button-text'>
+                                {
+                                    selectedCategory ? selectedCategory.name : 'Будь-яка категорія'
+                                }
+                                </span>
+                                <IoIosArrowDown/>
+                            </>
                     }
-                </span>
-                    <IoIosArrowDown/>
                 </div>
                 {
                     isClickedCategories ?
@@ -88,17 +115,17 @@ export const DropDownCategories = () => {
                                             Будь-яка категорія
                                         </div>
                                         {
-                                            categories.map(category => {
-                                                if (!category.parentId) {
+                                            categories.map(cat => {
+                                                if (!cat.parentId) {
                                                     //create a list of subCategories
                                                     const subCategories = categories.filter(subCategory => {
-                                                            return subCategory.parentId === category.id
+                                                            return subCategory.parentId === cat.id
                                                         }
                                                     )
                                                     return (
                                                         <DropDownCategoriesItem
-                                                            category={category}
-                                                            key={category.id}
+                                                            category={cat}
+                                                            key={cat.id}
                                                             setSelectedCategory={setSelectedCategory}
                                                             subCategories={subCategories}
                                                         />

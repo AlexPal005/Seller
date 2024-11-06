@@ -1,7 +1,8 @@
 import './all-categories.scss'
 import {useEffect, useState} from "react";
 import {IoIosArrowForward} from "react-icons/io";
-import {Category, useCategory} from "../../Hooks/Category.tsx";
+import {Category} from "../../Hooks/Category.tsx";
+import {Link} from "react-router-dom";
 
 interface subCategoryItemProps {
     subCategoryItem: Category;
@@ -9,21 +10,21 @@ interface subCategoryItemProps {
 
 const SubCategoryItem = ({subCategoryItem}: subCategoryItemProps) => {
     return (
-        <div className='all-categories__sub-category'>
+        <Link to={`/search/${subCategoryItem.name}`} className='all-categories__sub-category'>
             <IoIosArrowForward/>
             <p>{subCategoryItem.name}</p>
-        </div>
+        </Link>
     )
 }
 
 interface subCategoriesProps {
     index: number;
-    categoryId: number;
+    mainCategory: string;
+    subCategories: Category[];
 }
 
-export const SubCategories = ({index, categoryId}: subCategoriesProps) => {
+export const SubCategories = ({index, mainCategory, subCategories}: subCategoriesProps) => {
     const [currPositionStyle, setCurrPositionStyle] = useState('')
-    const {subCategories, getSubCategoriesByCategoryId} = useCategory()
 
     useEffect(() => {
         if (index < 8) {
@@ -33,19 +34,13 @@ export const SubCategories = ({index, categoryId}: subCategoriesProps) => {
         }
     }, [index])
 
-    useEffect(() => {
-        getSubCategoriesByCategoryId(categoryId)
-    }, [categoryId, getSubCategoriesByCategoryId]);
-
-    useEffect(() => {
-        console.log(categoryId)
-    }, [categoryId]);
-
     return (
         <div className={'all-categories ' + currPositionStyle}>
             <div className='all-categories__title-block'>
                 <IoIosArrowForward/>
-                <p className='all-categories__title'>Переглянути всі оголошення в &nbsp;</p> <span>Дитячий світ</span>
+                <p className='all-categories__title'>Переглянути всі оголошення в &nbsp;</p>
+                <Link to={`/search/${mainCategory}`}
+                      className='all-categories__title-link'>{mainCategory}</Link>
             </div>
             <hr/>
             <div className='all-categories__sub-categories'>
@@ -59,5 +54,6 @@ export const SubCategories = ({index, categoryId}: subCategoriesProps) => {
                 }
             </div>
         </div>
+
     )
 }

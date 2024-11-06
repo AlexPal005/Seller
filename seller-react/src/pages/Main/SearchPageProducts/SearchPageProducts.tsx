@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import {MainPageContext} from "../Main/Main.tsx";
 import {Product} from "../../../Hooks/Product.tsx";
 import './search-page-products.scss'
@@ -6,12 +6,7 @@ import {Link} from "react-router-dom";
 import {Preloader} from "../../../components/Preloader/Preloader.tsx";
 
 export const SearchPageProducts = () => {
-    const {products, search, isLoadingProducts} = useContext(MainPageContext)
-
-    useEffect(() => {
-        search()
-    }, [])
-
+    const {products, isLoadingProducts} = useContext(MainPageContext)
 
     return (
         <div className='search-page-products'>

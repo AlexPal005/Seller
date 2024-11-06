@@ -6,12 +6,13 @@ import {useContext, useState} from "react";
 import {SearchRegion} from "../SearchRegion/SearchRegion.tsx";
 import {useProduct} from "../../Hooks/Product.tsx";
 import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 export const Search = () => {
     const [isClickedSearch, setIsClickedSearch] = useState(false)
-    const {searchProductName, setSearchProductName, search} = useContext(MainPageContext)
-
+    const {searchProductName, setSearchProductName} = useContext(MainPageContext)
+    const navigate = useNavigate()
     const {
         searchProductsByCriteria,
         productsStartsWith,
@@ -30,6 +31,10 @@ export const Search = () => {
             searchProductsByCriteria(e.target.value)
         }
         setSearchProductName(e.target.value)
+    }
+
+    const onClickSearch = () => {
+        navigate('/search')
     }
 
     return (
@@ -51,7 +56,7 @@ export const Search = () => {
             </div>
             <SearchRegion classForBlock={'search__block search__block-region'} classForInput={'search__region'}
                           classForIcon={'search__icon'}/>
-            <Button text={'Пошук'} onClick={search} className='search__button'/>
+            <Button text={'Пошук'} onClick={onClickSearch} className='search__button'/>
         </div>
     )
 }

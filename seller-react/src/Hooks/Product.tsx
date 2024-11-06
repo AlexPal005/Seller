@@ -1,5 +1,5 @@
 import Axios from "../Axios.ts";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 
 export type Product = {
@@ -72,21 +72,21 @@ export const useProduct = () => {
             })
     }, [])
 
-    const getProductsByUserId = (userId: number) => {
+    const getProductsByUserId = useCallback((userId: number) => {
         Axios.get(`/product/getProductsByUserId/${userId}`).then(res => {
             setProducts(res.data)
         }).catch(err => {
             throw err
         })
-    }
+    }, [])
 
-    const getProductById = (productId: number) => {
+    const getProductById = useCallback((productId: number) => {
         Axios.get(`/product/getProductById/${productId}`).then(res => {
             setProducts(res.data)
         }).catch(err => {
             throw err
         })
-    }
+    }, [])
 
     const getImagesByProductId = (productId: number) => {
         Axios.get(`/product/getImagesByProductId/${productId}`).then(res => {
@@ -96,6 +96,9 @@ export const useProduct = () => {
         })
     }
 
+    useEffect(() => {
+        console.log(products)
+    }, [products]);
 
     return {
         searchProductsByCriteria,

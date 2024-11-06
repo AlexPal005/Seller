@@ -12,6 +12,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 60px;
   margin-top: 30px;
@@ -46,6 +47,11 @@
   font-weight: 600;
   width: 100%;
   text-align: center;
+  color: black;
+}
+
+.categories__item-menu__link {
+  @include reset-link;
 }
 
 .categories__photo-circle, .categories__photo-description {
@@ -74,7 +80,6 @@
     padding-bottom: 40px;
   }
 }
-
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 

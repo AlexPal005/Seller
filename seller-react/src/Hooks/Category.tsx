@@ -12,6 +12,7 @@ export interface Category {
 export function useCategory() {
     const [categories, setCategories] = useState<Category[]>([])
     const [isCategoriesLoading, setIsCategoriesLoading] = useState(false)
+    const [isCategoriesLoaded, setIsCategoriesLoaded] = useState(false)
     const [subCategories, setSubCategories] = useState<Category[]>([])
 
     const getSubCategoriesByCategoryId = useCallback((parentId: number) => {
@@ -31,6 +32,7 @@ export function useCategory() {
             throw err
         }).finally(() => {
             setIsCategoriesLoading(false)
+            setIsCategoriesLoaded(true)
         })
 
     }, [])
@@ -40,6 +42,7 @@ export function useCategory() {
         categories,
         getSubCategoriesByCategoryId,
         subCategories,
-        isCategoriesLoading
+        isCategoriesLoading,
+        isCategoriesLoaded
     }
 }

@@ -7,7 +7,6 @@ import {Preloader} from "../Preloader/Preloader.tsx";
 
 export const Categories = () => {
     const [isClickedCategory, setIsClickedCategory] = useState(false);
-
     const [indexClicked, setIndexClicked] = useState(-1)
     const {categories, getAllCategories} = useCategory()
 
