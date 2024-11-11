@@ -98,8 +98,34 @@ public class ProductService {
                                                            String regionName,
                                                            String category,
                                                            Double priceFrom,
-                                                           Double priceTo) {
-        return productRepository.getProductsByCriteria(
+                                                           Double priceTo,
+                                                           int pageNumber,
+                                                           int countProductsOnPage) {
+
+        List<Map<String, Object>> allProducts = productRepository.getProductsByCriteria(
+                productName,
+                cityName,
+                regionName,
+                category,
+                priceFrom,
+                priceTo
+        );
+
+        int fromIndex = (pageNumber - 1) * countProductsOnPage;
+        int toIndex = Math.min(fromIndex + countProductsOnPage, allProducts.size());
+        if (fromIndex >= allProducts.size()) {
+            return new ArrayList<>();
+        }
+        return allProducts.subList(fromIndex, toIndex);
+    }
+
+    public Long countProducts(String productName,
+                              String cityName,
+                              String regionName,
+                              String category,
+                              Double priceFrom,
+                              Double priceTo) {
+        return productRepository.countProductsByCriteria(
                 productName,
                 cityName,
                 regionName,
@@ -109,9 +135,6 @@ public class ProductService {
         );
     }
 
-    public List<Map<String, Object>> getAllProducts() {
-        return productRepository.getAllProducts();
-    }
 
     public List<Map<String, Object>> getProductsByUserId(Long userId) {
         return productRepository.getProductsByUserId(userId);

@@ -30,11 +30,6 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Map<String, Object>>> getAllProducts() {
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
-    }
-
     @GetMapping("/searchProductsByCriteria")
     public ResponseEntity<List<Map<String, Object>>> searchProductsByCriteria(
             @RequestParam(required = false) String productName,
@@ -42,9 +37,31 @@ public class ProductController {
             @RequestParam(required = false) String regionName,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) Double priceFrom,
+            @RequestParam(required = false) Double priceTo,
+            @RequestParam() int pageNumber,
+            @RequestParam() int countProductsOnPage
+    ) {
+        return new ResponseEntity<>(productService.getProductsByCriteria(
+                productName,
+                cityName,
+                regionName,
+                category,
+                priceFrom,
+                priceTo,
+                pageNumber,
+                countProductsOnPage), HttpStatus.OK);
+    }
 
-
-            @RequestParam(required = false) Double priceTo) {return new ResponseEntity<>(productService.getProductsByCriteria(
+    @GetMapping("/countProducts")
+    public ResponseEntity<Long> countProducts(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) String cityName,
+            @RequestParam(required = false) String regionName,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double priceFrom,
+            @RequestParam(required = false) Double priceTo
+    ) {
+        return new ResponseEntity<>(productService.countProducts(
                 productName,
                 cityName,
                 regionName,

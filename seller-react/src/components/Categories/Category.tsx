@@ -31,7 +31,7 @@ export const Category = ({
 
     useEffect(() => {
         getSubCategoriesByCategoryId(categoryId)
-    }, [categoryId, getSubCategoriesByCategoryId]);
+    }, [categoryId, getSubCategoriesByCategoryId])
 
     const showSubCategories = () => {
         setIndexClicked(index)

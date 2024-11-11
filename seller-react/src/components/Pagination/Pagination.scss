@@ -1,0 +1,43 @@
+@import "src/scssStyles/mixins";
+@import "src/scssStyles/basic";
+
+.pagination {
+  width: 100%;
+  @include flex-vertical-center;
+}
+
+.pagination__list {
+  @include reset-list;
+  @include flex-horizontal-center;
+}
+
+.pagination__button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.pagination__list-item {
+  font-size: 20px;
+  @include flex-center;
+  width: 35px;
+  height: 35px;
+}
+
+.pagination__list-item-numbers {
+  @extend .pagination__list-item;
+  cursor: pointer;
+}
+
+.pagination__list-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.pagination__list-item-numbers:hover {
+  @extend .pagination__list-item-active;
+}
+
+.pagination__list-item-active {
+  border: 2px solid black;
+  border-radius: 100%;
+}

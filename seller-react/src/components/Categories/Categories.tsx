@@ -12,7 +12,7 @@ export const Categories = () => {
 
     useEffect(() => {
         getAllCategories()
-    }, [getAllCategories]);
+    }, [getAllCategories])
 
     return (
         <div className='categories'>

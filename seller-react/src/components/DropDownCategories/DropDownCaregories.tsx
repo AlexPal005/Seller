@@ -62,7 +62,7 @@ export const DropDownCategories = () => {
         if (isCategorySet) {
             search()
         }
-    }, [search, category, isCategorySet])
+    }, [category, isCategorySet])
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

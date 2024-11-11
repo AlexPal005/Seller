@@ -1,5 +1,5 @@
 import Axios from "../Axios.ts";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 
 
 export type Product = {
@@ -18,33 +18,47 @@ export type Product = {
 export type ProductImage = {
     image: string
 }
+
+interface SearchCriteria {
+    productName?: string;
+    cityName?: string;
+    regionName?: string;
+    category?: string;
+    priceFrom?: number;
+    priceTo?: number;
+    pageNumber: number;
+    countProductsOnPage: number;
+}
+
 export const useProduct = () => {
     const [productsStartsWith, setProductsStartsWith]
         = useState<Product[]>([])
 
     const [products, setProducts]
         = useState<Product[]>([])
+
+    const [productsByUserId, setProductsByUserId]
+        = useState<Product[]>([])
+
     const [isLoadingProducts, setIsLoadingProducts] = useState(false)
 
     const [images, setImages] = useState<ProductImage[]>([])
+    const [countProducts, setCountProducts] = useState(0)
 
 
-    const searchProductsByCriteria = useCallback((productName: string,
-                                                  cityName?: string,
-                                                  regionName?: string,
-                                                  category?: string,
-                                                  priceFrom?: number,
-                                                  priceTo?: number) => {
+    // returns all products if the function has no parameters
+    const searchProductsByCriteria = useCallback((criteria: SearchCriteria) => {
             setIsLoadingProducts(true)
-
             Axios.get(`/product/searchProductsByCriteria`, {
                 params: {
-                    productName: productName || null,
-                    cityName: cityName || null,
-                    regionName: regionName || null,
-                    category: category || null,
-                    priceFrom: priceFrom === -1 ? null : priceFrom,
-                    priceTo: priceTo === -1 ? null : priceTo,
+                    productName: criteria.productName || null,
+                    cityName: criteria.cityName || null,
+                    regionName: criteria.regionName || null,
+                    category: criteria.category || null,
+                    priceFrom: criteria.priceFrom === -1 ? null : criteria.priceFrom,
+                    priceTo: criteria.priceTo === -1 ? null : criteria.priceTo,
+                    pageNumber: criteria.pageNumber || 1,
+                    countProductsOnPage: criteria.countProductsOnPage || 5
                 }
             })
                 .then(res => {
@@ -60,21 +74,27 @@ export const useProduct = () => {
         }, []
     )
 
-    const getAllProducts = useCallback(() => {
-        setIsLoadingProducts(true)
-        Axios.get('/product/getAll').then(res => {
-            setProducts(res.data)
-        }).catch(err => {
+    const getCountOfProducts = (criteria: SearchCriteria) => {
+        Axios.get(`/product/countProducts`, {
+            params: {
+                productName: criteria.productName || null,
+                cityName: criteria.cityName || null,
+                regionName: criteria.regionName || null,
+                category: criteria.category || null,
+                priceFrom: criteria.priceFrom === -1 ? null : criteria.priceFrom,
+                priceTo: criteria.priceTo === -1 ? null : criteria.priceTo
+            }
+        })
+            .then(res => {
+                setCountProducts(res.data)
+            }).catch(err => {
             throw err
         })
-            .finally(() => {
-                setIsLoadingProducts(false)
-            })
-    }, [])
+    }
 
     const getProductsByUserId = useCallback((userId: number) => {
         Axios.get(`/product/getProductsByUserId/${userId}`).then(res => {
-            setProducts(res.data)
+            setProductsByUserId(res.data)
         }).catch(err => {
             throw err
         })
@@ -96,21 +116,20 @@ export const useProduct = () => {
         })
     }
 
-    useEffect(() => {
-        console.log(products)
-    }, [products]);
-
     return {
         searchProductsByCriteria,
         productsStartsWith,
         products,
-        getAllProducts,
         getProductsByUserId,
         getProductById,
         getImagesByProductId,
         images,
-        isLoadingProducts
+        isLoadingProducts,
+        productsByUserId,
+        getCountOfProducts,
+        countProducts
 
     }
 }
+
 

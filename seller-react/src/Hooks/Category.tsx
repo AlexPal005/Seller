@@ -1,5 +1,5 @@
 import Axios from "../Axios.ts"
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 
 export interface Category {

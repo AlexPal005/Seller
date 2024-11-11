@@ -1,12 +1,12 @@
 import {AccountSubMenu} from "../AccountSubMenu/AccountSubMenu.tsx";
 import {MyPostsSearch} from "../MyPostsSearch/MyPostsSearch.tsx";
 import {ProductCard} from "../ProductCard/ProductCard.tsx";
-import { useEffect} from "react";
+import {useEffect} from "react";
 import {useProduct} from "../../../Hooks/Product.tsx";
 
 
 export const MyPosts = () => {
-    const {products, getProductsByUserId} = useProduct()
+    const {productsByUserId: products, getProductsByUserId} = useProduct()
     useEffect(() => {
         getProductsByUserId(1)
     }, []);

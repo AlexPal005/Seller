@@ -20,7 +20,11 @@ type MainContextType = {
     searchProductName: string,
     isLoadingProducts: boolean,
     setIsCategorySet: React.Dispatch<React.SetStateAction<boolean>>,
-    isCategorySet: boolean
+    isCategorySet: boolean,
+    currPage: number,
+    setCurrPage: React.Dispatch<React.SetStateAction<number>>,
+    countProductsOnPage: number,
+    countProducts: number
 }
 const defaultMainContext = {
     setSearchProductName: () => {
@@ -28,27 +32,26 @@ const defaultMainContext = {
     search: () => {
     },
     setCityName: () => {
-
     },
     setRegionName: () => {
-
     },
     setCategory: () => {
-
     },
     setPriceFrom: () => {
-
     },
     setPriceTo: () => {
-
     },
     products: [],
     searchProductName: '',
     isLoadingProducts: false,
     setIsCategorySet: () => {
-
     },
-    isCategorySet: false
+    isCategorySet: false,
+    currPage: 1,
+    setCurrPage: () => {
+    },
+    countProductsOnPage: 5,
+    countProducts: 0
 }
 export const MainPageContext = createContext<MainContextType>(defaultMainContext)
 
@@ -57,39 +60,72 @@ export const Main = () => {
     const {
         searchProductsByCriteria,
         products,
-        getAllProducts,
-        isLoadingProducts
+        isLoadingProducts,
+        countProducts,
+        getCountOfProducts
     } = useProduct()
     const [cityName, setCityName] = useState('')
     const [regionName, setRegionName] = useState('')
     const [category, setCategory] = useState('')
     const [priceFrom, setPriceFrom] = useState<number>(-1)
     const [priceTo, setPriceTo] = useState<number>(-1)
-    const navigate = useNavigate()
     const location = useLocation()
     const [isCategorySet, setIsCategorySet] = useState(false)
+    const [currPage, setCurrPage] = useState(1)
+    const [countProductsOnPage] = useState(10)
+    const navigate = useNavigate()
 
     const search = useCallback(() => {
         if (isCategorySet) {
             if (!productName.length && (!cityName && !regionName) && !category && priceFrom === -1 && priceTo === -1) {
-                getAllProducts()
+                const criteria = {pageNumber: currPage, countProductsOnPage: countProductsOnPage}
+                searchProductsByCriteria(criteria)
+                getCountOfProducts(criteria)
             } else {
-                searchProductsByCriteria(productName, cityName, regionName, category, priceFrom, priceTo)
+                const criteria = {
+                    productName: productName,
+                    cityName: cityName,
+                    regionName: regionName,
+                    category: category,
+                    priceFrom: priceFrom,
+                    priceTo: priceTo,
+                    pageNumber: currPage,
+                    countProductsOnPage: countProductsOnPage
+                }
+                getCountOfProducts(criteria)
+                searchProductsByCriteria(criteria)
             }
         }
-    }, [isCategorySet, category, cityName, getAllProducts, priceFrom, priceTo, productName, regionName, searchProductsByCriteria])
-
-    useEffect(() => {
-        if (category && location.pathname !== `/search/${category}`) {
-            navigate(`/search/${category}`, {replace: true})
-        }
-    }, [category])
+    }, [
+        isCategorySet,
+        category,
+        cityName,
+        priceFrom,
+        priceTo,
+        productName,
+        regionName,
+        searchProductsByCriteria,
+        currPage,
+        countProductsOnPage
+    ])
 
     useEffect(() => {
         if (productName || priceFrom !== -1 || priceTo !== -1) {
             search()
         }
     }, [productName, priceFrom, priceTo, search])
+
+    useEffect(() => {
+        search()
+    }, [currPage, category])
+
+    useEffect(() => {
+        if (category) {
+            navigate(`/search/${category}`, {replace: true})
+        } else {
+            navigate('/search', {replace: true})
+        }
+    }, [category])
 
 
     useEffect(() => {
@@ -112,7 +148,11 @@ export const Main = () => {
             searchProductName: productName,
             isLoadingProducts,
             setIsCategorySet,
-            isCategorySet
+            isCategorySet,
+            currPage,
+            setCurrPage,
+            countProductsOnPage,
+            countProducts
         }}>
             <div className='main'>
                 <Search/>
