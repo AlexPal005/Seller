@@ -1,4 +1,4 @@
-@import './create-post';
+@import '../CreatePost/create-post';
 
 .create-post-contact-input {
   @extend .create-post-container__input;

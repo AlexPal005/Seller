@@ -1,55 +1,51 @@
 import './contacts.scss'
-import React, {SetStateAction, useContext} from "react";
-import {PostContext} from "./CreatePost.tsx";
+import {useContext} from "react";
+import {PostContext} from "../CreatePost/CreatePost.tsx";
 
 type ContactsCreatePostProps = {
     userNameError: string;
-    setUserNameError: React.Dispatch<React.SetStateAction<string>>
     emailError: string
-    setEmailError: React.Dispatch<React.SetStateAction<string>>
     phoneNumberError: string
-    setPhoneNumberError: React.Dispatch<React.SetStateAction<string>>
 }
 export const ContactsCreatePost = ({
                                        userNameError,
-                                       setUserNameError,
                                        emailError,
-                                       setEmailError,
                                        phoneNumberError,
-                                       setPhoneNumberError
                                    }: ContactsCreatePostProps) => {
     const {
-        setUserName,
-        setEmail,
-        setPhoneNumber
+        setProductToCreate, productToCreate, setErrors
     } = useContext(PostContext)
-    const onChangeUserName = (e: { target: { value: SetStateAction<string>; }; }) => {
+    const onChangeUserName = (e: { target: { value: string; }; }) => {
+        setProductToCreate(prev => ({
+            ...prev, userName: e.target.value
+        }))
         if (e.target.value.length < 2) {
-            setUserNameError("Ім'я надто коротке!")
+            setErrors(prev => ({...prev, userName: "Ім'я надто коротке!"}))
         } else {
-            setUserNameError("")
-            setUserName(e.target.value)
+            setErrors(prev => ({...prev, userName: ""}))
         }
 
     }
     const onChangeEmail = (e: { target: { value: string } }) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
+        setProductToCreate(prev => ({
+            ...prev, email: e.target.value
+        }))
         if (emailRegex.test(e.target.value)) {
-            setEmailError('')
-            setEmail(e.target.value)
+            setErrors(prev => ({...prev, email: ""}))
         } else {
-            setEmailError("Це не схоже на email!")
+            setErrors(prev => ({...prev, email: "Це не схоже на email!"}))
         }
     }
     const onChangePhoneNumber = (e: { target: { value: string } }) => {
         const phoneNumberRegex = /^\+?3?8?(0\d{9})$/
-
+        setProductToCreate(prev => ({
+            ...prev, phoneNumber: e.target.value
+        }))
         if (phoneNumberRegex.test(e.target.value)) {
-            setPhoneNumberError('')
-            setPhoneNumber(e.target.value)
+            setErrors(prev => ({...prev, phoneNumber: ""}))
         } else {
-            setPhoneNumberError("Це не схоже на номер телефону!")
+            setErrors(prev => ({...prev, phoneNumber: "Це не схоже на номер телефону!"}))
         }
     }
     return (
@@ -61,6 +57,7 @@ export const ContactsCreatePost = ({
                        className='create-post-contact-input'
                        placeholder="Ім'я"
                        onChange={onChangeUserName}
+                       value={productToCreate.userName}
                 />
                 {userNameError && <p className="error">{userNameError}</p>}
                 <p className='blue-text-16 white-block-mt20'>Email</p>
@@ -68,6 +65,7 @@ export const ContactsCreatePost = ({
                        className='create-post-contact-input'
                        placeholder="Email"
                        onChange={onChangeEmail}
+                       value={productToCreate.email}
                 />
                 {emailError && <p className="error">{emailError}</p>}
                 <p className='blue-text-16 white-block-mt20'>Номер телефону</p>
@@ -75,6 +73,7 @@ export const ContactsCreatePost = ({
                        className='create-post-contact-input'
                        placeholder="Телефон"
                        onChange={onChangePhoneNumber}
+                       value={productToCreate.phoneNumber}
                 />
                 {phoneNumberError && <p className="error">{phoneNumberError}</p>}
             </form>

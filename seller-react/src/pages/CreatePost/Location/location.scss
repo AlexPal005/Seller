@@ -1,7 +1,7 @@
-@import "../../scssStyles/variables";
-@import "../../scssStyles/mixins";
-@import "../../scssStyles/basic";
-@import './create-post';
+@import "../../../scssStyles/variables";
+@import "../../../scssStyles/mixins";
+@import "../../../scssStyles/basic";
+@import '../CreatePost/create-post';
 
 .create-post-city {
   @extend .create-post-container__input;

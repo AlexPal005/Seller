@@ -1,5 +1,5 @@
 import './location.scss'
-import {SearchRegion} from "../../components/SearchRegion/SearchRegion.tsx";
+import {SearchRegion} from "../../../components/SearchRegion/SearchRegion.tsx";
 
 type LocationCreatePostProps = {
     locationError: string

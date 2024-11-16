@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.6.8",
+    "b64-to-blob": "^1.2.19",
     "buffer": "^6.0.3",
     "date-fns": "^3.6.0",
     "jwt-decode": "^4.0.0",

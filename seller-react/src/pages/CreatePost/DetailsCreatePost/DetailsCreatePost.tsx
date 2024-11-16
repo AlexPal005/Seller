@@ -2,11 +2,10 @@ import {IoIosArrowDown} from "react-icons/io";
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {Category, useCategory} from "../../../Hooks/Category.tsx";
 import {CategoriesPopUp} from "./CategoriesPopUp.tsx";
-import {PostContext} from "../CreatePost.tsx";
+import {PostContext} from "../CreatePost/CreatePost.tsx";
 
 type DetailsCreatePostProps = {
     categoryId: number,
-    setErrorProductName: React.Dispatch<React.SetStateAction<string>>,
     errorProductName: string,
     errorCategory: string
 }
@@ -29,15 +28,15 @@ export const DetailsCreatePostContext =
     createContext<DetailsCreatePostContextType>(DetailsCreatePostContextDefault)
 export const DetailsCreatePost = ({
                                       categoryId,
-                                      setErrorProductName,
                                       errorProductName,
                                       errorCategory
                                   }: DetailsCreatePostProps) => {
     const [isClickedCategories, setIsClickedCategories] = useState(false)
     const {categories, getAllCategories} = useCategory()
     const {
-        setProductName
-    } = useContext(PostContext)
+        setProductToCreate, setErrors, productToCreate
+    }
+        = useContext(PostContext)
     const [currentCategory, setCurrentCategory]
         = useState<Category | undefined>()
     const [mainCategoryId, setMainCategoryId] = useState(-1)
@@ -51,12 +50,16 @@ export const DetailsCreatePost = ({
         }
     }, [categoryId, categories]);
 
-    const onChangeProductName = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    const onChangeProductName = (e: { target: { value: string }; }) => {
+        const productName = e.target.value
+        setProductToCreate((prevProduct) => ({ ...prevProduct, productName: productName }));
         if (e.target.value.length < 16) {
-            setErrorProductName("Заголовок надто короткий. Додайте більше деталей!")
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                productName: "Заголовок надто короткий. Додайте більше деталей!"
+            }))
         } else {
-            setErrorProductName("")
-            setProductName(e.target.value)
+            setErrors((prevErrors) => ({...prevErrors, productName: ""}))
         }
     }
 
@@ -93,6 +96,7 @@ export const DetailsCreatePost = ({
                             type='text'
                             placeholder='Наприклад, xiaomi redmi note 9 pro'
                             onChange={onChangeProductName}
+                            value = {productToCreate.productName}
                         />
                         {errorProductName && <p className="error">{errorProductName}</p>}
                     </div>

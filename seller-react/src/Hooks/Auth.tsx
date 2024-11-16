@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Axios from "../Axios.ts";
 import {jwtDecode} from "jwt-decode";
 
@@ -16,7 +16,7 @@ export interface AuthFunctions {
     logOut: () => void;
     getUser: (email?: string) => Promise<void>;
     getUserByEmail: (email: string) => Promise<void>;
-    User: User | null;
+    User: User | null | undefined;
 }
 
 interface JwtPayload {
@@ -26,7 +26,7 @@ interface JwtPayload {
 export function useAuth(): AuthFunctions {
     const navigate = useNavigate();
 
-    const [User, setUser] = useState<User | null>(null)
+    const [User, setUser] = useState<User | null | undefined>(null)
 
     const signIn = async (email: string, password: string): Promise<void> => {
         return Axios.post('/auth/login', {email: email, password: password}).then(resp => {
@@ -79,6 +79,10 @@ export function useAuth(): AuthFunctions {
         setUser(null);
         navigate('/auth/login');
     }
+
+    useEffect(() => {
+        console.log(User)
+    }, [User]);
 
 
     return {

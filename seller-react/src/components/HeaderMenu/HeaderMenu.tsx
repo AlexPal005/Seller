@@ -17,7 +17,7 @@ export const HeaderMenu = () => {
     const [isHoverProfile, setIsHoverProfile] = useState(false)
     const redirectCreatePost = (): void => {
         if (User) {
-            navigate('/create-post');
+            navigate('/create-post/adding')
         } else {
             navigate('/auth')
         }

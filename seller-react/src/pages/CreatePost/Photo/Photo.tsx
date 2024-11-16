@@ -1,11 +1,11 @@
 import './photo.scss'
-import {InputPhoto} from "../../components/InputPhoto/InputPhoto.tsx";
+import {InputPhoto} from "../../../components/InputPhoto/InputPhoto.tsx";
 import {useCallback, useContext, useEffect, useState} from "react";
-import {PostContext} from "./CreatePost.tsx";
+import {PostContext} from "../CreatePost/CreatePost.tsx";
 
 export const Photo = () => {
     const [htmlPhotos, setHtmlPhotos] = useState<string[]>([])
-    const {setImages} = useContext(PostContext)
+    const {setProductToCreate, productToCreate} = useContext(PostContext)
 
     // convert blob to base64
     const convertBlobToBase64 = useCallback((blob: Blob): Promise<string> => {
@@ -19,6 +19,27 @@ export const Photo = () => {
         });
     }, [])
 
+    useEffect(() => {
+        if (productToCreate.images && productToCreate.images.length > 0) {
+            const base64ToBlob = (base64String: string) => {
+                const byteCharacters = atob(base64String)
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i)
+                }
+                const byteArray = new Uint8Array(byteNumbers)
+                return new Blob([byteArray], {type: 'image/jpeg'})
+            };
+
+            const blobUrls = productToCreate.images.map((base64String: string) => {
+                const blob = base64ToBlob(base64String)
+                return URL.createObjectURL(blob)
+            });
+
+            setHtmlPhotos(blobUrls)
+        }
+    }, [])
+
     // get blob from url and convert it to base64
     const convertBlobUrlToBase64 = useCallback(async (url: string): Promise<string> => {
         const response = await fetch(url);
@@ -28,18 +49,20 @@ export const Photo = () => {
 
     useEffect(() => {
         const convertPhotos = () => {
-            return Promise.all(htmlPhotos.map(url => convertBlobUrlToBase64(url)));
-        };
+            return Promise.all(htmlPhotos.map(url => convertBlobUrlToBase64(url)))
+        }
 
         if (htmlPhotos.length > 0) {
             convertPhotos().then(base64Array => {
                 const newArray = base64Array.map(base64 => {
-                    return base64.split(',')[1];
+                    return base64.split(',')[1]
                 })
-                setImages(newArray);
-            }).catch(err => console.error(err));
+                setProductToCreate(prev => ({
+                    ...prev, images: newArray
+                }))
+            }).catch(err => console.error(err))
         }
-    }, [htmlPhotos, setImages, convertBlobUrlToBase64]);
+    }, [htmlPhotos, convertBlobUrlToBase64])
 
     return (
         <div className='create-post-photo white-block'>

@@ -2,7 +2,7 @@ import './App.scss'
 import {Header} from "./components/Header/Header.tsx";
 import {Footer} from "./components/Footer/Footer.tsx";
 import {Route, Routes, useNavigate} from "react-router-dom";
-import {CreatePost} from "./pages/CreatePost/CreatePost.tsx";
+import {CreatePost} from "./pages/CreatePost/CreatePost/CreatePost.tsx";
 import {Auth} from "./pages/Authorization/Auth.tsx";
 import {ConfirmAuth} from "./pages/Authorization/ConfirmAuth.tsx";
 import {Main} from "./pages/Main/Main/Main.tsx";
@@ -35,7 +35,6 @@ function App() {
     } = useAuth()
 
 
-
     useEffect(() => {
         if (!User) {
             getUser().catch(console.log)
@@ -63,16 +62,16 @@ function App() {
             <div className='content'>
                 <Routes>
                     <Route path="/*" element={<Main/>}/>
-                    <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
                     {
                         User ?
                             <>
                                 <Route path="/account/*" element={<Account/>}/>
-                                <Route path="/create-post" element={<CreatePost/>}/>
+                                <Route path="/create-post/*" element={<CreatePost/>}/>
                             </>
                             :
                             <>
                                 <Route path="/auth/*" element={<Auth/>}/>
+                                <Route path="/confirm-auth" element={<ConfirmAuth/>}/>
                             </>
 
                     }

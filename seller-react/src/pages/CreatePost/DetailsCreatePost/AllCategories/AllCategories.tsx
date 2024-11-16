@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {PostContext} from "../../CreatePost.tsx";
+import {PostContext} from "../../CreatePost/CreatePost.tsx";
 import {DetailsCreatePostContext} from "../DetailsCreatePost.tsx";
 import {Category} from "../../../../Hooks/Category.tsx";
 import './all-categories.scss'
@@ -7,7 +7,7 @@ import {IoIosArrowForward} from "react-icons/io";
 
 
 export const AllCategories = () => {
-    const {setCategoryId} = useContext(PostContext);
+    const {setProductToCreate} = useContext(PostContext);
     const {categories, closeModal, mainCategoryId, setMainCategoryId} = useContext(DetailsCreatePostContext);
 
     const [categoryLevels, setCategoryLevels] =
@@ -21,7 +21,9 @@ export const AllCategories = () => {
         createSelectedCategories(level, category.id)
 
         if (isLastLevel(level) && !hasSubCategories(category.id)) {
-            setCategoryId(category.id)
+            setProductToCreate(prev => ({
+                ...prev, categoryId: category.id
+            }))
             setMainCategoryId(-1)
             closeModal()
         }

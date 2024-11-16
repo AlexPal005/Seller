@@ -8,7 +8,7 @@ import {ProductPageInfo} from "../ProductPageInfo/ProductPageInfo.tsx";
 
 export const ProductPage = () => {
     const {productId} = useParams()
-    const {getProductById, products} = useProduct()
+    const {getProductById, products, getImagesByProductId, images} = useProduct()
     const [product, setProduct] = useState({
         name: '',
         productId: -1,
@@ -24,6 +24,7 @@ export const ProductPage = () => {
             const id = parseInt(productId, 10)
             if (!isNaN(id)) {
                 getProductById(id)
+                getImagesByProductId(id)
             }
         }
     }, [productId])
@@ -32,11 +33,20 @@ export const ProductPage = () => {
         setProduct(products[0])
     }, [products])
 
+    // useEffect(() => {
+    //     if (productId !== undefined) {
+    //         const id = parseInt(productId, 10)
+    //         if (!isNaN(id)) {
+    //             getImagesByProductId(id)
+    //         }
+    //     }
+    // }, [productId])
+
     return (
         <div className='product-page'>
-            <ProductPageImages/>
-            <ProductPageInfo product = {product}/>
-            <ProductPageDescription product = {product}/>
+            <ProductPageImages images={images.map(image => image.image)}/>
+            <ProductPageInfo product={product}/>
+            <ProductPageDescription product={product}/>
             <div></div>
         </div>
     )

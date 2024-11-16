@@ -1,7 +1,7 @@
 import {FaMapMarkerAlt} from "react-icons/fa";
 import {Region, SearchTableRegion} from "../SearchTableRegion/SearchTableRegion.tsx";
-import {createContext, useContext, useState} from "react";
-import {PostContext} from "../../pages/CreatePost/CreatePost.tsx";
+import {createContext, useContext, useEffect, useState} from "react";
+import {PostContext} from "../../pages/CreatePost/CreatePost/CreatePost.tsx";
 import axios from "axios";
 import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 
@@ -23,17 +23,24 @@ export const SearchRegion = ({classForBlock, classForInput, classForIcon}: Searc
     const [regionInputValue, setRegionInputValue] = useState('');
     const [cities, setCities] = useState([])
     const [isClickedSearchRegion, setIsClickedSearchRegion] = useState(false)
-    const {setCity, setRegion} = useContext(PostContext)
+    const {setProductToCreate, productToCreate} = useContext(PostContext)
     const {setCityName, setRegionName} = useContext(MainPageContext)
 
     const setRegionValueFunc = (city: Region) => {
         setRegionInputValue(city.Description + ', ' + city.AreaDescription)
-        setCity(city.Description)
-        setRegion(city.AreaDescription)
+        setProductToCreate(prev => ({
+            ...prev, city: city.Description, region: city.AreaDescription
+        }))
         setCityName(city.Description)
         setRegionName(city.AreaDescription)
         setIsClickedSearchRegion(false);
     }
+
+    useEffect(() => {
+        if (productToCreate.city && productToCreate.region) {
+            setRegionInputValue(productToCreate.region + ', ' + productToCreate.city)
+        }
+    }, [productToCreate.region, productToCreate.city])
 
     const showSearchTableRegion = () => {
         setIsClickedSearchRegion(true)
