@@ -1,13 +1,13 @@
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import Axios from "../Axios.ts";
 import {jwtDecode} from "jwt-decode";
 
 export interface User {
-    userId?: number;
-    email?: string;
-    firstName?: string;
-    lastName?: string;
+    userId: number;
+    email: string;
+    firstName: string;
+    lastName: string;
 }
 
 export interface AuthFunctions {
@@ -17,6 +17,7 @@ export interface AuthFunctions {
     getUser: (email?: string) => Promise<void>;
     getUserByEmail: (email: string) => Promise<void>;
     User: User | null | undefined;
+    isLoadingUser: boolean;
 }
 
 interface JwtPayload {
@@ -26,24 +27,30 @@ interface JwtPayload {
 export function useAuth(): AuthFunctions {
     const navigate = useNavigate();
 
-    const [User, setUser] = useState<User | null | undefined>(null)
-
+    const [User, setUser] = useState<User | null | undefined>(undefined)
+    const [isLoadingUser, setIsLoadingUser] = useState(false)
     const signIn = async (email: string, password: string): Promise<void> => {
-        return Axios.post('/auth/login', {email: email, password: password}).then(resp => {
+        setIsLoadingUser(true)
+        return Axios.post('/auth/login', {email: email, password: password}).then(async (resp) => {
             console.log(resp.data)
             localStorage.setItem('accessToken', resp.data.accessToken)
             const decode: JwtPayload = jwtDecode(resp.data.accessToken)
-            getUser(decode.sub)
+            await getUser(decode.sub)
         }).catch(error => {
             console.log(error)
             throw new Error(error)
+        }).finally(() => {
+            setIsLoadingUser(false)
         })
     }
 
-    const getUser = async (email?: string): Promise<void> => {
+    const getUser = async (email?: string) => {
+        setIsLoadingUser(true)
         if (!email) {
             const token: string | null = localStorage.getItem('accessToken')
             if (!token) {
+                setUser(null)
+                setIsLoadingUser(false)
                 return
             }
 
@@ -56,7 +63,8 @@ export function useAuth(): AuthFunctions {
         } catch {
             logOut()
         }
-    };
+        setIsLoadingUser(false)
+    }
 
     const getUserByEmail = (email: string): Promise<void> => {
         return Axios.get(`/user/email/${email}`)
@@ -80,17 +88,13 @@ export function useAuth(): AuthFunctions {
         navigate('/auth/login');
     }
 
-    useEffect(() => {
-        console.log(User)
-    }, [User]);
-
-
     return {
         signIn,
         signUp,
         User,
         getUser,
         logOut,
-        getUserByEmail
+        getUserByEmail,
+        isLoadingUser
     };
 }

@@ -4,7 +4,7 @@ import {Categories} from "../../../components/Categories/Categories.tsx";
 import {Social} from "../../../components/Social/Social.tsx";
 import React, {createContext, useCallback, useEffect, useState} from "react";
 import {Product, useProduct} from "../../../Hooks/Product.tsx";
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import {SearchPage} from "../SearchPage/SearchPage.tsx";
 import {ProductPage} from "../ProductPage/ProductPage.tsx";
 
@@ -73,7 +73,6 @@ export const Main = () => {
     const [isCategorySet, setIsCategorySet] = useState(false)
     const [currPage, setCurrPage] = useState(1)
     const [countProductsOnPage] = useState(10)
-    const navigate = useNavigate()
 
     const search = useCallback(() => {
         if (isCategorySet) {
@@ -118,14 +117,6 @@ export const Main = () => {
     useEffect(() => {
         search()
     }, [currPage, category])
-
-    useEffect(() => {
-        if (category) {
-            navigate(`/search/${category}`, {replace: true})
-        } else {
-            navigate('/search', {replace: true})
-        }
-    }, [category])
 
 
     useEffect(() => {

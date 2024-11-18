@@ -1,5 +1,6 @@
 package com.example.sellerspring.service;
 
+import com.example.sellerspring.ENUMS.Status;
 import com.example.sellerspring.dto.ProductDTO;
 import com.example.sellerspring.entity.*;
 import com.example.sellerspring.repository.*;
@@ -67,6 +68,7 @@ public class ProductService {
                 .category(category)
                 .user(user)
                 .city(city)
+                .status(Status.PENDING)
                 .build();
 
         newProduct = productRepository.save(newProduct);
@@ -136,8 +138,8 @@ public class ProductService {
     }
 
 
-    public List<Map<String, Object>> getProductsByUserId(Long userId) {
-        return productRepository.getProductsByUserId(userId);
+    public List<Map<String, Object>> getProductsByUserId(Long userId, String status) {
+        return productRepository.getProductsByUserId(userId, status);
     }
 
     public List<Map<String, Object>> getProductJsonById(Long productId) {

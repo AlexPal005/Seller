@@ -53,7 +53,7 @@ export const Auth = () => {
         if (validateEmail(email) && validatePassword(password)) {
 
             signIn(email, password).then(() => {
-                navigate('/account/posts')
+                navigate('/account/posts/active', {replace: true})
             }).catch(() => setError("Невірний email чи пароль!"))
         }
     }
@@ -63,7 +63,7 @@ export const Auth = () => {
         if (validateEmail(email) && validatePassword(password)) {
             signUp(email, password).then(res => {
                 console.log(res)
-                navigate('/account/posts')
+                navigate('/account/posts/active')
             }).catch(error => {
                 console.log(error)
                 const message = (error.response.data === "Email is taken!")

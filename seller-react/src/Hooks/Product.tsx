@@ -12,7 +12,8 @@ export type Product = {
     mainImage?: string,
     createdAt: string,
     categoryName?: string,
-    description: string
+    description: string,
+    status: Status
 }
 
 export type ProductImage = {
@@ -28,6 +29,13 @@ interface SearchCriteria {
     priceTo?: number;
     pageNumber: number;
     countProductsOnPage: number;
+}
+
+export enum Status {
+    ACTIVE = 'ACTIVE',
+    PENDING = 'PENDING',
+    INACTIVE = 'INACTIVE',
+    REJECTED = 'REJECTED'
 }
 
 export const useProduct = () => {
@@ -92,8 +100,13 @@ export const useProduct = () => {
         })
     }
 
-    const getProductsByUserId = useCallback((userId: number) => {
-        Axios.get(`/product/getProductsByUserId/${userId}`).then(res => {
+    const getProductsByUserId = useCallback((userId: number, status: Status) => {
+        Axios.get(`/product/getProductsByUserId`, {
+            params: {
+                userId: userId,
+                status: status.toUpperCase()
+            }
+        }).then(res => {
             setProductsByUserId(res.data)
         }).catch(err => {
             throw err

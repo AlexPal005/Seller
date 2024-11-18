@@ -46,9 +46,10 @@ export const HeaderMenu = () => {
                 <li className='main-menu__item main-menu__item_color'>
                     <FaRegHeart className='main-menu__icon'/>
                 </li>
-                <li className='main-menu__item '
+                <li className='main-menu__item main-menu__item-profile'
                     onMouseOver={User ? showProfileMenu : () => {
                     }}
+                    onMouseLeave={User ? hideProfileMenu : () => {}}
                     onClick={User ? () => {
                     } : onClickProfile}
                 >

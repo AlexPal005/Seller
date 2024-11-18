@@ -11,7 +11,7 @@ import {UserContext} from "../../../App.tsx";
 import {CreatePostPrice} from "../CreatePostPrice/CreatePostPrice.tsx";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import {Preview} from "../Preview/Preview.tsx";
-import {Product} from "../../../Hooks/Product.tsx";
+import {Product, Status} from "../../../Hooks/Product.tsx";
 
 type PostContextType = {
     setProductToCreate: React.Dispatch<React.SetStateAction<ProductToCreate>>,
@@ -92,7 +92,8 @@ export const CreatePost = () => {
         mainImage: '',
         createdAt: '',
         categoryName: '',
-        description: ''
+        description: '',
+        status: Status.PENDING
     })
 
     const [errors, setErrors] = useState<Errors>({
@@ -213,7 +214,7 @@ export const CreatePost = () => {
             regionName: productToCreate.region,
         }).then(res => {
             console.log(res)
-            navigate('/account/posts')
+            navigate('/account/posts/pending')
         }).catch(err => {
             console.log(err)
         })
@@ -252,7 +253,8 @@ export const CreatePost = () => {
                 mainImage: productToCreate.images[0],
                 createdAt: new Date().toDateString(),
                 categoryName: "",
-                description: productToCreate.description
+                description: productToCreate.description,
+                status: Status.PENDING
             })
             navigate('/create-post/preview')
         }

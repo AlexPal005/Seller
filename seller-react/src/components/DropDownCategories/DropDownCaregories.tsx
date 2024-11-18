@@ -6,7 +6,7 @@ import {MainPageContext} from "../../pages/Main/Main/Main.tsx";
 import {DropDownSubCategories} from "./DropDownSubCategories.tsx";
 import {IoIosArrowDown, IoIosArrowForward} from "react-icons/io";
 import {Preloader} from "../Preloader/Preloader.tsx";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 type DropDownCategoriesType = {
     setIsClickedCategories: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +39,16 @@ export const DropDownCategories = () => {
     } = useCategory()
     const dropdownRef = useRef<HTMLDivElement | null>(null)
     const {category} = useParams()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (category) {
+            navigate(`/search/${category}`, {replace: true})
+        } else {
+            navigate('/search', {replace: true})
+        }
+    }, [selectedCategory])
+
 
     useEffect(() => {
         if (category) {

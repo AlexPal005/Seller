@@ -80,6 +80,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT DISTINCT product.product_name as productName, " +
             "                product.price        as price, " +
+            "                product.status       as status, " +
             "                c.city_name          as cityName, " +
             "                r.region_name        as regionName, " +
             "                product.created_at   as createdAt, " +
@@ -93,9 +94,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "         INNER JOIN city c on product.city_id = c.city_id " +
             "         INNER JOIN region r on c.region_id = r.region_id " +
             "         INNER JOIN category cat on product.category_id = cat.category_id " +
-            "WHERE product.user_id = :userId",
+            "WHERE product.user_id = :userId and " +
+            "product.status = :status",
             nativeQuery = true)
-    List<Map<String, Object>> getProductsByUserId(@Param("userId") Long userID);
+    List<Map<String, Object>> getProductsByUserId(@Param("userId") Long userID,
+                                                  @Param("status") String status);
 
 
     @Query(value = "SELECT product.product_name as productName, " +

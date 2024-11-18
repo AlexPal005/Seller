@@ -70,9 +70,12 @@ public class ProductController {
                 priceTo), HttpStatus.OK);
     }
 
-    @GetMapping("/getProductsByUserId/{userId}")
-    public ResponseEntity<List<Map<String, Object>>> getProductsByUserId(@PathVariable Long userId) {
-        return new ResponseEntity<>(productService.getProductsByUserId(userId), HttpStatus.OK);
+    @GetMapping("/getProductsByUserId")
+    public ResponseEntity<List<Map<String, Object>>> getProductsByUserId(
+            @RequestParam Long userId,
+            @RequestParam String status
+    ) {
+        return new ResponseEntity<>(productService.getProductsByUserId(userId, status), HttpStatus.OK);
     }
 
     @GetMapping("/getProductById/{productId}")

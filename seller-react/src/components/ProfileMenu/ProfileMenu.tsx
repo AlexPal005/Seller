@@ -20,15 +20,15 @@ export const ProfileMenu = ({showProfileMenu, hideProfileMenu}: profileMenuProps
     return (
         <div className='profile-menu profile-menu_position'
              onMouseOver={showProfileMenu}
-             onMouseOut={hideProfileMenu}
+             onMouseLeave={hideProfileMenu}
         >
             <div className='profile-menu__user-block'>
                 <FaRegUserCircle className='profile-menu__user-photo'/>
-                <p className='profile-menu__user-name'>{User && (User.firstName ? User.firstName : User.email)}</p>
+                <p className='profile-menu__user-name'>{User && (User.firstName || User.email)}</p>
             </div>
             <p className='profile-menu__category-item'>Ваш профіль</p>
             <ul className='profile-menu__list'>
-                <li className='profile-menu__item'><Link to='/account/posts'
+                <li className='profile-menu__item'><Link to='/account/posts/active'
                                                          className='profile-menu__item-link'>Оголошення</Link>
                 </li>
                 <li className='profile-menu__item'><Link to='/account/messages'

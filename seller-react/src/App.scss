@@ -1,6 +1,13 @@
 @import "./scssStyles/variables";
+@import "./scssStyles/mixins";
 
 .content {
   min-height: calc(100vh - 210px);
   background-color: $light-grey;
+}
+
+.content__preloader {
+  width: 100%;
+  min-height: calc(100vh - 210px);
+  @include flex-center;
 }

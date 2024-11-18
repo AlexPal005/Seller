@@ -1,7 +1,7 @@
 import './account.scss'
 import './ProductCard/product-card.scss'
 import {AccountMainMenu} from "./AccountMainMenu/AccountMainMenu.tsx";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Messages} from "./Messages/Messages.tsx";
 import {Settings} from "./Settings/Settings.tsx";
 import {MyPosts} from "./MyPosts/MyPosts.tsx";
@@ -18,12 +18,13 @@ export const Account = () => {
                 <hr/>
             </div>
             <Routes>
-                <Route path="/posts" element={<MyPosts/>}/>
+                <Route path="/posts" element={<Navigate to="/account/posts/active" replace/>}/>
+                <Route path="/posts/*" element={<MyPosts/>}/>
                 <Route path="/messages" element={<Messages/>}/>
                 <Route path="/settings" element={<Settings/>}/>
                 <Route
-                    path="*"
-                    element={<MyPosts/>}
+                    path="/*"
+                    element={<Navigate to="/account/posts/active" replace/>}
                 />
             </Routes>
         </div>
