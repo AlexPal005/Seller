@@ -100,17 +100,29 @@ export const useProduct = () => {
         })
     }
 
-    const getProductsByUserId = useCallback((userId: number, status: Status) => {
+    const getProductsByUserId = useCallback((
+        userId: number,
+        status: Status,
+        productName?: string,
+        categoryName?: string,
+        sortBy?: string,
+        sortDirection?: string
+    ) => {
+        setIsLoadingProducts(true)
         Axios.get(`/product/getProductsByUserId`, {
             params: {
                 userId: userId,
-                status: status.toUpperCase()
+                status: status.toUpperCase(),
+                productName: productName || null,
+                categoryName: categoryName || null,
+                sortBy: sortBy || null,
+                sortDirection: sortDirection || 'ascending'
             }
         }).then(res => {
             setProductsByUserId(res.data)
         }).catch(err => {
             throw err
-        })
+        }).finally(() => setIsLoadingProducts(false))
     }, [])
 
     const getProductById = useCallback((productId: number) => {

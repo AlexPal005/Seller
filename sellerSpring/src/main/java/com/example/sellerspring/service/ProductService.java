@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.swing.*;
 import java.util.*;
 
 @Service
@@ -138,8 +139,19 @@ public class ProductService {
     }
 
 
-    public List<Map<String, Object>> getProductsByUserId(Long userId, String status) {
-        return productRepository.getProductsByUserId(userId, status);
+    public List<Map<String, Object>> getProductsByUserId(Long userId,
+                                                         String status,
+                                                         String productName,
+                                                         String categoryName,
+                                                         String sortBy,
+                                                         String sortDirection) {
+        return productRepository.getProductsByUserId(userId,
+                status,
+                productName,
+                categoryName,
+                sortBy,
+                sortDirection
+        );
     }
 
     public List<Map<String, Object>> getProductJsonById(Long productId) {

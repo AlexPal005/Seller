@@ -73,9 +73,19 @@ public class ProductController {
     @GetMapping("/getProductsByUserId")
     public ResponseEntity<List<Map<String, Object>>> getProductsByUserId(
             @RequestParam Long userId,
-            @RequestParam String status
+            @RequestParam String status,
+            @RequestParam(required = false)  String productName,
+            @RequestParam(required = false)  String categoryName,
+            @RequestParam(required = false)  String sortBy,
+            @RequestParam(required = false)  String sortDirection
     ) {
-        return new ResponseEntity<>(productService.getProductsByUserId(userId, status), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductsByUserId(
+                userId,
+                status,
+                productName,
+                categoryName,
+                sortBy,
+                sortDirection), HttpStatus.OK);
     }
 
     @GetMapping("/getProductById/{productId}")

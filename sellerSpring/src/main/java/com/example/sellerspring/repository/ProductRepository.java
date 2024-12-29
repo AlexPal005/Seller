@@ -69,7 +69,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "AND (:regionName IS NULL OR r.region_name = :regionName) " +
             "AND (:categoryName IS NULL OR category.category_id IN (SELECT category_id FROM category_hierarchy)) " +
             "AND (:priceFrom IS NULL OR product.price >= :priceFrom) " +
-            "AND (:priceTo IS NULL OR product.price <= :priceTo)",
+            "AND (:priceTo IS NULL OR product.price <= :priceTo);",
             nativeQuery = true)
     Long countProductsByCriteria(@Param("productName") String productName,
                                  @Param("cityName") String cityName,
@@ -95,10 +95,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "         INNER JOIN region r on c.region_id = r.region_id " +
             "         INNER JOIN category cat on product.category_id = cat.category_id " +
             "WHERE product.user_id = :userId and " +
-            "product.status = :status",
-            nativeQuery = true)
+            "product.status = :status and " +
+            "(:productName IS NULL OR product.product_name LIKE CONCAT(:productName, '%')) and " +
+            "(:categoryName IS NULL OR cat.category_name = :categoryName) " +
+            "ORDER BY " +
+            "   CASE WHEN :sortBy = 'price' AND :sortDirection = 'ascending' THEN product.price end, " +
+            "   CASE WHEN :sortBy = 'price' AND :sortDirection = 'descending' THEN product.price end desc, " +
+            "   CASE WHEN :sortBy = 'productName' AND :sortDirection = 'ascending' THEN product.product_name end, " +
+            "   CASE WHEN :sortBy = 'productName' AND :sortDirection = 'descending' THEN product.product_name end desc, " +
+            "   CASE WHEN :sortBy = 'createdAt' AND :sortDirection = 'ascending' THEN product.created_at end, " +
+            "   CASE WHEN :sortBy = 'createdAt' AND :sortDirection = 'descending' THEN product.created_at end desc"
+            , nativeQuery = true)
     List<Map<String, Object>> getProductsByUserId(@Param("userId") Long userID,
-                                                  @Param("status") String status);
+                                                  @Param("status") String status,
+                                                  @Param("productName") String productName,
+                                                  @Param("categoryName") String categoryName,
+                                                  @Param("sortBy") String sortBy,
+                                                  @Param("sortDirection") String sortDirection);
 
 
     @Query(value = "SELECT product.product_name as productName, " +

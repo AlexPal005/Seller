@@ -7,7 +7,7 @@ $color: black;
   /* size */
   width: $size + px;
   height: $size + px;
-  margin: 0 auto; // center horizontally
+  margin: 40px auto; // center horizontally
   animation: rotatePreloader $time + s infinite ease-in;
 }
 

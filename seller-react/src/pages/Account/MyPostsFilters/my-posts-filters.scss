@@ -13,22 +13,10 @@
   height: 40px;
   @include input-basic;
   border-radius: 7px;
-}
-
-.my-posts-search-item:nth-child(1) {
-  background-color: $light-grey;
-  border: 2px solid $dark-grey;
-}
-
-.my-posts-search-item:nth-child(1):hover {
-  background-color: $light-grey;
-}
-
-.my-posts-search-item:not(:first-child) {
   padding: 10px;
 }
 
-.my-posts-search-item:not(:first-child)::placeholder {
+.my-posts-search-item::placeholder {
   font-size: 17px;
 }
 
