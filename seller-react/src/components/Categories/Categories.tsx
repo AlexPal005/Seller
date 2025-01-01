@@ -1,21 +1,14 @@
 import "./categories.scss"
 import { useState } from "react"
 import { Preloader } from "../Preloader/Preloader.tsx"
-import { useQuery } from "@tanstack/react-query"
-import {
-  Category as CategoryType,
-  getAllCategories,
-} from "../../endpoints/category.ts"
+import { useGetAllCategories } from "../../query/category.ts"
 import { Category } from "./Category.tsx"
 
 export const Categories = () => {
   const [isClickedCategory, setIsClickedCategory] = useState(false)
   const [indexClicked, setIndexClicked] = useState(-1)
 
-  const { isLoading, data: categories } = useQuery<CategoryType[]>({
-    queryKey: ["getAllCategories"],
-    queryFn: getAllCategories,
-  })
+  const { isLoading, data: categories } = useGetAllCategories()
 
   return (
     <div className="categories">

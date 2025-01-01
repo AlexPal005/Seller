@@ -3,6 +3,7 @@
 
 .drop-down-categories {
   position: relative;
+  height: 100%;
 }
 
 .table-categories {
@@ -11,11 +12,10 @@
 
 .drop-down-categories__button {
   background-color: white;
-  height: 50px;
+  height: 100%;
   border-radius: 6px;
-  margin-top: 5px;
   cursor: pointer;
-  width: 300px;
+  width: 100%;
   @include flex-horizontal-center-space;
   padding-left: 15px;
   padding-right: 15px;
@@ -31,4 +31,10 @@
   top: 0;
   left: 100%;
   z-index: 1000;
+}
+.drop-down-categories__arrow{
+  transition: transform 0.3s;
+}
+.drop-down-categories__arrow_rotate{
+  transform: rotate(180deg);
 }

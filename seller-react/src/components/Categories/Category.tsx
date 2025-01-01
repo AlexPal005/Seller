@@ -2,11 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { SubCategories } from "../AllCategories/SubCategories.tsx"
 import "./categories.scss"
 import { Link } from "react-router-dom"
-import {
-  Category as CategoryType,
-  getSubCategoriesByCategoryId,
-} from "../../endpoints/category.ts"
-import { useQuery } from "@tanstack/react-query"
+import { useGetSubCategoriesByCategoryId } from "../../query/category.ts"
 
 interface categoryProps {
   categoryId: number
@@ -30,11 +26,7 @@ export const Category = ({
   isClickedCategory,
   setIsClickedCategory,
 }: categoryProps) => {
-  const { data: subCategories } = useQuery<CategoryType[]>({
-    queryKey: ["getSubCategoriesByCategoryId"],
-    queryFn: () => getSubCategoriesByCategoryId(categoryId),
-  })
-
+  const { data: subCategories } = useGetSubCategoriesByCategoryId(categoryId)
   const showSubCategories = () => {
     setIndexClicked(index)
     if (!isClickedCategory) {

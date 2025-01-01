@@ -1,5 +1,6 @@
 package com.example.sellerspring.ENUMS;
-public enum Status {
+
+public enum ProductStatus {
     ACTIVE,
     PENDING,
     INACTIVE,

@@ -1,6 +1,8 @@
 package com.example.sellerspring.service;
 
-import com.example.sellerspring.ENUMS.Status;
+import com.example.sellerspring.ENUMS.ProductStatus;
+import com.example.sellerspring.ENUMS.SortDirection;
+import com.example.sellerspring.ENUMS.SortField;
 import com.example.sellerspring.dto.ProductDTO;
 import com.example.sellerspring.entity.*;
 import com.example.sellerspring.repository.*;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.swing.*;
 import java.util.*;
 
 @Service
@@ -69,7 +70,7 @@ public class ProductService {
                 .category(category)
                 .user(user)
                 .city(city)
-                .status(Status.PENDING)
+                .productStatus(ProductStatus.PENDING)
                 .build();
 
         newProduct = productRepository.save(newProduct);
@@ -145,12 +146,15 @@ public class ProductService {
                                                          String categoryName,
                                                          String sortBy,
                                                          String sortDirection) {
+
+        SortField field = sortBy != null ? SortField.fromString(sortBy) : null;
+        SortDirection direction = sortDirection != null ? SortDirection.fromString(sortDirection) : null;
         return productRepository.getProductsByUserId(userId,
                 status,
                 productName,
                 categoryName,
-                sortBy,
-                sortDirection
+                field != null ? field.getField() : null,
+                direction != null ? direction.getDirection() : null
         );
     }
 

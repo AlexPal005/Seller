@@ -1,7 +1,7 @@
 import "./all-categories.scss"
 import { useEffect, useState } from "react"
 import { IoIosArrowForward } from "react-icons/io"
-import { Category } from "./../../endpoints/category.ts"
+import { Category } from "../../query/category.ts"
 import { Link } from "react-router-dom"
 
 interface subCategoryItemProps {

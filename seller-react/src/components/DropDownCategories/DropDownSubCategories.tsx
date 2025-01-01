@@ -1,4 +1,4 @@
-import { Category } from "./../../endpoints/category.ts"
+import { Category } from "../../query/category.ts"
 import "./drop-down-categories.scss"
 import { useContext } from "react"
 import { MainPageContext } from "../../pages/Main/Main/Main.tsx"

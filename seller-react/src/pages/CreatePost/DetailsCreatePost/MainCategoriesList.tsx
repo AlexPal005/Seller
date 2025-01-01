@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Category } from "./../../../endpoints/category.ts"
+import { Category } from "../../../query/category.ts"
 import { DetailsCreatePostContext } from "./DetailsCreatePost.tsx"
 
 export const MainCategoriesList = () => {

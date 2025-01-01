@@ -2,8 +2,11 @@ import { IoIosArrowDown } from "react-icons/io"
 import React, { createContext, useContext, useEffect, useState } from "react"
 import { CategoriesPopUp } from "./CategoriesPopUp.tsx"
 import { PostContext } from "../CreatePost/CreatePost.tsx"
-import { Category, getAllCategories } from "../../../endpoints/category.ts"
-import { useQuery } from "@tanstack/react-query"
+import {
+  Category,
+  getAllCategories,
+  useGetAllCategories,
+} from "../../../query/category.ts"
 
 type DetailsCreatePostProps = {
   categoryId: number
@@ -32,10 +35,7 @@ export const DetailsCreatePost = ({
   errorCategory,
 }: DetailsCreatePostProps) => {
   const [isClickedCategories, setIsClickedCategories] = useState(false)
-  const { data: categories } = useQuery<Category[]>({
-    queryKey: ["getAllCategories"],
-    queryFn: getAllCategories,
-  })
+  const { data: categories } = useGetAllCategories()
   const { setProductToCreate, setErrors, productToCreate } =
     useContext(PostContext)
   const [currentCategory, setCurrentCategory] = useState<Category | undefined>()

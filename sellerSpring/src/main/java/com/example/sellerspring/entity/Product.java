@@ -1,7 +1,7 @@
 package com.example.sellerspring.entity;
 
 
-import com.example.sellerspring.ENUMS.Status;
+import com.example.sellerspring.ENUMS.ProductStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -38,7 +38,7 @@ public class Product {
     private Date createdAt;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ProductStatus productStatus;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

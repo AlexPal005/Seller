@@ -14,6 +14,7 @@ import { Preloader } from "./components/Preloader/Preloader.tsx"
 import { Provider } from "react-redux"
 import { store } from "./store.ts"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 const queryClient = new QueryClient()
 
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Provider store={store}>
         <UserContext.Provider
           value={{

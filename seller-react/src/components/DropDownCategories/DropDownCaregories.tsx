@@ -1,19 +1,11 @@
 import "./drop-down-categories.scss"
 import "./../SearchTable/search-table.scss"
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
-import { MainPageContext } from "../../pages/Main/Main/Main.tsx"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import { DropDownSubCategories } from "./DropDownSubCategories.tsx"
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io"
 import { Preloader } from "../Preloader/Preloader.tsx"
-import { useNavigate, useParams } from "react-router-dom"
-import { Category, getAllCategories } from "../../endpoints/category.ts"
-import { useQuery } from "@tanstack/react-query"
+import { Category, useGetAllCategories } from "../../query/category.ts"
+import { useClickOutside } from "../../Hooks/useClickOutside.ts"
 
 type DropDownCategoriesType = {
   setIsClickedCategories: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,64 +22,27 @@ const DefaultDropDownCategoriesContext = {
 export const DropDownCategoriesContext = createContext<DropDownCategoriesType>(
   DefaultDropDownCategoriesContext,
 )
-export const DropDownCategories = () => {
+
+interface DropDownCategoriesProps {
+  selectedCategoryDefault?: Category | null
+  setCategory?: React.Dispatch<React.SetStateAction<string>>
+}
+export const DropDownCategories = ({
+  selectedCategoryDefault,
+  setCategory,
+}: DropDownCategoriesProps) => {
   const [isClickedCategories, setIsClickedCategories] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
+    selectedCategoryDefault || null,
   )
-  const { setCategory, search, setIsCategorySet, isCategorySet } =
-    useContext(MainPageContext)
-  const dropdownRef = useRef<HTMLDivElement | null>(null)
-  const { category } = useParams()
-  const navigate = useNavigate()
-  const { isLoading, data: categories } = useQuery<Category[]>({
-    queryKey: ["getAllCategories"],
-    queryFn: getAllCategories,
-  })
+  const dropdownRef = useClickOutside(() => setIsClickedCategories(false))
+  const { isLoading, data: categories } = useGetAllCategories()
 
   useEffect(() => {
-    if (category) {
-      navigate(`/search/${category}`, { replace: true })
-    } else {
-      navigate("/search", { replace: true })
+    if (selectedCategory && setCategory) {
+      setCategory(selectedCategory.name)
     }
-  }, [selectedCategory])
-
-  useEffect(() => {
-    if (category) {
-      setCategory(category)
-    }
-    setIsCategorySet(true)
-  }, [])
-
-  useEffect(() => {
-    if (isCategorySet && categories?.length) {
-      const categoryObj = categories.find((c) => c.name === category)
-      setSelectedCategory(categoryObj || null)
-    }
-  }, [isCategorySet, categories])
-
-  useEffect(() => {
-    if (isCategorySet) {
-      search()
-    }
-  }, [category, isCategorySet])
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsClickedCategories(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [setIsClickedCategories])
+  }, [selectedCategory, setCategory])
 
   return (
     <DropDownCategoriesContext.Provider
@@ -103,7 +58,7 @@ export const DropDownCategories = () => {
             setIsClickedCategories((prev) => !prev)
           }}
         >
-          {!isCategorySet || isLoading ? (
+          {isLoading ? (
             <Preloader />
           ) : (
             <>
@@ -112,7 +67,9 @@ export const DropDownCategories = () => {
                   ? selectedCategory.name
                   : "Будь-яка категорія"}
               </span>
-              <IoIosArrowDown />
+              <IoIosArrowDown
+                className={`drop-down-categories__arrow ${isClickedCategories && "drop-down-categories__arrow_rotate"}`}
+              />
             </>
           )}
         </div>
@@ -127,7 +84,9 @@ export const DropDownCategories = () => {
                   onClick={() => {
                     setIsClickedCategories(false)
                     setSelectedCategory(null)
-                    setCategory("")
+                    if (setCategory) {
+                      setCategory("")
+                    }
                   }}
                 >
                   Будь-яка категорія
@@ -169,11 +128,9 @@ const DropDownCategoriesItem = ({
   setSelectedCategory,
   subCategories,
 }: DropDownCategoriesItemProps) => {
-  const { setCategory } = useContext(MainPageContext)
   const [isHoverCategory, setIsHoverCategory] = useState(false)
   const { setIsClickedCategories } = useContext(DropDownCategoriesContext)
   const onClickCategory = () => {
-    setCategory(category.name)
     setIsClickedCategories(false)
     setSelectedCategory(category)
   }

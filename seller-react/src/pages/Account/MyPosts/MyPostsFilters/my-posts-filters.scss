@@ -1,10 +1,10 @@
-@import "./../../../scssStyles/mixins";
-@import "./../../../scssStyles/variables";
+@import "../../../../scssStyles/mixins";
+@import "../../../../scssStyles/variables";
 
 .my-posts-search {
   padding: 35px 0 35px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 20px;
   position: relative;
 }
@@ -18,6 +18,10 @@
 
 .my-posts-search-item::placeholder {
   font-size: 17px;
+}
+
+.my-posts-search__item-categories{
+  height: 40px;
 }
 
 .my-posts-search-item:focus {

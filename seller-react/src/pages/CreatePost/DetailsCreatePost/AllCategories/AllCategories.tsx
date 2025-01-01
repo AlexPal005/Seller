@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { PostContext } from "../../CreatePost/CreatePost.tsx"
 import { DetailsCreatePostContext } from "../DetailsCreatePost.tsx"
-import { Category } from "./../../../../endpoints/category.ts"
+import { Category } from "../../../../query/category.ts"
 import "./all-categories.scss"
 import { IoIosArrowForward } from "react-icons/io"
 
